@@ -145,6 +145,47 @@ section { position: relative; }
   letter-spacing: 0.005em;
 }
 
+/* Hero featured-release link → Liminal */
+.hero-feature {
+  justify-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: clamp(22px, 3.5vh, 36px);
+  padding: 11px 22px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  text-decoration: none;
+  transition: border-color 320ms ease, background 320ms ease;
+}
+.hero-feature:hover {
+  border-color: var(--accent-soft);
+  background: rgba(169, 160, 255, 0.05);
+}
+.hero-feature-tag {
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.hero-feature-text {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(15px, 1.5vw, 18px);
+  color: var(--ink-2);
+  padding-left: 14px;
+  border-left: 1px solid var(--rule);
+  transition: color 300ms ease;
+}
+.hero-feature-arrow {
+  color: var(--ink-3);
+  transition: transform 300ms ease, color 300ms ease;
+}
+.hero-feature:hover .hero-feature-text { color: var(--ink); }
+.hero-feature:hover .hero-feature-arrow { color: var(--accent); transform: translateX(4px); }
+
 .scroll-cue {
   display: grid;
   justify-items: center;
