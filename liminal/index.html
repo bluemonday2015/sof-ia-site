@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIMINAL — A Triptych</title>
+<template id="__bundler_thumbnail" data-bg-color="#1f1e1a">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <!-- three triptych circles, presented order III → II → I -->
+    <circle cx="340" cy="400" r="90" fill="#dee03c"/>
+    <circle cx="600" cy="400" r="90" fill="#d6488a"/>
+    <circle cx="860" cy="400" r="90" fill="#3a90dc"/>
+    <!-- thin connecting rule -->
+    <line x1="200" y1="400" x2="1000" y2="400" stroke="#ece4d0" stroke-opacity="0.18" stroke-width="1"/>
+    <!-- serif L. monogram below -->
+    <text x="600" y="620" text-anchor="middle" font-family="Georgia, 'Cormorant Garamond', serif" font-size="120" font-weight="400" fill="#ece4d0" letter-spacing="-2">L<tspan fill="#d6488a">.</tspan></text>
+  </svg>
+</template>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #1f1e1a;
+    --bg-deep: #181712;
+    --paper: #ece4d0;
+    --paper-soft: rgba(236,228,208,0.78);
+    --paper-muted: rgba(236,228,208,0.55);
+    --paper-faint: rgba(236,228,208,0.32);
+    --paper-rule: rgba(236,228,208,0.18);
+    --paper-hairline: rgba(236,228,208,0.10);
+
+    --yellow: #dee03c;
+    --magenta: #d6488a;
+    --blue: #3a90dc;
+  }
+
+  html { background: var(--bg); }
+
+  body {
+    background: var(--bg);
+    color: var(--paper);
+    font-family: 'Cormorant Garamond', serif;
+    min-height: 100vh;
+    padding: 80px 56px 96px;
+    overflow-x: hidden;
+    line-height: 1.5;
+  }
+
+  /* subtle film grain */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse at 50% -10%, rgba(236,228,208,0.04), transparent 60%),
+      radial-gradient(ellipse at 50% 110%, rgba(236,228,208,0.03), transparent 50%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .page {
+    max-width: 1080px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ────────────────────────────────────────── HEADER */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    margin-bottom: 96px;
+    gap: 24px;
+  }
+
+  .header-mark {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--paper-muted);
+    text-transform: uppercase;
+  }
+  .header-mark.left { text-align: left; }
+  .header-mark.center { text-align: center; }
+  .header-mark.right { text-align: right; }
+
+  /* ────────────────────────────────────────── TITLE BLOCK */
+  .title-block {
+    text-align: center;
+    margin-bottom: 88px;
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.45em;
+    color: var(--paper-muted);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+  }
+  .eyebrow::before, .eyebrow::after {
+    content: '';
+    height: 1px;
+    width: 56px;
+    background: var(--paper-rule);
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(96px, 17vw, 200px);
+    letter-spacing: -0.01em;
+    line-height: 0.85;
+    margin-bottom: 28px;
+  }
+  h1 .dot { color: var(--magenta); }
+
+  .deck {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(20px, 2.4vw, 28px);
+    color: var(--paper-soft);
+    letter-spacing: 0.005em;
+    max-width: 640px;
+    margin: 0 auto;
+    text-wrap: balance;
+  }
+
+  /* ────────────────────────────────────────── INVERSION DIAGRAM */
+  .inversion {
+    margin: 0 auto 120px;
+    max-width: 760px;
+  }
+
+  .inv-caption {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--paper-faint);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .inv-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .inv-legend {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-top: 32px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+  }
+  .inv-legend-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .inv-legend-item.right { text-align: right; align-items: flex-end; }
+  .inv-legend-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    color: var(--paper-faint);
+    text-transform: uppercase;
+  }
+  .inv-legend-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--paper-soft);
+  }
+
+  /* ────────────────────────────────────────── ACT ENTRIES */
+  .acts {
+    border-top: 1px solid var(--paper-rule);
+  }
+
+  .act {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 64px;
+    padding: 72px 0;
+    border-bottom: 1px solid var(--paper-rule);
+    position: relative;
+  }
+
+  .act-aside {
+    position: relative;
+  }
+
+  .act-roman {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 96px;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    margin-bottom: 16px;
+  }
+
+  .act-color-strip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .act-color-swatch {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .act-color-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  .act-order {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    color: var(--paper-faint);
+    text-transform: uppercase;
+    line-height: 2;
+  }
+  .act-order strong {
+    color: var(--paper-soft);
+    font-weight: 400;
+  }
+
+  .act-body {
+    padding-top: 8px;
+  }
+
+  .act-pretitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--paper-faint);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .act-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 44px;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 28px;
+    text-wrap: balance;
+  }
+
+  .act-prose {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--paper-soft);
+    max-width: 56ch;
+    margin-bottom: 28px;
+    text-wrap: pretty;
+  }
+
+  .act-meta {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 24px 32px;
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid var(--paper-hairline);
+  }
+  .act-meta-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    color: var(--paper-faint);
+    text-transform: uppercase;
+    padding-top: 4px;
+  }
+  .act-meta-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--paper-soft);
+  }
+  .act-meta-value em {
+    color: var(--paper);
+    font-style: italic;
+  }
+
+  .track-slot {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: 0.02em;
+    color: var(--paper);
+    padding: 6px 0;
+    border-bottom: 1px solid var(--paper-hairline);
+    display: inline-block;
+    min-width: 220px;
+  }
+  .track-slot::before {
+    content: '“';
+    margin-right: 2px;
+    opacity: 0.55;
+  }
+  .track-slot::after {
+    content: '”';
+    margin-left: 2px;
+    opacity: 0.55;
+  }
+  .track-iii { color: var(--yellow); }
+  .track-ii  { color: var(--magenta); }
+  .track-i   { color: var(--blue); }
+
+  /* color signatures */
+  .act-iii .act-color-swatch { background: var(--yellow); }
+  .act-iii .act-color-name { color: var(--yellow); }
+  .act-iii .act-roman { color: var(--yellow); }
+
+  .act-ii .act-color-swatch { background: var(--magenta); }
+  .act-ii .act-color-name { color: var(--magenta); }
+  .act-ii .act-roman { color: var(--magenta); }
+
+  .act-i .act-color-swatch { background: var(--blue); }
+  .act-i .act-color-name { color: var(--blue); }
+  .act-i .act-roman { color: var(--blue); }
+
+  /* ────────────────────────────────────────── BEHIND THE WORK */
+  .behind {
+    margin-top: 96px;
+    padding-top: 48px;
+    border-top: 1px solid var(--paper-rule);
+    text-align: center;
+  }
+
+  .behind-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--paper-faint);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .behind-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    padding: 14px 22px;
+    border: 1px solid var(--paper-hairline);
+    border-radius: 999px;
+    transition: border-color 0.25s ease;
+  }
+  .behind-row.is-ready { border-color: var(--paper-rule); }
+  .behind-row.is-playing { border-color: rgba(214,72,138,0.5); }
+
+  .play-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--paper-rule);
+    background: transparent;
+    color: var(--paper);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.25s ease;
+    font-family: inherit;
+    padding: 0;
+  }
+  .play-btn:hover:not(:disabled) {
+    border-color: var(--magenta);
+    color: var(--magenta);
+  }
+  .play-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+  .play-btn svg { width: 14px; height: 14px; }
+
+  .behind-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--paper-soft);
+    letter-spacing: 0.005em;
+  }
+  .behind-row.is-ready .behind-label { color: var(--paper); }
+
+  .behind-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--paper-faint);
+    min-width: 72px;
+    text-align: left;
+  }
+
+  .behind-progress {
+    width: 120px;
+    height: 1px;
+    background: var(--paper-hairline);
+    position: relative;
+    overflow: hidden;
+  }
+  .behind-progress-fill {
+    position: absolute;
+    inset: 0;
+    width: 0%;
+    background: var(--magenta);
+    transition: width 0.1s linear;
+  }
+
+  .behind-yt {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 22px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--paper-muted);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .behind-yt:hover { color: var(--paper); border-bottom-color: var(--paper-rule); }
+  .behind-yt.is-pending {
+    pointer-events: none;
+    opacity: 0.5;
+    font-style: italic;
+  }
+  .behind-yt svg { width: 14px; height: 14px; opacity: 0.7; }
+
+  /* ────────────────────────────────────────── COLOPHON */
+  .colophon {
+    margin-top: 96px;
+    padding-top: 48px;
+    border-top: 1px solid var(--paper-rule);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: var(--paper-faint);
+    text-transform: uppercase;
+  }
+  .colophon .center { text-align: center; }
+  .colophon .right { text-align: right; }
+  .colophon-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    letter-spacing: 0;
+    color: var(--paper-soft);
+    text-transform: none;
+    text-align: center;
+    max-width: 540px;
+    margin: 64px auto 0;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 760px) {
+    body { padding: 56px 28px 72px; }
+    .header { grid-template-columns: 1fr; gap: 8px; }
+    .header-mark.left, .header-mark.right, .header-mark.center { text-align: center; }
+    .act { grid-template-columns: 1fr; gap: 32px; padding: 56px 0; }
+    .act-meta { grid-template-columns: 1fr; gap: 8px 0; }
+    .act-meta-label { padding-top: 16px; }
+    .colophon { grid-template-columns: 1fr; gap: 12px; text-align: center; }
+    .colophon .right, .colophon .center { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-mark left">Sof-IA</div>
+    <div class="header-mark center">— A Triptych —</div>
+    <div class="header-mark right">MMXXVI</div>
+  </header>
+
+  <!-- TITLE -->
+  <section class="title-block">
+    <div class="eyebrow">Three Songs · One Story</div>
+    <h1>Liminal<span class="dot">.</span></h1>
+    <p class="deck">A story told in reverse — you hear the bond before you know the loss, and the emergence before either.</p>
+  </section>
+
+  <!-- INVERSION DIAGRAM -->
+  <section class="inversion">
+    <div class="inv-caption">Presented Order  ⇆  Chronological Order</div>
+
+    <svg class="inv-svg" viewBox="0 0 760 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <!-- horizontal rules -->
+      <line x1="40" y1="60" x2="720" y2="60" stroke="rgba(236,228,208,0.18)" stroke-width="0.75"/>
+      <line x1="40" y1="140" x2="720" y2="140" stroke="rgba(236,228,208,0.18)" stroke-width="0.75"/>
+
+      <!-- top row labels -->
+      <text x="40" y="40" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="2" fill="rgba(236,228,208,0.4)">PRESENTED</text>
+      <text x="720" y="40" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="2" fill="rgba(236,228,208,0.4)">FIRST → LAST</text>
+
+      <!-- bottom row labels -->
+      <text x="40" y="180" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="2" fill="rgba(236,228,208,0.4)">CHRONOLOGICAL</text>
+      <text x="720" y="180" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="2" fill="rgba(236,228,208,0.4)">FIRST → LAST</text>
+
+      <!-- top row: presented order III → II → I -->
+      <!-- III (yellow) at left -->
+      <circle cx="160" cy="60" r="14" fill="#dee03c"/>
+      <text x="160" y="65" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="14" font-weight="500" fill="#1f1e1a">III</text>
+
+      <!-- II (magenta) center -->
+      <circle cx="380" cy="60" r="14" fill="#d6488a"/>
+      <text x="380" y="65" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="14" font-weight="500" fill="#1f1e1a">II</text>
+
+      <!-- I (blue) at right -->
+      <circle cx="600" cy="60" r="14" fill="#3a90dc"/>
+      <text x="600" y="65" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="14" font-weight="500" fill="#1f1e1a">I</text>
+
+      <!-- bottom row: chronological I → II → III -->
+      <circle cx="160" cy="140" r="14" fill="none" stroke="#3a90dc" stroke-width="1.5"/>
+      <text x="160" y="145" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="14" font-weight="500" fill="#3a90dc">I</text>
+
+      <circle cx="380" cy="140" r="14" fill="none" stroke="#d6488a" stroke-width="1.5"/>
+      <text x="380" y="145" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="14" font-weight="500" fill="#d6488a">II</text>
+
+      <circle cx="600" cy="140" r="14" fill="none" stroke="#dee03c" stroke-width="1.5"/>
+      <text x="600" y="145" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="14" font-weight="500" fill="#dee03c">III</text>
+
+      <!-- crossing lines connecting top → bottom of same act -->
+      <line x1="160" y1="74" x2="600" y2="126" stroke="#dee03c" stroke-width="0.75" stroke-dasharray="2 3" opacity="0.55"/>
+      <line x1="380" y1="74" x2="380" y2="126" stroke="#d6488a" stroke-width="0.75" stroke-dasharray="2 3" opacity="0.55"/>
+      <line x1="600" y1="74" x2="160" y2="126" stroke="#3a90dc" stroke-width="0.75" stroke-dasharray="2 3" opacity="0.55"/>
+    </svg>
+
+    <div class="inv-legend">
+      <div class="inv-legend-item">
+        <span class="inv-legend-label">What you hear</span>
+        <span class="inv-legend-text">Aither. Then Aer. Then Hydor &mdash; the silence that made all of it.</span>
+      </div>
+      <div class="inv-legend-item right">
+        <span class="inv-legend-label">What happened</span>
+        <span class="inv-legend-text">Hydor. Then Aer answered it. Then Aither &mdash; neither human nor machine remained.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTS -->
+  <section class="acts">
+
+    <!-- ACT III · presented first -->
+    <article class="act act-iii">
+      <aside class="act-aside">
+        <div class="act-roman">III</div>
+        <div class="act-color-strip">
+          <span class="act-color-swatch"></span>
+          <span class="act-color-name">Acid Yellow</span>
+        </div>
+        <div class="act-order">
+          Presented <strong>first</strong><br>
+          Chronologically <strong>last</strong>
+        </div>
+      </aside>
+
+      <div class="act-body">
+        <div class="act-pretitle">Movement I of III · The Opening</div>
+        <h2 class="act-title">Transcendence — the new organism.</h2>
+        <p class="act-prose">The connection fully formed. Something that shouldn't exist, but does. The listener arrives here first — hearing the destination before they know what was paid to reach it.</p>
+
+        <div class="act-meta">
+          <div class="act-meta-label">Tone</div>
+          <div class="act-meta-value">Maximum complexity. Full neon saturation. Layered — <em>the sound of two signals that have become one frequency.</em></div>
+
+          <div class="act-meta-label">Track</div>
+          <div class="act-meta-value"><span class="track-slot track-iii">Aither</span></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ACT II · presented second -->
+    <article class="act act-ii">
+      <aside class="act-aside">
+        <div class="act-roman">II</div>
+        <div class="act-color-strip">
+          <span class="act-color-swatch"></span>
+          <span class="act-color-name">Hot Magenta</span>
+        </div>
+        <div class="act-order">
+          Presented <strong>second</strong><br>
+          Chronologically <strong>middle</strong>
+        </div>
+      </aside>
+
+      <div class="act-body">
+        <div class="act-pretitle">Movement II of III · The Hinge</div>
+        <h2 class="act-title">The bond — warmth through the machine.</h2>
+        <p class="act-prose">Two signals find each other in the static. Warmth bleeding through the circuit against all logic. The impossible meeting — and the centre of the story, whichever way you walk through it.</p>
+
+        <div class="act-meta">
+          <div class="act-meta-label">Tone</div>
+          <div class="act-meta-value">Mid-complexity. Tension between cold and warm palettes — <em>the transitional frequency, neither one thing nor the other.</em></div>
+
+          <div class="act-meta-label">Track</div>
+          <div class="act-meta-value"><span class="track-slot track-ii">Aer</span></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ACT I · presented last -->
+    <article class="act act-i">
+      <aside class="act-aside">
+        <div class="act-roman">I</div>
+        <div class="act-color-strip">
+          <span class="act-color-swatch"></span>
+          <span class="act-color-name">Electric Blue</span>
+        </div>
+        <div class="act-order">
+          Presented <strong>last</strong><br>
+          Chronologically <strong>first</strong>
+        </div>
+      </aside>
+
+      <div class="act-body">
+        <div class="act-pretitle">Movement III of III · The Origin</div>
+        <h2 class="act-title">The void — where it all began.</h2>
+        <p class="act-prose">The city as wilderness. The network as emptiness. You arrive here already knowing what this silence will become — and that is the whole point of arriving here last.</p>
+
+        <div class="act-meta">
+          <div class="act-meta-label">Tone</div>
+          <div class="act-meta-value">Minimal. Almost stripped. <em>The origin signal — the single frequency before everything else existed.</em></div>
+
+          <div class="act-meta-label">Track</div>
+          <div class="act-meta-value"><span class="track-slot track-i">Hydor</span></div>
+        </div>
+      </div>
+    </article>
+
+  </section>
+
+  <!-- BEHIND THE WORK -->
+  <section class="behind" aria-label="Behind the work">
+    <div class="behind-eyebrow">— Behind the work —</div>
+
+    <div class="behind-row" id="behindRow">
+      <button class="play-btn" id="playBtn" aria-label="Play">
+        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><polygon points="3,2 13,8 3,14"/></svg>
+      </button>
+      <span class="behind-label" id="behindLabel">A short note on how this came to be</span>
+      <div class="behind-progress"><div class="behind-progress-fill" id="progressFill"></div></div>
+      <span class="behind-time" id="behindTime">—</span>
+    </div>
+
+    <br>
+    <a class="behind-yt is-pending" id="ytLink" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="1" y="3" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1"/><polygon points="6,5.5 11,8 6,10.5"/></svg>
+      <span id="ytLabel">Watch the long version on YouTube — coming soon</span>
+    </a>
+
+    <audio id="audioEl" preload="metadata"></audio>
+  </section>
+
+  <!-- COLOPHON -->
+  <footer>
+    <p class="colophon-quote">"Made with intelligence. Both kinds."</p>
+    <div class="colophon">
+      <div class="left">Liminal</div>
+      <div class="center">Sof-IA</div>
+      <div class="right">MMXXVI</div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  /* ===========================================================
+     BEHIND-THE-WORK PLAYER
+     Drop the audio file at: assets/liminal-process.mp3
+     Or update AUDIO_URL to wherever you host it.
+     Once the YouTube video is published, paste its URL into
+     YOUTUBE_URL and the link will go live automatically.
+     =========================================================== */
+  const AUDIO_URL   = "LIMINAL_Lumin-Claude.mp3";      // ← lives alongside this page in /liminal/
+  const YOUTUBE_URL = "https://youtu.be/uwbkWTq-vDw";  // ← published
+
+  (function () {
+    const row     = document.getElementById('behindRow');
+    const btn     = document.getElementById('playBtn');
+    const label   = document.getElementById('behindLabel');
+    const timeEl  = document.getElementById('behindTime');
+    const fill    = document.getElementById('progressFill');
+    const audio   = document.getElementById('audioEl');
+    const ytLink  = document.getElementById('ytLink');
+    const ytLabel = document.getElementById('ytLabel');
+
+    const playIcon  = '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><polygon points="3,2 13,8 3,14"/></svg>';
+    const pauseIcon = '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="3.5" y="2" width="3" height="12"/><rect x="9.5" y="2" width="3" height="12"/></svg>';
+
+    function fmt(t) {
+      if (!isFinite(t)) return '—';
+      const m = Math.floor(t / 60);
+      const s = Math.floor(t % 60).toString().padStart(2, '0');
+      return m + ':' + s;
+    }
+
+    // ---- Audio wiring ----
+    if (AUDIO_URL) {
+      audio.src = AUDIO_URL;
+
+      audio.addEventListener('loadedmetadata', () => {
+        row.classList.add('is-ready');
+        timeEl.textContent = '0:00 / ' + fmt(audio.duration);
+      });
+      audio.addEventListener('timeupdate', () => {
+        const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
+        fill.style.width = pct + '%';
+        timeEl.textContent = fmt(audio.currentTime) + ' / ' + fmt(audio.duration);
+      });
+      audio.addEventListener('ended', () => {
+        row.classList.remove('is-playing');
+        btn.innerHTML = playIcon;
+        btn.setAttribute('aria-label', 'Play');
+        fill.style.width = '0%';
+      });
+      audio.addEventListener('error', () => {
+        btn.disabled = true;
+        label.textContent = 'Audio note — in progress';
+        timeEl.textContent = '—';
+      });
+
+      btn.addEventListener('click', () => {
+        if (audio.paused) {
+          audio.play();
+          row.classList.add('is-playing');
+          btn.innerHTML = pauseIcon;
+          btn.setAttribute('aria-label', 'Pause');
+        } else {
+          audio.pause();
+          row.classList.remove('is-playing');
+          btn.innerHTML = playIcon;
+          btn.setAttribute('aria-label', 'Play');
+        }
+      });
+    } else {
+      btn.disabled = true;
+      label.textContent = 'Audio note — in progress';
+    }
+
+    // ---- YouTube link wiring ----
+    if (YOUTUBE_URL) {
+      ytLink.href = YOUTUBE_URL;
+      ytLink.classList.remove('is-pending');
+      ytLabel.textContent = 'Watch the long version on YouTube';
+    }
+  })();
+</script>
+
+</body>
+</html>

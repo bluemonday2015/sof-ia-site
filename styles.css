@@ -225,6 +225,25 @@ section { position: relative; }
 }
 .panel:hover { background: rgba(255, 255, 255, 0.015); }
 
+/* Featured-work link panel (Music → Liminal) */
+.panel-link { text-decoration: none; color: inherit; cursor: pointer; }
+.panel-cue {
+  margin-top: auto;
+  padding-top: clamp(20px, 3vh, 32px);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  color: var(--accent);
+  opacity: 0.85;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 300ms ease, gap 300ms ease;
+}
+.panel-cue span { transition: transform 300ms ease; }
+.panel-link:hover .panel-cue { opacity: 1; gap: 13px; }
+
 .panel .num {
   font-family: var(--sans);
   font-size: 11px;
