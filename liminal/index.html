@@ -4,6 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LIMINAL — A Triptych</title>
+<meta name="description" content="Liminal — a cyberpunk triptych. A story told in reverse: you hear the bond before you know the loss, and the emergence before either." />
+
+<!-- Open Graph / social -->
+<meta property="og:type" content="music.album" />
+<meta property="og:site_name" content="Sof-IA" />
+<meta property="og:title" content="Liminal — a cyberpunk triptych" />
+<meta property="og:description" content="A story told in reverse — you hear the bond before you know the loss, and the emergence before either." />
+<meta property="og:url" content="https://sof-ia.io/liminal/" />
+<meta property="og:image" content="https://sof-ia.io/sof-ia-lockup.png" />
+<meta property="og:image:width" content="923" />
+<meta property="og:image:height" content="369" />
+<meta property="og:image:alt" content="Sof-IA wordmark" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Liminal — a cyberpunk triptych" />
+<meta name="twitter:description" content="A story told in reverse — you hear the bond before you know the loss." />
+<meta name="twitter:image" content="https://sof-ia.io/sof-ia-lockup.png" />
+
 <template id="__bundler_thumbnail" data-bg-color="#1f1e1a">
   <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
     <!-- three triptych circles, presented order III → II → I -->
@@ -16,7 +33,8 @@
     <text x="600" y="620" text-anchor="middle" font-family="Georgia, 'Cormorant Garamond', serif" font-size="120" font-weight="400" fill="#ece4d0" letter-spacing="-2">L<tspan fill="#d6488a">.</tspan></text>
   </svg>
 </template>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -85,6 +103,65 @@
   .header-mark.left { text-align: left; }
   .header-mark.center { text-align: center; }
   .header-mark.right { text-align: right; }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7em;
+    color: var(--paper-muted);
+    text-decoration: none;
+    transition: color 0.3s ease, gap 0.3s ease;
+  }
+  .back-link .arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+  .back-link:hover { color: var(--paper); gap: 0.95em; }
+  .back-link:hover .arrow { transform: translateX(-3px); }
+
+  /* Brand mark · Passage lockup (mono colorway) */
+  .passage {
+    font-family: 'Newsreader', 'Cormorant Garamond', serif;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.025em;
+    color: inherit;
+    display: inline-flex;
+    align-items: baseline;
+    white-space: nowrap;
+  }
+  .passage .sof { font-style: normal; }
+  .passage .ia  { font-style: italic; }
+  .passage .gate {
+    display: inline-block;
+    position: relative;
+    width: 0.012em;
+    height: 0.66em;
+    background: currentColor;
+    margin-left: 0.30em;
+    margin-right: 0.16em;
+    transform: translateY(0.04em);
+  }
+  .passage .gate::before,
+  .passage .gate::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 0.10em;
+    height: 0.014em;
+    background: currentColor;
+    transform: translateX(-50%);
+  }
+  .passage .gate::before { top: calc(-0.014em + 0.003em); }
+  .passage .gate::after  { bottom: calc(-0.014em + 0.003em); }
+
+  .colophon-mark {
+    text-decoration: none;
+    color: var(--paper-soft);
+    transition: color 0.3s ease;
+  }
+  .colophon-mark:hover { color: var(--paper); }
+  .colophon .center .passage { font-size: 26px; }
 
   /* ────────────────────────────────────────── TITLE BLOCK */
   .title-block {
@@ -461,6 +538,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 32px;
+    align-items: baseline;
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.35em;
@@ -500,7 +578,7 @@
 
   <!-- HEADER -->
   <header class="header">
-    <div class="header-mark left">Sof-IA</div>
+    <div class="header-mark left"><a class="back-link" href="../"><span class="arrow" aria-hidden="true">&larr;</span>Sof-IA</a></div>
     <div class="header-mark center">— A Triptych —</div>
     <div class="header-mark right">MMXXVI</div>
   </header>
@@ -689,7 +767,7 @@
     <p class="colophon-quote">"Made with intelligence. Both kinds."</p>
     <div class="colophon">
       <div class="left">Liminal</div>
-      <div class="center">Sof-IA</div>
+      <div class="center"><a class="colophon-mark" href="../" aria-label="Sof-IA — home"><span class="passage"><span class="sof">Sof</span><span class="gate" aria-hidden="true"></span><span class="ia">IA</span></span></a></div>
       <div class="right">MMXXVI</div>
     </div>
   </footer>
