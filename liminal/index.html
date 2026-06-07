@@ -104,20 +104,23 @@
   .header-mark.center { text-align: center; }
   .header-mark.right { text-align: right; }
 
-  .back-link {
+  .logo-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.7em;
-    color: var(--paper-muted);
+    gap: 0.55em;
+    color: var(--paper-soft);
     text-decoration: none;
-    transition: color 0.3s ease, gap 0.3s ease;
+    transition: color 0.3s ease;
   }
-  .back-link .arrow {
-    display: inline-block;
-    transition: transform 0.3s ease;
+  .logo-link .logo-arrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--paper-muted);
+    transition: transform 0.3s ease, color 0.3s ease;
   }
-  .back-link:hover { color: var(--paper); gap: 0.95em; }
-  .back-link:hover .arrow { transform: translateX(-3px); }
+  .logo-link .passage { font-size: 20px; }
+  .logo-link:hover { color: var(--paper); }
+  .logo-link:hover .logo-arrow { color: var(--paper); transform: translateX(-3px); }
 
   /* Brand mark · Passage lockup (mono colorway) */
   .passage {
@@ -578,7 +581,7 @@
 
   <!-- HEADER -->
   <header class="header">
-    <div class="header-mark left"><a class="back-link" href="../"><span class="arrow" aria-hidden="true">&larr;</span>Sof-IA</a></div>
+    <div class="header-mark left"><a class="logo-link" href="../" aria-label="Sof-IA — back to home"><span class="logo-arrow" aria-hidden="true">&larr;</span><span class="passage"><span class="sof">Sof</span><span class="gate" aria-hidden="true"></span><span class="ia">IA</span></span></a></div>
     <div class="header-mark center">— A Triptych —</div>
     <div class="header-mark right">MMXXVI</div>
   </header>
