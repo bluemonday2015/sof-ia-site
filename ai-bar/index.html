@@ -12,7 +12,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="icon" href="../favicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=Work+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=Newsreader:ital,wght@0,400;1,400&family=Work+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#120f0d;--ink:#f5ecdc;--amber:#f0b865;box-sizing:border-box;
  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);}
@@ -56,11 +56,23 @@ body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:"Wor
 @media (max-aspect-ratio:1/1){.scroller{justify-content:flex-start}.board{width:auto;height:100vh}}
 @media (prefers-reduced-motion:reduce){.poster,.cap,.board::before{transition:none;animation:none!important}.poster::after{animation:none!important}}
 .home{position:fixed;top:calc(env(safe-area-inset-top,0px) + 1.1rem);left:1.3rem;z-index:10;
- font-size:1.25rem;font-weight:500;letter-spacing:.02em;text-transform:none;color:var(--ink);text-decoration:none;
+ display:inline-flex;align-items:baseline;gap:.4em;color:var(--ink);text-decoration:none;
  opacity:.85;text-shadow:0 1px 6px #000;transition:opacity .3s}
 .home:hover,.home:focus-visible{opacity:1}
+.home .arrow{font-size:1.1rem;transition:transform .3s}
+.home:hover .arrow{transform:translateX(-3px)}
+.home .passage{font-family:"Newsreader","Cormorant Garamond",Georgia,serif;font-weight:400;
+ font-size:1.5rem;line-height:1;letter-spacing:-0.025em;display:inline-flex;align-items:baseline;white-space:nowrap}
+.home .passage .sof{font-style:normal}
+.home .passage .ia{font-style:italic}
+.home .passage .gate{display:inline-block;position:relative;width:.01em;height:.66em;
+ background:var(--amber);margin-left:.30em;margin-right:.16em;transform:translateY(.04em)}
+.home .passage .gate::before,.home .passage .gate::after{content:"";position:absolute;left:50%;
+ width:.10em;height:.012em;background:var(--amber);transform:translateX(-50%)}
+.home .passage .gate::before{top:calc(-0.012em + 0.003em)}
+.home .passage .gate::after{bottom:calc(-0.012em + 0.003em)}
 </style></head><body>
-<a class="home" href="../" aria-label="Sof-IA — back to home">&larr; Sof-IA</a>
+<a class="home" href="../" aria-label="Sof-IA — back to home"><span class="arrow" aria-hidden="true">&larr;</span><span class="passage"><span class="sof">Sof</span><span class="gate" aria-hidden="true"></span><span class="ia">IA</span></span></a>
 <div class="scroller"><div class="board" id="board" role="navigation" aria-label="The AI Bar episodes"></div></div>
 <p class="note">Choose a poster</p>
 <script>
