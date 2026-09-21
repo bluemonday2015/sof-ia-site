@@ -51,6 +51,7 @@
     --yellow: #dee03c;
     --magenta: #d6488a;
     --blue: #3a90dc;
+    --amber: #f0b865;
   }
 
   html { background: var(--bg); }
@@ -118,7 +119,10 @@
     color: var(--paper-muted);
     transition: transform 0.3s ease, color 0.3s ease;
   }
-  .logo-link .passage { font-size: 20px; }
+  .logo-link .passage { font-size: 20px; text-transform: none; }
+  .logo-link .passage .gate,
+  .logo-link .passage .gate::before,
+  .logo-link .passage .gate::after { background: var(--amber); }
   .logo-link:hover { color: var(--paper); }
   .logo-link:hover .logo-arrow { color: var(--paper); transform: translateX(-3px); }
 
