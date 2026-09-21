@@ -88,10 +88,13 @@ body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:"Wor
 .eyebrow::before,.eyebrow::after{content:"";height:1px;width:56px;background:var(--paper-rule)}
 @media (max-width:760px){
  :root{--chrome:124px}
- .header{grid-template-columns:1fr;gap:8px;padding-left:28px;padding-right:28px;
+ /* keep the three marks on one row — vertical space belongs to the billboard */
+ .header{gap:10px;padding-left:28px;padding-right:28px;padding-bottom:16px;
   padding-top:calc(env(safe-area-inset-top,0px) + 20px)}
- .header-mark.left,.header-mark.center,.header-mark.right{text-align:center}
- .header-mark.center,.header-mark.right{display:none}
+ .header-mark{font-size:9px;letter-spacing:.22em;white-space:nowrap}
+ .logo-link{gap:.4em}
+ .logo-link .passage{font-size:17px}
+ .logo-link .logo-arrow{font-size:11px}
  .eyebrow{letter-spacing:.3em;gap:12px;margin-bottom:calc(env(safe-area-inset-bottom,0px) + 20px)}
  .eyebrow::before,.eyebrow::after{width:32px}
 }
