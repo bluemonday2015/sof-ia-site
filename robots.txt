@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sof-ia.io/sitemap.xml
