@@ -38,7 +38,7 @@
   /* Masthead */
   .cv-mast { position: relative; text-align: center; padding: clamp(40px, 7vh, 72px) 0 32px; }
   .cv-mast h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(3rem, 9vw, 6.5rem); line-height: 1; color: var(--cv-ink); letter-spacing: -.01em; }
-  .cv-mast h1 .cv-v { color: var(--accent); }
+  .cv-mast h1 .cv-v, .cv-foot .cv-mark .cv-v { color: var(--accent); }
   .cv-sub { margin-top: 18px; font-family: var(--serif); font-size: clamp(.8rem, 1.6vw, 1.05rem); letter-spacing: .28em; text-transform: uppercase; color: var(--cv-ink-2); }
   .cv-mast .cv-caps { margin-top: 12px; display: block; }
   .cv-brand { position: absolute; top: clamp(20px, 4vh, 36px); left: 0; text-align: left; color: inherit; text-decoration: none; }
@@ -113,7 +113,7 @@
   .cv-foot { border-top: 1px solid var(--cv-rule); margin-top: 24px; padding: 22px 0 40px; display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: baseline; justify-content: space-between; }
   .cv-foot .cv-mark { font-family: var(--serif); font-size: 1.5rem; color: var(--cv-ink); text-decoration: none; }
   .cv-foot a { color: var(--cv-ink-2); }
-  .cv-foot a:hover { color: var(--cv-gold); }
+  .cv-foot a:hover { color: var(--accent); }
   .cv-paste pre::-webkit-scrollbar { width: 6px; }
   .cv-paste pre::-webkit-scrollbar-thumb { background: rgba(240,232,214,.18); border-radius: 3px; }
   .cv-paste pre::-webkit-scrollbar-track { background: transparent; }
@@ -235,7 +235,7 @@ What is asked of a model working this way:
     </section>
 
     <footer class="cv-foot">
-      <a class="cv-mark" href="../">CogniVerse</a>
+      <a class="cv-mark" href="../">Cogni<span class="cv-v">V</span>erse</a>
       <span class="cv-caps">A working assumption for a different kind of human–AI collaboration</span>
       <span class="cv-caps">sof-ia.io/cogniverse · September 2026 · <a href="cogniverse.txt">plain text</a></span>
     </footer>
