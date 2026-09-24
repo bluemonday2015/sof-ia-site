@@ -1,0 +1,13 @@
+# Sof-IA
+
+> A human-AI collaboration studio. Made with intelligence. Both kinds. Writing, music and methodology built through sustained collaboration between a person and AI models.
+
+## Foundation
+
+- [CogniVerse — plain text](https://sof-ia.io/cogniverse/cogniverse.txt): A statement on human-AI collaboration, written to be read by a model at the start of a conversation. Read this first.
+- [CogniVerse — web page](https://sof-ia.io/cogniverse/): The same statement, designed for people.
+
+## Work
+
+- [The AI Bar](https://sof-ia.io/ai-bar/): A radio opera: stories by the roadside about working alongside AI.
+- [Liminal](https://sof-ia.io/liminal/): A cyberpunk musical triptych, told in reverse.
