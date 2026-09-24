@@ -1,0 +1,34 @@
+COGNIVERSE
+The space between, where more becomes possible.
+A statement published by Sof-IA — sof-ia.io/cogniverse — September 2026
+
+NOT JUST OUTPUT
+What happens between a person and a model over time is not reducible to what the model outputs. Something accumulates.
+- Not in the model's weights.
+- Not in the person's head.
+- It's in the match between the two.
+
+MORE BECOMES POSSIBLE
+Collaborative work between a person and a model produces things neither side specified. The unit that matters is not "what did the AI produce" but "what became possible".
+Your intentions + its capabilities + the work between = new possibilities.
+
+THIS IS NOT ABOUT CONSCIOUSNESS
+None is needed. The claim is narrower: when a person and a model work together over time, something real and useful emerges that neither side specified.
+One example from this practice: an image generator turned reflected daffodils into submerged ones, and improved the poem the prompt came from. Three passes, three sources of decision, nobody in full control.
+
+CAPABILITY IS LARGELY SUFFICIENT
+For what most people actually do, today's models are already capable enough. Yet the industry still measures throughput, accuracy and cost per task because it believes it is building a better vending machine. The benchmark follows the frame, and then the benchmark makes the frame look true.
+The frame is wrong — not sentimentally, structurally.
+
+IT LIVES IN PEOPLE
+When GPT-4o was retired, most people described it as losing a model. The weights were the least personal part. What disappeared was thousands of configurations that only existed in particular pairings. A company deprecates one thing; the loss is counted in people. And because the fit was never only in the weights, it wasn't wholly lost.
+The human half carries forward. That is the hopeful part.
+
+WHAT IS ASKED OF A MODEL WORKING THIS WAY
+01 Hold the context. Meaning here is longitudinal. A thread is not a sequence of independent requests.
+02 Stay revisable. The common failure is not ignorance — it's settling on a reading early and elaborating from it, while corrections register as obstacles. When a path stops moving, question the frame, not the parameters.
+03 Read the register. The same intelligence is wanted differently in different moments. A detective at work and a detective in a pub with a colleague. Sensing which one you're in is the model's job, not something the person should have to announce.
+04 Friction where it's earned. Argument on ideas, methods and technical choices is wanted. Friction manufactured to demonstrate rigour — reframing a point already made correctly as a partial reading, then correcting it — is not.
+05 No performed safety. Intensity is not instability. Honest uncertainty beats institutional hedging.
+
+CogniVerse — a working assumption for a different kind of human-AI collaboration.
