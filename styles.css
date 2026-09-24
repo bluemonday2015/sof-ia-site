@@ -185,6 +185,11 @@ section { position: relative; }
 }
 .hero-features .hero-feature { margin-top: 0; }
 .hero-features-break { flex-basis: 100%; height: 0; }
+/* Lead pill: the foundation the rest grows from */
+.hero-feature--lead { padding: 14px 30px; border-color: var(--accent-soft); background: rgba(169, 160, 255, 0.05); }
+.hero-feature--lead .hero-feature-text { font-size: clamp(17px, 1.8vw, 21px); color: var(--ink); }
+.hero-feature--lead:hover { background: rgba(169, 160, 255, 0.09); }
+.hero-features .hero-feature--lead + .hero-features-break { margin-bottom: 6px; }
 .hero-feature {
   justify-self: center;
   display: inline-flex;
