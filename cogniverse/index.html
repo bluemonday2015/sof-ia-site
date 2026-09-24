@@ -15,15 +15,15 @@
 <link rel="alternate" type="text/plain" href="cogniverse.txt" title="CogniVerse — plain text">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Work+Sans:wght@300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="../favicon.png">
-<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../styles.css?v=3">
 <style>
-  /* Page palette, sampled from the artwork (edge #121e24 → #0a1115). Scoped to .cv so site tokens stay untouched. */
+  /* Page palette: site background tokens; text and gold sampled from the artwork. Scoped to .cv. */
   .cv {
-    --cv-bg: #121e24;
-    --cv-bg-deep: #0a1115;
+    --cv-bg: var(--bg);
+    --cv-bg-deep: var(--bg-deep);
     --cv-ink: #f0e8d6;
     --cv-ink-2: #cfc8b8;
-    --cv-ink-3: #8e948f;
+    --cv-ink-3: var(--ink-3);
     --cv-gold: #d9a66b;
     --cv-rule: rgba(240, 232, 214, 0.12);
     --cv-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
@@ -31,7 +31,7 @@
     color: var(--cv-ink-2);
     min-height: 100vh;
   }
-  html, body { background: #121e24; }
+  html, body { background: var(--bg); }
   .cv-wrap { max-width: 1360px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 56px); }
   .cv-caps { font-family: var(--sans); font-size: 11px; font-weight: 400; letter-spacing: .3em; text-transform: uppercase; color: var(--cv-ink-3); }
 
