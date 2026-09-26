@@ -229,6 +229,26 @@ section { position: relative; }
 }
 .hero-feature:hover .hero-feature-text { color: var(--ink); }
 .hero-feature:hover .hero-feature-arrow { color: var(--accent); transform: translateX(4px); }
+/* Phones: every pill the same width and shape — tag above, title below, arrow at the side */
+@media (max-width: 640px) {
+  .hero-features { width: 100%; max-width: 420px; }
+  .hero-features .hero-feature {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 14px;
+    row-gap: 4px;
+    padding: 12px 24px;
+    border-radius: 28px;
+    text-align: left;
+  }
+  .hero-features .hero-feature-tag { grid-column: 1; grid-row: 1; }
+  .hero-features .hero-feature-text { grid-column: 1; grid-row: 2; border-left: 0; padding-left: 0; }
+  .hero-features .hero-feature-arrow { grid-column: 2; grid-row: 1 / 3; align-self: center; }
+}
+@media (max-width: 360px) {
+  .hero-features .hero-feature { padding: 12px 18px; column-gap: 8px; }
+}
 
 .scroll-cue {
   display: grid;
