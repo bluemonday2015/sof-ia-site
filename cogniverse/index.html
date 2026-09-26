@@ -117,6 +117,8 @@
   .cv-paste pre::-webkit-scrollbar { width: 6px; }
   .cv-paste pre::-webkit-scrollbar-thumb { background: rgba(240,232,214,.18); border-radius: 3px; }
   .cv-paste pre::-webkit-scrollbar-track { background: transparent; }
+  .cv-life { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; mix-blend-mode: screen; }
+  @media (prefers-reduced-motion: reduce) { .cv-life { display: none; } }
 </style>
 </head>
 <body>
@@ -170,6 +172,7 @@ What is asked of a model working this way:
           <img src="cogniverse-art.jpg" width="950" height="355" fetchpriority="high" decoding="async"
                alt="Two figures facing each other across a network of shared material, with the axis of fit lit at its centre.">
         </picture>
+        <canvas class="cv-life" aria-hidden="true"></canvas>
       </figure>
 
       <div class="cv-side cv-right">
@@ -266,6 +269,50 @@ What is asked of a model working this way:
       } else { fallback(); }
     });
   });
+</script>
+<script>
+/* CogniVerse art: a slow breath at the axis of fit, and a few motes travelling the threads between the two. */
+(function(){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var fig=document.querySelector('.cv-art'), cv=fig&&fig.querySelector('.cv-life'), img=fig&&fig.querySelector('img');
+  if(!cv||!img) return;
+  var cx=cv.getContext('2d'), W=0, H=0, dpr=1, motes=[], running=true;
+  var AX={x:.501,y:.656}, AR=.052;                 // axis of fit, relative to the art
+  var HUMAN={x:.27,y0:.30,y1:.82}, MODEL={x:.76,y0:.28,y1:.86};
+  function size(){ var r=img.getBoundingClientRect(); dpr=Math.min(devicePixelRatio||1,2);
+    W=r.width; H=r.height; cv.width=W*dpr; cv.height=H*dpr; cx.setTransform(dpr,0,0,dpr,0,0); }
+  function spawn(){
+    var fromHuman=Math.random()<.5, s=fromHuman?HUMAN:MODEL, inward=Math.random()<.75;
+    var a={x:s.x+(Math.random()-.5)*.04, y:s.y0+Math.random()*(s.y1-s.y0)}, b={x:AX.x+(Math.random()-.5)*.02,y:AX.y+(Math.random()-.5)*.03};
+    var c={x:(a.x+b.x)/2, y:(a.y+b.y)/2+(Math.random()-.5)*.35};
+    return {p0:inward?a:b, p2:inward?b:a, c:c, t:0, v:.0016+Math.random()*.0022, r:.8+Math.random()*1.4,
+            warm:fromHuman};
+  }
+  for(var i=0;i<22;i++){ var m=spawn(); m.t=Math.random(); motes.push(m); }
+  function q(p0,c,p2,t){ var u=1-t; return {x:u*u*p0.x+2*u*t*c.x+t*t*p2.x, y:u*u*p0.y+2*u*t*c.y+t*t*p2.y}; }
+  function frame(ms){
+    if(!running) return;
+    var T=ms/1000; cx.clearRect(0,0,W,H);
+    // breath at the axis: ~6 s cycle
+    var br=.5+.5*Math.sin(T*2*Math.PI/6), x=AX.x*W, y=AX.y*H, r=AR*W*(1.05+.35*br);
+    var g=cx.createRadialGradient(x,y,AR*W*.7,x,y,r*1.9);
+    g.addColorStop(0,'rgba(255,214,150,'+(.10+.14*br)+')'); g.addColorStop(1,'rgba(255,214,150,0)');
+    cx.fillStyle=g; cx.beginPath(); cx.arc(x,y,r*1.9,0,7); cx.fill();
+    // motes along the threads
+    motes.forEach(function(m,i){
+      m.t+=m.v; if(m.t>=1){ motes[i]=spawn(); return; }
+      var p=q(m.p0,m.c,m.p2,m.t), fade=Math.sin(Math.PI*m.t);
+      cx.fillStyle=m.warm?'rgba(255,220,165,'+(.85*fade)+')':'rgba(200,225,255,'+(.85*fade)+')';
+      cx.shadowColor=m.warm?'rgba(255,200,120,.9)':'rgba(170,205,255,.9)'; cx.shadowBlur=8;
+      cx.beginPath(); cx.arc(p.x*W,p.y*H,m.r*(W/950),0,7); cx.fill(); cx.shadowBlur=0;
+    });
+    requestAnimationFrame(frame);
+  }
+  if('IntersectionObserver' in window){ new IntersectionObserver(function(e){ var was=running; running=e[0].isIntersecting; if(running&&!was) requestAnimationFrame(frame); }).observe(fig); }
+  if('ResizeObserver' in window){ new ResizeObserver(size).observe(img); } else addEventListener('resize',size);
+  if(img.complete) size(); else img.addEventListener('load',size);
+  requestAnimationFrame(frame);
+})();
 </script>
 </body>
 </html>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://sof-ia.io/</loc><lastmod>2026-09-24</lastmod></url>
-  <url><loc>https://sof-ia.io/cogniverse/</loc><lastmod>2026-09-24</lastmod></url>
+  <url><loc>https://sof-ia.io/cogniverse/</loc><lastmod>2026-09-26</lastmod></url>
   <url><loc>https://sof-ia.io/cogniverse/cogniverse.txt</loc><lastmod>2026-09-24</lastmod></url>
   <url><loc>https://sof-ia.io/ai-bar/</loc></url>
   <url><loc>https://sof-ia.io/liminal/</loc></url>
+  <url><loc>https://sof-ia.io/signal-log/</loc><lastmod>2026-09-26</lastmod></url>
 </urlset>
