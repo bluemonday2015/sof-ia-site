@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Signal Log · Sof-IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=Work+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#2f2e2b; --bg-deep:#282724; --rule:rgba(230,225,215,.10);
+  --ink:#ece7dc; --ink-2:#c7c2b6; --ink-3:#8f8a80; --ink-4:#5f5b53;
+  --accent:#a9a0ff; --accent-soft:#7c74d6;
+  --serif:"Cormorant Garamond","EB Garamond",Georgia,serif;
+  --sans:"Work Sans","Inter",system-ui,-apple-system,Helvetica,Arial,sans-serif;
+  color-scheme:dark; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);background:var(--bg)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink-2);font-family:var(--sans);font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.caps{font-family:var(--sans);font-size:11px;font-weight:400;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-3)}
+.hero{position:relative;height:min(90vh,820px);min-height:520px;overflow:hidden;background:var(--bg-deep)}
+canvas{position:absolute;inset:0;display:block;width:100%;height:100%}
+.brand{position:absolute;z-index:2;top:clamp(20px,4vh,36px);left:clamp(24px,5vw,72px);color:inherit;text-decoration:none}
+.arrow{display:inline-block;font-size:1rem;color:var(--ink-3);margin-right:8px;transition:transform .3s,color .3s}
+.brand:hover .arrow{color:var(--accent);transform:translateX(-4px)}
+.brand:focus-visible{outline:1px solid var(--accent);outline-offset:6px}
+.logo{display:inline-flex;align-items:center;color:var(--ink)}
+.passage{font-family:"Newsreader","Cormorant Garamond",Georgia,serif;font-weight:400;font-size:26px;line-height:1;letter-spacing:-.025em;display:inline-flex;align-items:baseline;white-space:nowrap}
+.passage .ia{font-style:italic}
+.passage .gate{display:inline-block;position:relative;width:.010em;min-width:1px;height:.66em;background:var(--accent);margin:0 .16em 0 .30em;transform:translateY(.04em)}
+.kicker{display:block;margin-top:8px;font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink-2)}
+.mast{position:relative;z-index:1;text-align:center;padding:clamp(110px,16vh,160px) 24px 0;pointer-events:none}
+h1{margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(3rem,9vw,6.5rem);line-height:1;letter-spacing:-.01em;color:var(--ink)}
+h1 .v{color:var(--accent)}
+.sub{margin:18px 0 14px;font-family:var(--serif);font-size:clamp(.8rem,1.6vw,1.05rem);letter-spacing:.28em;text-transform:uppercase;color:var(--ink-2)}
+main{max-width:44rem;margin:0 auto;padding:clamp(56px,8vw,96px) clamp(24px,5vw,40px) 40px}
+.intro p{font-family:var(--serif);font-size:1.25rem;line-height:1.5;color:var(--ink-2);margin:0 0 1rem}
+.key{display:flex;flex-wrap:wrap;gap:1.2rem 2rem;margin:2.4rem 0 2.8rem}
+.key span{display:inline-flex;align-items:center;gap:.7rem;font-family:var(--serif);font-size:1.05rem;color:var(--ink-2)}
+.bars{display:inline-flex;align-items:flex-end;gap:3px;height:14px}
+.bars i{display:block;width:3px;background:var(--ink-4)}
+.bars i:nth-child(1){height:5px}.bars i:nth-child(2){height:9px}.bars i:nth-child(3){height:14px}
+.s3 i,.s2 i:nth-child(-n+2),.s1 i:nth-child(1){background:var(--accent)}
+article{padding:1.8rem 0;border-top:1px solid var(--rule)}
+.meta{display:flex;align-items:center;gap:.9rem}
+h2{margin:.7rem 0 .6rem;font-family:var(--serif);font-weight:500;font-size:1.6rem;line-height:1.2;color:var(--ink)}
+article p{font-family:var(--serif);font-size:1.12rem;line-height:1.5;margin:0 0 .6rem}
+.why{color:var(--ink);font-style:italic}
+a{color:var(--ink-2)} a:hover{color:var(--accent)}
+.src{font-family:var(--sans);font-size:13px;letter-spacing:.04em}
+a:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
+footer{max-width:44rem;margin:0 auto;padding:2rem clamp(24px,5vw,40px) 64px;border-top:1px solid var(--rule);text-align:center}
+footer .tag{margin:1rem 0 0;font-family:var(--serif);font-style:italic;font-size:clamp(1.3rem,2.6vw,1.75rem);color:var(--ink-2)}
+.mark{font-family:var(--serif);font-size:1.5rem;color:var(--ink);text-decoration:none}
+</style>
+</head>
+<body>
+<header class="hero">
+  <canvas id="c" aria-hidden="true"></canvas>
+  <a class="brand" href="https://sof-ia.io/" aria-label="Sof-IA, back to home">
+    <span class="logo"><span class="arrow" aria-hidden="true">&larr;</span><span class="passage"><span class="sof">Sof</span><span class="gate" aria-hidden="true"></span><span class="ia">IA</span></span></span>
+    <span class="kicker">Made with intelligence. Both kinds.</span>
+  </a>
+  <div class="mast">
+    <h1><span class="v">S</span>ignal Log</h1>
+    <p class="sub">What AI actually did, not what it promises</p>
+    <span class="caps">A running record published by Sof-IA</span>
+  </div>
+</header>
+
+<main>
+  <section class="intro">
+    <p>2026 was doing more than breaking sandboxes. The feed is full of noise: data centres, lost jobs, agents escaping their tests, and some of that is real. Underneath it, AI is already forecasting storms, finding cancers earlier and helping make materials that didn't exist a year ago.</p>
+    <p>One rule for every entry: it has happened. Each one carries its status as it stood on the day it was logged.</p>
+  </section>
+  <div class="key" aria-label="Status key">
+    <span><b class="bars s3"><i></i><i></i><i></i></b>Working in the real world</span>
+    <span><b class="bars s2"><i></i><i></i><i></i></b>Validated, not yet deployed</span>
+    <span><b class="bars s1"><i></i><i></i><i></i></b>Claimed, under review</span>
+  </div>
+  <div id="log"></div>
+</main>
+
+<footer>
+  <a class="mark" href="https://sof-ia.io/"><span style="color:var(--accent)">S</span>ignal Log</a>
+  <p class="tag">Made with intelligence. Both kinds.</p>
+</footer>
+
+<script>
+const ENTRIES=[
+ {d:"Logged 26 Sep 2026",s:3,short:"storm forecast · days early",t:"AI forecast Hurricane Melissa's landfall days ahead",b:"In 2025 Google DeepMind's weather model predicted Melissa's rapid intensification and its landfall in Jamaica before traditional systems could confirm it, giving emergency teams extra hours to prepare.",w:"Extra hours before a hurricane are evacuations that happen in time.",src:"https://aipilotguide.com/ai-weather-forecasting-2026/"},
+ {d:"Logged 26 Sep 2026",s:3,short:"cancer detection +91%",t:"Population screening nearly doubled cancer detection",b:"In a year-long prospective pilot covering 426,000 patients, the Can-SAVE system almost doubled the cancer detection rate and widened coverage by 36% compared with the national screening protocol.",w:"Earlier detection is the single biggest lever on cancer survival.",src:"https://arxiv.org/pdf/2309.15039"},
+ {d:"Logged 26 Sep 2026",s:3,short:"AI forecasts · operational",t:"Europe's weather centre runs an AI model in operations",b:"ECMWF moved its AI forecasting system, AIFS, to operational status in 2024, the first major meteorological agency to do so. AI models now match or beat physics-based ones on most medium-range measures.",w:"It turns AI weather from a research result into public infrastructure.",src:"https://www.articsledge.com/post/ai-weather-forecasting"},
+ {d:"Logged 26 Sep 2026",s:3,short:"forecasts · cheaper for all",t:"Good forecasts no longer need a $100 million supercomputer",b:"A September 2026 report from the University of Chicago, backed by the Rockefeller Foundation, argues AI can put local forecasts within reach of the low- and middle-income countries most exposed to climate health risks, if someone acts deliberately.",w:"The places that most need warnings are the ones that could least afford them.",src:"https://www.rockefellerfoundation.org/news/report-ai-70-year-gap-weather-forecasting-health/"},
+ {d:"Logged 26 Sep 2026",s:2,short:"cancer therapy · independently confirmed",t:"AI agents designed a lung-cancer approach a pharma company later reached on its own",b:"Stanford's virtual biotech, tens of thousands of AI agents, proposed an antibody-drug conjugate against B7-H3 using only pre-2025 information. A pharmaceutical company independently arrived at the same strategy, and that therapy received FDA breakthrough designation.",w:"Outside validation, not a lab praising its own tool.",src:"https://med.stanford.edu/news/all-news/2026/09/virtual-biotech-company.html"},
+ {d:"Logged 26 Sep 2026",s:2,short:"new zeolite · made in the lab",t:"A generative model suggested a recipe, and the material was made",b:"MIT researchers built a model that proposes synthesis routes for zeolites, materials used in catalysis and ion exchange. Following its suggestions, the team synthesised a new zeolite.",w:"An AI proposal that became a physical thing.",src:"https://phys.org/news/2026-01-generative-ai-scientists-complex-materials.html"},
+ {d:"Logged 26 Sep 2026",s:2,short:"chip chemical · under a year",t:"A new chip-making chemical found and made in under a year",b:"IBM used its accelerated discovery process to identify and synthesise a novel photoacid generator, a chemical used in semiconductor manufacturing, far faster than such work usually takes.",w:"Materials discovery usually runs on a scale of years to decades.",src:"https://research.ibm.com/topics/materials-discovery"},
+ {d:"Logged 26 Sep 2026",s:1,short:"Navier–Stokes · under review",t:"An AI agent swarm produced a proof on a Millennium Prize problem",b:"OpenAI says around 10,000 coordinating agents found a finite-time singularity in the Navier–Stokes equations after about 88 hours, with a formal Lean proof following 17 hours later. Independent scrutiny is ongoing, and there's a priority dispute.",w:"If it holds, it's the first Millennium Problem resolved by machines.",src:"https://www.quantamagazine.org/ai-has-solved-one-of-maths-1-million-millennium-prize-problems-20260908/"}
+];
+
+const log=document.getElementById('log');
+ENTRIES.forEach(e=>{
+  const a=document.createElement('article');
+  const lbl=["","Claimed, under review","Validated, not yet deployed","Working in the real world"][e.s];
+  a.innerHTML=`<div class="meta"><b class="bars s${e.s}" role="img" aria-label="${lbl}"><i></i><i></i><i></i></b><span class="caps">${e.d}</span></div>
+  <h2>${e.t}</h2><p>${e.b}</p><p class="why">${e.w}</p><p><a class="src" href="${e.src}" rel="noopener">Read the source</a></p>`;
+  log.appendChild(a);
+});
+
+const NOISE_WORDS=["job losses","data centres","breakout","blacklist","water use","layoffs","deepfakes","pause it","bubble","hallucinated","ban","energy bill","replaced","sandbox escape","risk"];
+const cv=document.getElementById('c'),cx=cv.getContext('2d');
+const nz=document.createElement('canvas'),nx=nz.getContext('2d');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let W,H,dpr,words=[],col={};
+function readCols(){const s=getComputedStyle(document.documentElement);col={fog:s.getPropertyValue('--bg-deep').trim(),graphite:s.getPropertyValue('--ink-2').trim(),static:s.getPropertyValue('--ink-3').trim(),signal:s.getPropertyValue('--accent').trim(),faint:s.getPropertyValue('--ink-4').trim()}}
+function hexRgb(h){h=h.replace('#','');return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)]}
+function size(){
+  dpr=Math.min(devicePixelRatio||1,2);const r=cv.getBoundingClientRect();W=r.width;H=r.height;
+  cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0);
+  nz.width=Math.ceil(W/3);nz.height=Math.ceil(H/3);
+  words=Array.from({length:Math.round(W/70)},(_,i)=>({t:NOISE_WORDS[i%NOISE_WORDS.length],x:Math.random()*W,y:H*.45+Math.random()*H*.45,v:(Math.random()-.5)*.25,p:Math.random()*6}));
+  readCols();
+}
+addEventListener('resize',size);
+
+function drawNoise(amount){
+  const img=nx.createImageData(nz.width,nz.height),d=img.data,[r,g,b]=hexRgb(col.static);
+  for(let i=0;i<d.length;i+=4){const on=Math.random()<.5;d[i]=r;d[i+1]=g;d[i+2]=b;d[i+3]=on?Math.random()*90*amount:0}
+  nx.putImageData(img,0,0);
+  cx.imageSmoothingEnabled=false;cx.drawImage(nz,0,0,W,H);
+}
+function draw(t){
+  const T=t/1000;
+  const tune=reduce?1:Math.min(1,T/4)*(.92+.08*Math.sin(T*.7));
+  cx.fillStyle=col.fog;cx.fillRect(0,0,W,H);
+  drawNoise(1-tune*.55);
+  // clear band where the station comes in
+  const cy=H*.72,band=H*.16*tune;
+  const gr=cx.createLinearGradient(0,cy-band,0,cy+band);
+  gr.addColorStop(0,'transparent');gr.addColorStop(.5,col.fog);gr.addColorStop(1,'transparent');
+  cx.globalAlpha=tune;cx.fillStyle=gr;cx.fillRect(0,cy-band,W,band*2);cx.globalAlpha=1;
+  // noise headlines
+  cx.font='300 13px "Work Sans", sans-serif';cx.fillStyle=col.graphite;
+  words.forEach(w=>{ if(!reduce){w.x+=w.v;if(w.x>W+80)w.x=-80;if(w.x<-80)w.x=W+80}
+    const flick=.5+.5*Math.sin(T*6+w.p*9)*(Math.random()>.1?1:-1);
+    cx.globalAlpha=Math.max(0,(1-tune*.8)*.35*flick);cx.fillText(w.t,w.x+(Math.random()-.5)*2*(1-tune),w.y)});
+  cx.globalAlpha=1;
+  // signal line with entry pulse
+  const cycle=5.2,idx=Math.floor(Math.max(0,T-3)/cycle)%ENTRIES.length,ph=reduce?.5:((Math.max(0,T-3))%cycle)/cycle;
+  const amp=Math.sin(Math.PI*Math.min(1,ph*1.6))*H*.14*tune,px=W*.64;
+  cx.beginPath();
+  for(let x=0;x<=W;x+=3){
+    const jitter=(Math.random()-.5)*H*.05*(1-tune);
+    const wave=Math.sin(x*.02+T*2)*3*tune;
+    const pulse=-amp*Math.exp(-Math.pow((x-px)/(W*.035),2))*Math.cos((x-px)*.09);
+    const y=cy+jitter+wave+pulse; x?cx.lineTo(x,y):cx.moveTo(x,y);
+  }
+  cx.strokeStyle=col.signal;cx.lineWidth=2.4;cx.globalAlpha=.25+.75*tune;cx.stroke();cx.globalAlpha=1;
+  // label for the current entry
+  if(T>3||reduce){
+    const e=ENTRIES[idx],a=Math.sin(Math.PI*Math.min(1,ph*1.2));
+    cx.globalAlpha=Math.max(0,a);cx.fillStyle=col.signal;
+    cx.font='italic 400 '+Math.max(18,Math.min(26,W/42))+'px "Cormorant Garamond", Georgia, serif';
+    const tw=cx.measureText(e.short).width,lx=Math.min(W-tw-20,Math.max(20,px-tw/2));
+    cx.fillText(e.short,lx,cy-H*.16-12);
+    cx.fillRect(px-1,cy-H*.16,2,H*.16-amp*.2);
+    cx.globalAlpha=1;
+  }
+  // dial
+  const dy=H-28;cx.strokeStyle=col.faint;cx.lineWidth=1;cx.globalAlpha=.6;
+  for(let i=0;i<=60;i++){const x=W*.08+i*(W*.84/60),h=i%10?6:12;cx.beginPath();cx.moveTo(x,dy);cx.lineTo(x,dy-h);cx.stroke()}
+  cx.globalAlpha=1;cx.fillStyle=col.signal;const nxp=W*.08+W*.84*(.15+.6*tune);cx.fillRect(nxp-1,dy-20,2,24);
+  if(!reduce)requestAnimationFrame(draw);
+}
+size();
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>requestAnimationFrame(draw));else requestAnimationFrame(draw);
+</script>
+</body>
+</html>
