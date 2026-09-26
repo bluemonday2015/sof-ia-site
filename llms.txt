@@ -9,6 +9,6 @@
 
 ## Work
 
-- [The AI Bar](https://sof-ia.io/ai-bar/): A radio opera: stories by the roadside about working alongside AI.
+- [The AI Bar](https://sof-ia.io/ai-bar/): Storytelling at the human–AI edge. Stories by the roadside about working alongside AI.
 - [Liminal](https://sof-ia.io/liminal/): A cyberpunk musical triptych, told in reverse.
 - [Signal Log](https://sof-ia.io/signal-log/): A running record of real, verified things AI has done, each with its status and source. No promises.
