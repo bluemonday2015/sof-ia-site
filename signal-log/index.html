@@ -142,15 +142,29 @@ function draw(t){
   const gr=cx.createLinearGradient(0,cy-band,0,cy+band);
   gr.addColorStop(0,'transparent');gr.addColorStop(.5,col.fog);gr.addColorStop(1,'transparent');
   cx.globalAlpha=tune;cx.fillStyle=gr;cx.fillRect(0,cy-band,W,band*2);cx.globalAlpha=1;
+  // current entry: needle drops first, then the pulse builds and the label holds
+  const cycle=5.2,idx=Math.floor(Math.max(0,T-3)/cycle)%ENTRIES.length,ph=reduce?.5:((Math.max(0,T-3))%cycle)/cycle;
+  const live=T>3||reduce,ampMax=H*.14*tune,px=W*.64;
+  const pn=reduce?1:Math.sin(Math.PI*Math.min(1,Math.max(0,(ph-.1)/.55)));
+  const amp=pn*ampMax;
+  const la=live?Math.max(0,Math.sin(Math.PI*Math.min(1,ph*1.2))):0;
+  const needle=live&&!reduce?Math.min(1,ph/.05)*Math.max(0,Math.min(1,(.18-ph)/.06)):0;
+  const lfs=Math.max(18,Math.min(26,W/42)),lfont='italic 400 '+lfs+'px "Cormorant Garamond", Georgia, serif';
+  cx.font=lfont;
+  const e=ENTRIES[idx],tw=cx.measureText(e.short).width,lx=Math.min(W-tw-20,Math.max(20,px-tw/2)),ly=cy-H*.16-12;
+  // the signal clears a quiet zone around itself: label box and pulse
+  const zones=[{x0:lx,x1:lx+tw,y0:ly-lfs,y1:ly+6,s:la},{x0:px-W*.09,x1:px+W*.09,y0:cy-amp-18,y1:cy+amp+24,s:pn}];
+  function quiet(x0,x1,y0,y1){let q=0;for(const z of zones){if(z.s<=0)continue;
+    const dx=Math.max(0,z.x0-x1,x0-z.x1),dy=Math.max(0,z.y0-y1,y0-z.y1),d=Math.hypot(dx,dy);
+    q=Math.max(q,z.s*(1-Math.min(1,d/48)))}return q}
   // noise headlines
-  cx.font='400 '+(W<600?14:15)+'px "Work Sans", sans-serif';cx.fillStyle=col.graphite;
+  const nfs=W<600?14:15;cx.font='400 '+nfs+'px "Work Sans", sans-serif';cx.fillStyle=col.graphite;
   words.forEach(w=>{ if(!reduce){w.x+=w.v;if(w.x>W+80)w.x=-80;if(w.x<-80)w.x=W+80}
     const flick=(.55+.45*Math.sin(T*6+w.p*9))*(Math.random()>.08?1:.2);
-    cx.globalAlpha=(.28+.37*(1-tune))*flick;cx.fillText(w.t,w.x+(Math.random()-.5)*2*(1-tune),w.y)});
+    const ww=w.ww||(w.ww=cx.measureText(w.t).width),q=quiet(w.x,w.x+ww,w.y-nfs,w.y+4);
+    cx.globalAlpha=(.28+.37*(1-tune))*flick*(1-q);cx.fillText(w.t,w.x+(Math.random()-.5)*2*(1-tune),w.y)});
   cx.globalAlpha=1;
   // signal line with entry pulse
-  const cycle=5.2,idx=Math.floor(Math.max(0,T-3)/cycle)%ENTRIES.length,ph=reduce?.5:((Math.max(0,T-3))%cycle)/cycle;
-  const amp=Math.sin(Math.PI*Math.min(1,ph*1.6))*H*.14*tune,px=W*.64;
   cx.beginPath();
   for(let x=0;x<=W;x+=3){
     const jitter=(Math.random()-.5)*H*.05*(1-tune);
@@ -159,14 +173,11 @@ function draw(t){
     const y=cy+jitter+wave+pulse; x?cx.lineTo(x,y):cx.moveTo(x,y);
   }
   cx.strokeStyle=col.signal;cx.lineWidth=2.4;cx.globalAlpha=.25+.75*tune;cx.stroke();cx.globalAlpha=1;
-  // label for the current entry
-  if(T>3||reduce){
-    const e=ENTRIES[idx],a=Math.sin(Math.PI*Math.min(1,ph*1.2));
-    cx.globalAlpha=Math.max(0,a);cx.fillStyle=col.signal;
-    cx.font='italic 400 '+Math.max(18,Math.min(26,W/42))+'px "Cormorant Garamond", Georgia, serif';
-    const tw=cx.measureText(e.short).width,lx=Math.min(W-tw-20,Math.max(20,px-tw/2));
-    cx.fillText(e.short,lx,cy-H*.16-12);
-    cx.fillRect(px-1,cy-H*.16,2,H*.16-amp*.2);
+  // label for the current entry, and the needle that marks the station before the pulse arrives
+  if(live){
+    cx.fillStyle=col.signal;cx.font=lfont;
+    cx.globalAlpha=la;cx.fillText(e.short,lx,ly);
+    if(needle>0){cx.globalAlpha=needle;cx.fillRect(px-1,cy-H*.16,2,H*.16)}
     cx.globalAlpha=1;
   }
   // dial
