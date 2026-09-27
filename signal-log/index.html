@@ -236,7 +236,12 @@ function draw(t){
   // dial
   const dy=H-28;cx.strokeStyle=col.faint;cx.lineWidth=1;cx.globalAlpha=.6;
   for(let i=0;i<=60;i++){const x=W*.08+i*(W*.84/60),h=i%10?6:12;cx.beginPath();cx.moveTo(x,dy);cx.lineTo(x,dy-h);cx.stroke()}
-  cx.globalAlpha=1;cx.fillStyle=col.signal;const nxp=W*.08+W*.84*(.15+.6*tune);cx.fillRect(nxp-1,dy-20,2,24);
+  cx.globalAlpha=1;cx.fillStyle=col.signal;
+  // the needle sweeps in, wanders while searching between entries, and locks under each pulse as it builds
+  const r=reduce?1:Math.min(1,T/4),ease=1-Math.pow(1-r,3),n0=W*.08+W*.84*.15;
+  const search=reduce?0:(1-pn)*Math.min(W*.03,40)*Math.sin(T*.9+idx*1.7);
+  const nxp=n0+(px-n0)*ease+search*r,lock=live?pn:0;
+  cx.fillRect(nxp-1,dy-20-6*lock,2,24+6*lock);
   if(!reduce)requestAnimationFrame(draw);
 }
 size();
