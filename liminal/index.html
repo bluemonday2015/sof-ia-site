@@ -89,7 +89,7 @@
   .header {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
-    align-items: center;
+    align-items: start;
     margin-bottom: 96px;
     gap: 24px;
   }
@@ -102,24 +102,40 @@
     text-transform: uppercase;
   }
   .header-mark.left { text-align: left; }
+  .header-mark.center, .header-mark.right { padding-top: 8px; }
   .header-mark.center { text-align: center; }
   .header-mark.right { text-align: right; }
 
   .logo-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.55em;
+    display: inline-block;
     color: var(--paper-soft);
     text-decoration: none;
+    text-align: left;
+    text-transform: none;
+    letter-spacing: normal;
     transition: color 0.3s ease;
   }
+  .logo-link .logo-row { display: inline-flex; align-items: center; gap: 8px; }
   .logo-link .logo-arrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
+    font-family: "Work Sans", Inter, system-ui, -apple-system, Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    font-size: 1rem;
+    letter-spacing: 0;
     color: var(--paper-muted);
     transition: transform 0.3s ease, color 0.3s ease;
   }
-  .logo-link .passage { font-size: 20px; text-transform: none; }
+  .logo-link .kicker {
+    display: block;
+    margin-top: 8px;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-size: 15px;
+    line-height: 1.6;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--paper-soft);
+  }
+  .logo-link .passage { font-size: 26px; text-transform: none; }
   .logo-link .passage .gate,
   .logo-link .passage .gate::before,
   .logo-link .passage .gate::after { background: #a9a0ff; }
@@ -570,7 +586,8 @@
   @media (max-width: 760px) {
     body { padding: 56px 28px 72px; }
     .header { grid-template-columns: 1fr; gap: 8px; }
-    .header-mark.left, .header-mark.right, .header-mark.center { text-align: center; }
+    .header-mark.left { text-align: left; }
+    .header-mark.right, .header-mark.center { text-align: center; padding-top: 0; }
     .act { grid-template-columns: 1fr; gap: 32px; padding: 56px 0; }
     .act-meta { grid-template-columns: 1fr; gap: 8px 0; }
     .act-meta-label { padding-top: 16px; }
@@ -585,7 +602,7 @@
 
   <!-- HEADER -->
   <header class="header">
-    <div class="header-mark left"><a class="logo-link" href="../" aria-label="Sof-IA — back to home"><span class="logo-arrow" aria-hidden="true">&larr;</span><span class="passage"><span class="sof">Sof</span><span class="gate" aria-hidden="true"></span><span class="ia">IA</span></span></a></div>
+    <div class="header-mark left"><a class="logo-link" href="../" aria-label="Sof-IA — back to home"><span class="logo-row"><span class="logo-arrow" aria-hidden="true">&larr;</span><span class="passage"><span class="sof">Sof</span><span class="gate" aria-hidden="true"></span><span class="ia">IA</span></span></span><span class="kicker">Made with intelligence. Both kinds.</span></a></div>
     <div class="header-mark center">— A Triptych —</div>
     <div class="header-mark right">MMXXVI</div>
   </header>

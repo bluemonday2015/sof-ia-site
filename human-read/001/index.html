@@ -51,6 +51,17 @@ button:focus-visible,a:focus-visible{outline:1px solid var(--accent);outline-off
 .sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
 .sec-head h3{margin:0;font-family:var(--cg);font-weight:500;font-size:1.9rem;color:var(--ink)}
 
+/* back to the main page */
+.back{align-self:flex-start;display:inline-block;text-decoration:none}
+.back,.back:hover{color:var(--ink)}
+.back .arrow{display:inline-block;font-size:1rem;color:var(--ink3);margin-right:8px;transition:transform .3s,color .3s}
+.back:hover .arrow{color:var(--accent);transform:translateX(-4px)}
+.back .logo{display:inline-flex;align-items:center}
+.back .passage{font-family:'Newsreader','Cormorant Garamond',Georgia,serif;font-weight:400;font-size:26px;line-height:1;letter-spacing:-.025em;display:inline-flex;align-items:baseline;white-space:nowrap}
+.back .passage .ia{font-style:italic}
+.back .passage .gate{display:inline-block;position:relative;width:.010em;min-width:1px;height:.66em;background:var(--accent);margin:0 .16em 0 .30em;transform:translateY(.04em)}
+.back .kicker{display:block;margin-top:8px;font-family:var(--cg);font-style:italic;font-size:15px;color:var(--ink2)}
+
 /* masthead */
 .mast{display:flex;flex-direction:column;gap:14px}
 .mast-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;border-bottom:1px solid var(--rule);padding-bottom:10px}
@@ -157,6 +168,11 @@ button:focus-visible,a:focus-visible{outline:1px solid var(--accent);outline-off
 <body>
 <div class="np">
 <div class="page">
+
+<a class="back" href="https://sof-ia.io/" aria-label="Sof-IA, back to home">
+<span class="logo"><span class="arrow" aria-hidden="true">&larr;</span><span class="passage"><span class="sof">Sof</span><span class="gate" aria-hidden="true"></span><span class="ia">IA</span></span></span>
+<span class="kicker">Made with intelligence. Both kinds.</span>
+</a>
 
 <header class="mast">
 <div class="caps mast-top">
