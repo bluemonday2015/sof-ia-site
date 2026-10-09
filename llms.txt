@@ -13,3 +13,4 @@
 - [Liminal](https://sof-ia.io/liminal/): A cyberpunk musical triptych, told in reverse.
 - [Signal Log](https://sof-ia.io/signal-log/): A running record of real, verified things AI has done, each with its status and source. No promises.
 - [The Human Read](https://sof-ia.io/human-read/): A newspaper-style weekly on artificial intelligence. Every story is marked source read, reported or wire, and linked to its source. This address always shows the latest edition; each edition keeps a permanent address, Edition No. 1 at https://sof-ia.io/human-read/001/.
+- [Writing](https://sof-ia.io/writing/): The essays, newest first. Written in dialogue with AI, signed, and linked to where each one lives on Substack and Medium.

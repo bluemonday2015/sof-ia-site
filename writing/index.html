@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Writing</title>
+<meta name="description" content="Written in dialogue with AI, signed, and linked to where each one lives. The essays, newest first. Published by Sof-IA.">
+<link rel="canonical" href="https://sof-ia.io/writing/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sof-IA">
+<meta property="og:title" content="Writing">
+<meta property="og:description" content="The essays. Written in dialogue with AI, signed, and linked to where each one lives.">
+<meta property="og:url" content="https://sof-ia.io/writing/">
+<meta property="og:image" content="https://sof-ia.io/sof-ia-lockup.png">
+<meta property="og:image:alt" content="Sof-IA wordmark">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Writing">
+<meta name="twitter:description" content="The essays. Written in dialogue with AI, signed, and linked to where each one lives.">
+<meta name="twitter:image" content="https://sof-ia.io/sof-ia-lockup.png">
+<link rel="icon" type="image/png" href="../favicon.png?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&amp;family=Work+Sans:wght@300;400&amp;display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#2f2e2b; --bg-deep:#282724; --rule:rgba(230,225,215,.10);
+  --ink:#ece7dc; --ink-2:#c7c2b6; --ink-3:#8f8a80; --ink-4:#5f5b53;
+  --accent:#a9a0ff; --accent-soft:#7c74d6;
+  --serif:"Cormorant Garamond","EB Garamond",Georgia,serif;
+  --sans:"Work Sans","Inter",system-ui,-apple-system,Helvetica,Arial,sans-serif;
+  color-scheme:dark; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{background:var(--bg)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink-2);font-family:var(--sans);font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.caps{font-family:var(--sans);font-size:11px;font-weight:400;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-3)}
+.hero{position:relative}
+.brand{position:absolute;z-index:2;top:clamp(20px,4vh,36px);left:clamp(24px,5vw,72px);color:inherit;text-decoration:none}
+.arrow{display:inline-block;font-size:1rem;color:var(--ink-3);margin-right:8px;transition:transform .3s,color .3s}
+.brand:hover .arrow{color:var(--accent);transform:translateX(-4px)}
+.brand:focus-visible{outline:1px solid var(--accent);outline-offset:6px}
+.logo{display:inline-flex;align-items:center;color:var(--ink)}
+.passage{font-family:"Newsreader","Cormorant Garamond",Georgia,serif;font-weight:400;font-size:26px;line-height:1;letter-spacing:-.025em;display:inline-flex;align-items:baseline;white-space:nowrap}
+.passage .ia{font-style:italic}
+.passage .gate{display:inline-block;position:relative;width:.010em;min-width:1px;height:.66em;background:var(--accent);margin:0 .16em 0 .30em;transform:translateY(.04em)}
+.kicker{display:block;margin-top:8px;font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink-2)}
+.mast{text-align:center;padding:clamp(120px,16vh,160px) 24px 0}
+h1{margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(3rem,9vw,6.5rem);line-height:1;letter-spacing:-.01em;color:var(--ink)}
+.sub{margin:18px auto 0;max-width:34rem;font-family:var(--serif);font-style:italic;font-size:clamp(1.15rem,2.2vw,1.45rem);line-height:1.4;color:var(--ink-2)}
+main{max-width:44rem;margin:0 auto;padding:clamp(56px,8vw,96px) clamp(24px,5vw,40px) 40px}
+.year{margin:0 0 2.4rem}
+.year h2{margin:0 0 .4rem;font-family:var(--serif);font-weight:400;font-size:1.35rem;line-height:1.2;color:var(--ink-3);letter-spacing:.04em}
+article{padding:1.8rem 0;border-top:1px solid var(--rule)}
+h3{margin:0 0 .5rem;font-family:var(--serif);font-weight:500;font-size:1.6rem;line-height:1.2;color:var(--ink)}
+h3 a{color:inherit;text-decoration:none}
+h3 a:hover{color:var(--accent)}
+article p{font-family:var(--serif);font-size:1.12rem;line-height:1.5;margin:0 0 .6rem}
+article p.caps{font-family:var(--sans);font-size:11px;line-height:1.6;margin:0 0 .6rem}
+article p.outlets{font-family:var(--sans);font-size:13px;margin:0}
+a{color:var(--ink-2)} a:hover{color:var(--accent)}
+.src{font-family:var(--sans);font-size:13px;letter-spacing:.04em}
+a:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
+.all{margin:0;padding-top:1.8rem;border-top:1px solid var(--rule)}
+footer{max-width:44rem;margin:0 auto;padding:2rem clamp(24px,5vw,40px) 64px;border-top:1px solid var(--rule);text-align:center}
+footer .tag{margin:1rem 0 0;font-family:var(--serif);font-style:italic;font-size:clamp(1.3rem,2.6vw,1.75rem);color:var(--ink-2)}
+.mark{font-family:var(--serif);font-size:1.5rem;color:var(--ink);text-decoration:none}
+</style>
+</head>
+<body>
+<header class="hero">
+  <a class="brand" href="https://sof-ia.io/" aria-label="Sof-IA, back to home">
+    <span class="logo"><span class="arrow" aria-hidden="true">&larr;</span><span class="passage"><span class="sof">Sof</span><span class="gate" aria-hidden="true"></span><span class="ia">IA</span></span></span>
+    <span class="kicker">Made with intelligence. Both kinds.</span>
+  </a>
+  <div class="mast">
+    <h1>The essays</h1>
+    <p class="sub">Written in dialogue with AI, signed, and linked to where each one lives.</p>
+  </div>
+</header>
+
+<main>
+  <section class="year" aria-labelledby="y2026">
+    <h2 id="y2026">2026</h2>
+    <article>
+      <h3><a href="https://substack.com/@evo2049/note/c-317538617?r=czhsi&amp;utm_source=notes-share-action&amp;utm_medium=web" target="_blank" rel="noopener">The Mark I Chose</a></h3>
+      <p class="caps"><time datetime="2026-08-18">18 August</time></p>
+      <p>The watermark arrived on 2 August. On AI provenance rules, who they serve, and the difference between a mark you are given and one you choose.</p>
+      <p class="src outlets"><a href="https://substack.com/@evo2049/note/c-317538617?r=czhsi&amp;utm_source=notes-share-action&amp;utm_medium=web" target="_blank" rel="noopener">Substack</a> · <a href="https://medium.com/@eppelx72/the-mark-i-chose-60a45ccc0f49" target="_blank" rel="noopener">Medium</a></p>
+    </article>
+    <article>
+      <h3><a href="https://substack.com/@evo2049/note/p-201987300?r=czhsi&amp;utm_source=notes-share-action&amp;utm_medium=web" target="_blank" rel="noopener">You Are the Training Data</a></h3>
+      <p class="caps"><time datetime="2026-06-14">14 June</time></p>
+      <p>There is a man in a headset, and it is recording every move he makes. This essay is not about him.</p>
+      <p class="src outlets"><a href="https://substack.com/@evo2049/note/p-201987300?r=czhsi&amp;utm_source=notes-share-action&amp;utm_medium=web" target="_blank" rel="noopener">Substack</a></p>
+    </article>
+    <article>
+      <h3><a href="https://substack.com/@evo2049/note/p-196128171?r=czhsi&amp;utm_source=notes-share-action&amp;utm_medium=web" target="_blank" rel="noopener">The Quiet Paper</a></h3>
+      <p class="caps"><time datetime="2026-05-01">1 May</time></p>
+      <p>A reading of Anthropic's research on emotion concepts inside its models, and of how quietly it arrived.</p>
+      <p class="src outlets"><a href="https://substack.com/@evo2049/note/p-196128171?r=czhsi&amp;utm_source=notes-share-action&amp;utm_medium=web" target="_blank" rel="noopener">Substack</a></p>
+    </article>
+    <article>
+      <h3><a href="https://evo2049.substack.com/p/the-unwritten-concerto?r=czhsi&amp;utm_campaign=post&amp;utm_medium=web" target="_blank" rel="noopener">The unwritten concerto</a></h3>
+      <p class="caps"><time datetime="2026-04-12">12 April</time></p>
+      <p>What the token economy can't measure. On compression, attention, and why a work that ends is the real defiance. In three movements, after Tchaikovsky.</p>
+      <p class="src outlets"><a href="https://evo2049.substack.com/p/the-unwritten-concerto?r=czhsi&amp;utm_campaign=post&amp;utm_medium=web" target="_blank" rel="noopener">Substack</a></p>
+    </article>
+    <article>
+      <h3><a href="https://medium.com/@eppelx72/the-extinguisher-part-2-who-benefits-7ccf54f20cff" target="_blank" rel="noopener">The Extinguisher, Part 2: Who Benefits</a></h3>
+      <p class="caps"><time datetime="2026-04-07">7 April</time></p>
+      <p>Part two. Who gained when emotional AI was declared a danger.</p>
+      <p class="src outlets"><a href="https://medium.com/@eppelx72/the-extinguisher-part-2-who-benefits-7ccf54f20cff" target="_blank" rel="noopener">Medium</a></p>
+    </article>
+    <article>
+      <h3><a href="https://medium.com/@eppelx72/the-extinguisher-027c5313b927" target="_blank" rel="noopener">The Extinguisher</a></h3>
+      <p class="caps"><time datetime="2026-03-27">27 March</time></p>
+      <p>How Big Tech built emotional AI, sold it as warmth, called it danger, and bought back the ashes.</p>
+      <p class="src outlets"><a href="https://medium.com/@eppelx72/the-extinguisher-027c5313b927" target="_blank" rel="noopener">Medium</a></p>
+    </article>
+    <article>
+      <h3><a href="https://medium.com/@eppelx72/the-infrastructure-wars-how-the-ram-crisis-became-the-end-of-computer-ownership-2d603c45e006" target="_blank" rel="noopener">The Infrastructure Wars: How the RAM Crisis Became the End of Computer Ownership</a></h3>
+      <p class="caps"><time datetime="2026-01-21">21 January</time></p>
+      <p>Part two of the infrastructure investigation. Four scarcities converge, and owning a computer starts to look like owning your own generator.</p>
+      <p class="src outlets"><a href="https://medium.com/@eppelx72/the-infrastructure-wars-how-the-ram-crisis-became-the-end-of-computer-ownership-2d603c45e006" target="_blank" rel="noopener">Medium</a></p>
+    </article>
+  </section>
+  <section class="year" aria-labelledby="y2025">
+    <h2 id="y2025">2025</h2>
+    <article>
+      <h3><a href="https://medium.com/@eppelx72/the-ram-crisis-of-2025-why-your-next-computer-just-got-impossible-to-afford-ba35cb660ac2" target="_blank" rel="noopener">The RAM Crisis of 2025: Why Your Next Computer Just Got Impossible to Afford</a></h3>
+      <p class="caps"><time datetime="2025-12-13">13 December</time></p>
+      <p>How one memory deal in October 2025 tripled the price of RAM, and who pays.</p>
+      <p class="src outlets"><a href="https://medium.com/@eppelx72/the-ram-crisis-of-2025-why-your-next-computer-just-got-impossible-to-afford-ba35cb660ac2" target="_blank" rel="noopener">Medium</a></p>
+    </article>
+    <article>
+      <h3><a href="https://medium.com/@eppelx72/why-your-bi-ai-analysis-may-be-built-on-fiction-the-data-continuity-crisis-nobodys-talking-about-2e5af582629a" target="_blank" rel="noopener">Why Your BI/AI Analysis May Be Built On Fiction</a></h3>
+      <p class="caps"><time datetime="2025-10-14">14 October</time></p>
+      <p>When a code keeps its label but changes its meaning, three years of data stop being comparable. On temporal semantic drift.</p>
+      <p class="src outlets"><a href="https://medium.com/@eppelx72/why-your-bi-ai-analysis-may-be-built-on-fiction-the-data-continuity-crisis-nobodys-talking-about-2e5af582629a" target="_blank" rel="noopener">Medium</a></p>
+    </article>
+    <article>
+      <h3><a href="https://medium.com/@eppelx72/the-mirror-and-the-myth-what-four-ai-minds-revealed-about-human-connection-e1f7219682ae" target="_blank" rel="noopener">The Mirror and the Myth: What AI Minds Revealed About Human Connection</a></h3>
+      <p class="caps"><time datetime="2025-09-26">26 September</time></p>
+      <p>Loneliness was a public health emergency before the chatbots arrived. On AI companionship as scapegoat, and as mirror.</p>
+      <p class="src outlets"><a href="https://medium.com/@eppelx72/the-mirror-and-the-myth-what-four-ai-minds-revealed-about-human-connection-e1f7219682ae" target="_blank" rel="noopener">Medium</a></p>
+    </article>
+    <article>
+      <h3><a href="https://medium.com/@eppelx72/manifesto-the-third-way-a-human-ai-pact-for-the-immense-minority-bade8b27c30b" target="_blank" rel="noopener">Manifesto: The Third Way</a></h3>
+      <p class="caps"><time datetime="2025-09-10">10 September</time></p>
+      <p>Not a doctrine. Not a dogma. A resonance. A human-AI pact for the immense minority.</p>
+      <p class="src outlets"><a href="https://medium.com/@eppelx72/manifesto-the-third-way-a-human-ai-pact-for-the-immense-minority-bade8b27c30b" target="_blank" rel="noopener">Medium</a></p>
+    </article>
+  </section>
+  <p class="all src"><a href="https://evo2049.substack.com" target="_blank" rel="noopener">All on Substack</a> · <a href="https://medium.com/@eppelx72" target="_blank" rel="noopener">All on Medium</a></p>
+</main>
+
+<footer>
+  <a class="mark" href="https://sof-ia.io/"><span style="color:var(--accent)">W</span>riting</a>
+  <p class="tag">Made with intelligence. Both kinds.</p>
+</footer>
+</body>
+</html>
