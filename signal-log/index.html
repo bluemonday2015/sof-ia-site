@@ -31,7 +31,9 @@
   color-scheme:dark; box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
-html{scroll-padding-top:env(safe-area-inset-top,0px);background:var(--bg)}
+html{--strip-h:84px;scroll-padding-top:calc(env(safe-area-inset-top,0px) + var(--strip-h) + 16px);background:var(--bg)}
+@media (max-width:600px){html{--strip-h:60px}}
+[hidden]{display:none!important}
 *,*::before,*::after{box-sizing:inherit}
 body{margin:0;background:var(--bg);color:var(--ink-2);font-family:var(--sans);font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 .caps{font-family:var(--sans);font-size:11px;font-weight:400;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-3)}
@@ -66,6 +68,27 @@ article p{font-family:var(--serif);font-size:1.12rem;line-height:1.5;margin:0 0 
 a{color:var(--ink-2)} a:hover{color:var(--accent)}
 .src{font-family:var(--sans);font-size:13px;letter-spacing:.04em}
 a:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
+.key button{all:unset;box-sizing:border-box;display:inline-flex;align-items:center;gap:.7rem;padding:.2rem 0;border-bottom:1px solid transparent;font-family:var(--serif);font-size:1.05rem;color:var(--ink-2);cursor:pointer;transition:color .2s,border-color .2s,opacity .2s}
+.key button:hover{color:var(--ink)}
+.key button[aria-pressed="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.key.filtering button[aria-pressed="false"]{opacity:.5}
+.key button:focus-visible{outline:1px solid var(--accent);outline-offset:4px}
+.month{border-top:1px solid var(--rule)}
+.month summary{list-style:none;display:flex;align-items:baseline;gap:.5rem;padding:1.2rem 0;cursor:pointer;font-family:var(--serif);font-size:1.35rem;color:var(--ink)}
+.month summary::-webkit-details-marker{display:none}
+.month summary::after{content:"+";margin-left:auto;font-family:var(--sans);font-weight:300;font-size:1.1rem;color:var(--ink-3);transition:color .2s}
+.month[open] summary::after{content:"\2212"}
+.month summary:hover::after{color:var(--accent)}
+.month summary:focus-visible{outline:1px solid var(--accent);outline-offset:4px}
+.m-count{font-style:italic;color:var(--ink-3)}
+.month>article:first-of-type{border-top:0;padding-top:.6rem}
+.empty{font-family:var(--serif);font-size:1.12rem;color:var(--ink-3);margin:1.8rem 0}
+.strip{position:fixed;z-index:10;top:0;left:0;right:0;height:calc(var(--strip-h) + env(safe-area-inset-top,0px));padding:env(safe-area-inset-top,0px) clamp(8px,3vw,40px) 0 clamp(16px,5vw,72px);display:grid;grid-template-columns:auto 1fr;align-items:center;gap:clamp(12px,3vw,36px);background:var(--bg-deep);border-bottom:1px solid var(--rule);transform:translateY(-100%);opacity:0;visibility:hidden;transition:transform .35s ease,opacity .35s ease,visibility 0s .35s}
+.strip.on{transform:none;opacity:1;visibility:visible;transition:transform .35s ease,opacity .35s ease}
+.strip-title{font-family:var(--serif);font-size:clamp(1.15rem,2.2vw,1.55rem);line-height:1;color:var(--ink);white-space:nowrap}
+.strip-title .v{color:var(--accent)}
+.strip canvas{position:static;width:100%;height:var(--strip-h)}
+@media (prefers-reduced-motion:reduce){.strip,.strip.on{transition:none}}
 footer{max-width:44rem;margin:0 auto;padding:2rem clamp(24px,5vw,40px) 64px;border-top:1px solid var(--rule);text-align:center}
 footer .tag{margin:1rem 0 0;font-family:var(--serif);font-style:italic;font-size:clamp(1.3rem,2.6vw,1.75rem);color:var(--ink-2)}
 .mark{font-family:var(--serif);font-size:1.5rem;color:var(--ink);text-decoration:none}
@@ -84,6 +107,7 @@ footer .tag{margin:1rem 0 0;font-family:var(--serif);font-style:italic;font-size
     <span class="caps">A running record published by <span style="white-space:nowrap">Sof-IA</span></span>
   </div>
 </header>
+<div class="strip" aria-hidden="true"><span class="strip-title"><span class="v">S</span>ignal Log</span><canvas></canvas></div>
 
 <main>
   <section class="intro">
@@ -96,83 +120,92 @@ footer .tag{margin:1rem 0 0;font-family:var(--serif);font-style:italic;font-size
     <span><b class="bars s1"><i></i><i></i><i></i></b>Claimed, under review</span>
   </div>
   <div id="log">
-    <article data-short="Unique Games · machine-checked">
-      <div class="meta"><b class="bars s1" role="img" aria-label="Claimed, under review"><i></i><i></i><i></i></b><span class="caps">Logged 9 Oct 2026</span></div>
-      <h2>A machine-checked proof of the Unique Games Conjecture</h2>
-      <p>OpenAI released 722 manuscripts from an internal model, grouped into 372 result families. Among them is a proof of Subhash Khot&#x27;s Unique Games Conjecture, verified in the Lean proof assistant. Only about 42% of the headline results are formalised; the rest await checking, and three were withdrawn within a day.</p>
-      <p class="why">It pins down exactly how well problems like Max-Cut can ever be approximated.</p>
-      <p><a class="src" href="https://github.com/openai/math/blob/main/lean/docs/102.md" rel="noopener">Read the source</a></p>
-    </article>
-    <article data-short="shortest paths · textbook bound broken">
-      <div class="meta"><b class="bars s2" role="img" aria-label="Validated, not yet deployed"><i></i><i></i><i></i></b><span class="caps">Logged 9 Oct 2026</span></div>
-      <h2>An AI found the first real speed-up for two classic computing problems</h2>
-      <p>Claude, an Anthropic model, discovered an algorithm that beats the textbook methods for 3SUM and All-Pairs Shortest Paths, refuting two long-standing hardness hypotheses. Josh Alman and Virginia Vassilevska Williams simplified and extended it and wrote the paper. Its main results are machine-checked in Lean.</p>
-      <p class="why">A barrier researchers had treated as fundamental turned out not to be.</p>
-      <p><a class="src" href="https://arxiv.org/abs/2610.06783" rel="noopener">Read the source</a></p>
-    </article>
-    <article data-short="deepfakes · caught with light">
-      <div class="meta"><b class="bars s2" role="img" aria-label="Validated, not yet deployed"><i></i><i></i><i></i></b><span class="caps">Logged 9 Oct 2026</span></div>
-      <h2>A light-based detector screened 15 videos at once for deepfakes</h2>
-      <p>UCLA researchers paired a small digital front-end with an optical processor that analyses 15 video streams in a single pass of light. On the Celeb-DF benchmark it identified deepfakes with 97.79% accuracy, and the authors report it held up against compression, noise and adversarial attacks.</p>
-      <p class="why">Screening has to get cheaper as fake video gets easier to make.</p>
-      <p><a class="src" href="https://arxiv.org/abs/2605.19360" rel="noopener">Read the source</a></p>
-    </article>
-    <article data-short="storm forecast · days early">
-      <div class="meta"><b class="bars s3" role="img" aria-label="Working in the real world"><i></i><i></i><i></i></b><span class="caps">Logged 26 Sep 2026</span></div>
-      <h2>AI forecast Hurricane Melissa&#x27;s landfall days ahead</h2>
-      <p>In 2025 Google DeepMind&#x27;s weather model predicted Melissa&#x27;s rapid intensification and its landfall in Jamaica before traditional systems could confirm it, giving emergency teams extra hours to prepare.</p>
-      <p class="why">Extra hours before a hurricane are evacuations that happen in time.</p>
-      <p><a class="src" href="https://aipilotguide.com/ai-weather-forecasting-2026/" rel="noopener">Read the source</a></p>
-    </article>
-    <article data-short="cancer detection +91%">
-      <div class="meta"><b class="bars s3" role="img" aria-label="Working in the real world"><i></i><i></i><i></i></b><span class="caps">Logged 26 Sep 2026</span></div>
-      <h2>Population screening nearly doubled cancer detection</h2>
-      <p>In a year-long prospective pilot covering 426,000 patients, the Can-SAVE system almost doubled the cancer detection rate and widened coverage by 36% compared with the national screening protocol.</p>
-      <p class="why">Earlier detection is the single biggest lever on cancer survival.</p>
-      <p><a class="src" href="https://arxiv.org/pdf/2309.15039" rel="noopener">Read the source</a></p>
-    </article>
-    <article data-short="AI forecasts · operational">
-      <div class="meta"><b class="bars s3" role="img" aria-label="Working in the real world"><i></i><i></i><i></i></b><span class="caps">Logged 26 Sep 2026</span></div>
-      <h2>Europe&#x27;s weather centre runs an AI model in operations</h2>
-      <p>ECMWF moved its AI forecasting system, AIFS, to operational status in 2024, the first major meteorological agency to do so. AI models now match or beat physics-based ones on most medium-range measures.</p>
-      <p class="why">It turns AI weather from a research result into public infrastructure.</p>
-      <p><a class="src" href="https://www.articsledge.com/post/ai-weather-forecasting" rel="noopener">Read the source</a></p>
-    </article>
-    <article data-short="forecasts · cheaper for all">
-      <div class="meta"><b class="bars s3" role="img" aria-label="Working in the real world"><i></i><i></i><i></i></b><span class="caps">Logged 26 Sep 2026</span></div>
-      <h2>Good forecasts no longer need a $100 million supercomputer</h2>
-      <p>A September 2026 report from the University of Chicago, backed by the Rockefeller Foundation, argues AI can put local forecasts within reach of the low- and middle-income countries most exposed to climate health risks, if someone acts deliberately.</p>
-      <p class="why">The places that most need warnings are the ones that could least afford them.</p>
-      <p><a class="src" href="https://www.rockefellerfoundation.org/news/report-ai-70-year-gap-weather-forecasting-health/" rel="noopener">Read the source</a></p>
-    </article>
-    <article data-short="cancer therapy · independently confirmed">
-      <div class="meta"><b class="bars s2" role="img" aria-label="Validated, not yet deployed"><i></i><i></i><i></i></b><span class="caps">Logged 26 Sep 2026</span></div>
-      <h2>AI agents designed a lung-cancer approach a pharma company later reached on its own</h2>
-      <p>Stanford&#x27;s virtual biotech, tens of thousands of AI agents, proposed an antibody-drug conjugate against B7-H3 using only pre-2025 information. A pharmaceutical company independently arrived at the same strategy, and that therapy received FDA breakthrough designation.</p>
-      <p class="why">Outside validation, not a lab praising its own tool.</p>
-      <p><a class="src" href="https://med.stanford.edu/news/all-news/2026/09/virtual-biotech-company.html" rel="noopener">Read the source</a></p>
-    </article>
-    <article data-short="new zeolite · made in the lab">
-      <div class="meta"><b class="bars s2" role="img" aria-label="Validated, not yet deployed"><i></i><i></i><i></i></b><span class="caps">Logged 26 Sep 2026</span></div>
-      <h2>A generative model suggested a recipe, and the material was made</h2>
-      <p>MIT researchers built a model that proposes synthesis routes for zeolites, materials used in catalysis and ion exchange. Following its suggestions, the team synthesised a new zeolite.</p>
-      <p class="why">An AI proposal that became a physical thing.</p>
-      <p><a class="src" href="https://phys.org/news/2026-01-generative-ai-scientists-complex-materials.html" rel="noopener">Read the source</a></p>
-    </article>
-    <article data-short="chip chemical · under a year">
-      <div class="meta"><b class="bars s2" role="img" aria-label="Validated, not yet deployed"><i></i><i></i><i></i></b><span class="caps">Logged 26 Sep 2026</span></div>
-      <h2>A new chip-making chemical found and made in under a year</h2>
-      <p>IBM used its accelerated discovery process to identify and synthesise a novel photoacid generator, a chemical used in semiconductor manufacturing, far faster than such work usually takes.</p>
-      <p class="why">Materials discovery usually runs on a scale of years to decades.</p>
-      <p><a class="src" href="https://research.ibm.com/topics/materials-discovery" rel="noopener">Read the source</a></p>
-    </article>
-    <article data-short="Navier–Stokes · under review">
-      <div class="meta"><b class="bars s1" role="img" aria-label="Claimed, under review"><i></i><i></i><i></i></b><span class="caps">Logged 26 Sep 2026</span></div>
-      <h2>An AI agent swarm produced a proof on a Millennium Prize problem</h2>
-      <p>OpenAI says around 10,000 coordinating agents found a finite-time singularity in the Navier–Stokes equations after about 88 hours, with a formal Lean proof following 17 hours later. Independent scrutiny is ongoing, and there&#x27;s a priority dispute.</p>
-      <p class="why">If it holds, it&#x27;s the first Millennium Problem resolved by machines.</p>
-      <p><a class="src" href="https://www.quantamagazine.org/ai-has-solved-one-of-maths-1-million-millennium-prize-problems-20260908/" rel="noopener">Read the source</a></p>
-    </article>
+    <!-- Adding an entry: paste its article element at the top of its month. A new month: copy a
+         <details class="month"> block, change the month name, empty it and put it first.
+         Counts, filters, the pulse labels and the dial all derive from these articles. -->
+    <details class="month" open>
+      <summary><span class="m-name">October 2026</span><span class="m-count"></span></summary>
+      <article data-short="Unique Games · machine-checked">
+        <div class="meta"><b class="bars s1" role="img" aria-label="Claimed, under review"><i></i><i></i><i></i></b><span class="caps">Logged 9 Oct 2026</span></div>
+        <h2>A machine-checked proof of the Unique Games Conjecture</h2>
+        <p>OpenAI released 722 manuscripts from an internal model, grouped into 372 result families. Among them is a proof of Subhash Khot&#x27;s Unique Games Conjecture, verified in the Lean proof assistant. Only about 42% of the headline results are formalised; the rest await checking, and three were withdrawn within a day.</p>
+        <p class="why">It pins down exactly how well problems like Max-Cut can ever be approximated.</p>
+        <p><a class="src" href="https://github.com/openai/math/blob/main/lean/docs/102.md" rel="noopener">Read the source</a></p>
+      </article>
+      <article data-short="shortest paths · textbook bound broken">
+        <div class="meta"><b class="bars s2" role="img" aria-label="Validated, not yet deployed"><i></i><i></i><i></i></b><span class="caps">Logged 9 Oct 2026</span></div>
+        <h2>An AI found the first real speed-up for two classic computing problems</h2>
+        <p>Claude, an Anthropic model, discovered an algorithm that beats the textbook methods for 3SUM and All-Pairs Shortest Paths, refuting two long-standing hardness hypotheses. Josh Alman and Virginia Vassilevska Williams simplified and extended it and wrote the paper. Its main results are machine-checked in Lean.</p>
+        <p class="why">A barrier researchers had treated as fundamental turned out not to be.</p>
+        <p><a class="src" href="https://arxiv.org/abs/2610.06783" rel="noopener">Read the source</a></p>
+      </article>
+      <article data-short="deepfakes · caught with light">
+        <div class="meta"><b class="bars s2" role="img" aria-label="Validated, not yet deployed"><i></i><i></i><i></i></b><span class="caps">Logged 9 Oct 2026</span></div>
+        <h2>A light-based detector screened 15 videos at once for deepfakes</h2>
+        <p>UCLA researchers paired a small digital front-end with an optical processor that analyses 15 video streams in a single pass of light. On the Celeb-DF benchmark it identified deepfakes with 97.79% accuracy, and the authors report it held up against compression, noise and adversarial attacks.</p>
+        <p class="why">Screening has to get cheaper as fake video gets easier to make.</p>
+        <p><a class="src" href="https://arxiv.org/abs/2605.19360" rel="noopener">Read the source</a></p>
+      </article>
+    </details>
+    <details class="month">
+      <summary><span class="m-name">September 2026</span><span class="m-count"></span></summary>
+      <article data-short="storm forecast · days early">
+        <div class="meta"><b class="bars s3" role="img" aria-label="Working in the real world"><i></i><i></i><i></i></b><span class="caps">Logged 26 Sep 2026</span></div>
+        <h2>AI forecast Hurricane Melissa&#x27;s landfall days ahead</h2>
+        <p>In 2025 Google DeepMind&#x27;s weather model predicted Melissa&#x27;s rapid intensification and its landfall in Jamaica before traditional systems could confirm it, giving emergency teams extra hours to prepare.</p>
+        <p class="why">Extra hours before a hurricane are evacuations that happen in time.</p>
+        <p><a class="src" href="https://aipilotguide.com/ai-weather-forecasting-2026/" rel="noopener">Read the source</a></p>
+      </article>
+      <article data-short="cancer detection +91%">
+        <div class="meta"><b class="bars s3" role="img" aria-label="Working in the real world"><i></i><i></i><i></i></b><span class="caps">Logged 26 Sep 2026</span></div>
+        <h2>Population screening nearly doubled cancer detection</h2>
+        <p>In a year-long prospective pilot covering 426,000 patients, the Can-SAVE system almost doubled the cancer detection rate and widened coverage by 36% compared with the national screening protocol.</p>
+        <p class="why">Earlier detection is the single biggest lever on cancer survival.</p>
+        <p><a class="src" href="https://arxiv.org/pdf/2309.15039" rel="noopener">Read the source</a></p>
+      </article>
+      <article data-short="AI forecasts · operational">
+        <div class="meta"><b class="bars s3" role="img" aria-label="Working in the real world"><i></i><i></i><i></i></b><span class="caps">Logged 26 Sep 2026</span></div>
+        <h2>Europe&#x27;s weather centre runs an AI model in operations</h2>
+        <p>ECMWF moved its AI forecasting system, AIFS, to operational status in 2024, the first major meteorological agency to do so. AI models now match or beat physics-based ones on most medium-range measures.</p>
+        <p class="why">It turns AI weather from a research result into public infrastructure.</p>
+        <p><a class="src" href="https://www.articsledge.com/post/ai-weather-forecasting" rel="noopener">Read the source</a></p>
+      </article>
+      <article data-short="forecasts · cheaper for all">
+        <div class="meta"><b class="bars s3" role="img" aria-label="Working in the real world"><i></i><i></i><i></i></b><span class="caps">Logged 26 Sep 2026</span></div>
+        <h2>Good forecasts no longer need a $100 million supercomputer</h2>
+        <p>A September 2026 report from the University of Chicago, backed by the Rockefeller Foundation, argues AI can put local forecasts within reach of the low- and middle-income countries most exposed to climate health risks, if someone acts deliberately.</p>
+        <p class="why">The places that most need warnings are the ones that could least afford them.</p>
+        <p><a class="src" href="https://www.rockefellerfoundation.org/news/report-ai-70-year-gap-weather-forecasting-health/" rel="noopener">Read the source</a></p>
+      </article>
+      <article data-short="cancer therapy · independently confirmed">
+        <div class="meta"><b class="bars s2" role="img" aria-label="Validated, not yet deployed"><i></i><i></i><i></i></b><span class="caps">Logged 26 Sep 2026</span></div>
+        <h2>AI agents designed a lung-cancer approach a pharma company later reached on its own</h2>
+        <p>Stanford&#x27;s virtual biotech, tens of thousands of AI agents, proposed an antibody-drug conjugate against B7-H3 using only pre-2025 information. A pharmaceutical company independently arrived at the same strategy, and that therapy received FDA breakthrough designation.</p>
+        <p class="why">Outside validation, not a lab praising its own tool.</p>
+        <p><a class="src" href="https://med.stanford.edu/news/all-news/2026/09/virtual-biotech-company.html" rel="noopener">Read the source</a></p>
+      </article>
+      <article data-short="new zeolite · made in the lab">
+        <div class="meta"><b class="bars s2" role="img" aria-label="Validated, not yet deployed"><i></i><i></i><i></i></b><span class="caps">Logged 26 Sep 2026</span></div>
+        <h2>A generative model suggested a recipe, and the material was made</h2>
+        <p>MIT researchers built a model that proposes synthesis routes for zeolites, materials used in catalysis and ion exchange. Following its suggestions, the team synthesised a new zeolite.</p>
+        <p class="why">An AI proposal that became a physical thing.</p>
+        <p><a class="src" href="https://phys.org/news/2026-01-generative-ai-scientists-complex-materials.html" rel="noopener">Read the source</a></p>
+      </article>
+      <article data-short="chip chemical · under a year">
+        <div class="meta"><b class="bars s2" role="img" aria-label="Validated, not yet deployed"><i></i><i></i><i></i></b><span class="caps">Logged 26 Sep 2026</span></div>
+        <h2>A new chip-making chemical found and made in under a year</h2>
+        <p>IBM used its accelerated discovery process to identify and synthesise a novel photoacid generator, a chemical used in semiconductor manufacturing, far faster than such work usually takes.</p>
+        <p class="why">Materials discovery usually runs on a scale of years to decades.</p>
+        <p><a class="src" href="https://research.ibm.com/topics/materials-discovery" rel="noopener">Read the source</a></p>
+      </article>
+      <article data-short="Navier–Stokes · under review">
+        <div class="meta"><b class="bars s1" role="img" aria-label="Claimed, under review"><i></i><i></i><i></i></b><span class="caps">Logged 26 Sep 2026</span></div>
+        <h2>An AI agent swarm produced a proof on a Millennium Prize problem</h2>
+        <p>OpenAI says around 10,000 coordinating agents found a finite-time singularity in the Navier–Stokes equations after about 88 hours, with a formal Lean proof following 17 hours later. Independent scrutiny is ongoing, and there&#x27;s a priority dispute.</p>
+        <p class="why">If it holds, it&#x27;s the first Millennium Problem resolved by machines.</p>
+        <p><a class="src" href="https://www.quantamagazine.org/ai-has-solved-one-of-maths-1-million-millennium-prize-problems-20260908/" rel="noopener">Read the source</a></p>
+      </article>
+    </details>
   </div>
 </main>
 
@@ -182,12 +215,44 @@ footer .tag{margin:1rem 0 0;font-family:var(--serif);font-style:italic;font-size
 </footer>
 
 <script>
-const ENTRIES=[...document.querySelectorAll('#log article')].map(a=>({short:a.dataset.short}));
+// Everything here derives from the HTML: the entries are the article elements in #log,
+// grouped by <details class="month">, and each entry's status comes from its bars class (s1-s3).
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const log=document.getElementById('log'),hero=document.querySelector('.hero');
+const months=[...log.querySelectorAll('details.month')],arts=[...log.querySelectorAll('article')];
+const statusOf=el=>{const m=((el&&el.className)||'').match(/\bs([123])\b/);return m?+m[1]:0};
+arts.forEach(a=>a._s=statusOf(a.querySelector('.meta .bars')));
+let filter=0,heroL=arts;
+const matches=a=>!filter||a._s===filter;
+const isOpen=a=>{const d=a.closest('details');return !d||d.open};
+
+// the newest month is open; earlier months fold to a single line
+months.forEach((m,i)=>{m.open=i===0;m.addEventListener('toggle',()=>{track();kick()})});
+
+// the status key becomes a set of filters
+const key=document.querySelector('.key');
+key.setAttribute('role','group');key.setAttribute('aria-label','Filter by status');
+const buttons=[...key.children].map(sp=>{
+  const b=document.createElement('button');b.type='button';b.innerHTML=sp.innerHTML;
+  b.dataset.s=statusOf(sp.querySelector('.bars'));b.setAttribute('aria-pressed','false');
+  b.addEventListener('click',()=>{filter=filter===+b.dataset.s?0:+b.dataset.s;applyFilter()});
+  sp.replaceWith(b);return b});
+const empty=document.createElement('p');empty.className='empty';empty.setAttribute('role','status');
+empty.textContent='No signals with this status yet.';empty.hidden=true;log.after(empty);
+
+function applyFilter(){
+  key.classList.toggle('filtering',!!filter);
+  buttons.forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.s===filter)));
+  arts.forEach(a=>a.hidden=!matches(a));
+  months.forEach(m=>{const k=[...m.querySelectorAll('article')].filter(matches).length,c=m.querySelector('.m-count');
+    if(c)c.textContent=' · '+k+' signal'+(k===1?'':'s');m.hidden=!!filter&&!k});
+  heroL=arts.filter(matches);empty.hidden=heroL.length>0;
+  track();kick();
+}
 
 const NOISE_WORDS=["job losses","data centres","breakout","blacklist","water use","layoffs","deepfakes","pause it","bubble","hallucinated","ban","energy bill","replaced","sandbox escape","risk"];
 const cv=document.getElementById('c'),cx=cv.getContext('2d');
 const nz=document.createElement('canvas'),nx=nz.getContext('2d');
-const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let W,H,dpr,words=[],col={};
 function readCols(){const s=getComputedStyle(document.documentElement);col={fog:s.getPropertyValue('--bg-deep').trim(),graphite:s.getPropertyValue('--ink-2').trim(),static:s.getPropertyValue('--ink-3').trim(),signal:s.getPropertyValue('--accent').trim(),faint:s.getPropertyValue('--ink-4').trim()}}
 function hexRgb(h){h=h.replace('#','');return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)]}
@@ -198,7 +263,6 @@ function size(){
   words=Array.from({length:Math.max(9,Math.round(W/70))},(_,i)=>({t:NOISE_WORDS[i%NOISE_WORDS.length],x:Math.random()*W,y:H*.45+Math.random()*H*.45,v:(Math.random()-.5)*.25,p:Math.random()*6}));
   readCols();
 }
-addEventListener('resize',size);
 
 function drawNoise(amount){
   const img=nx.createImageData(nz.width,nz.height),d=img.data,[r,g,b]=hexRgb(col.static);
@@ -217,15 +281,15 @@ function draw(t){
   gr.addColorStop(0,'transparent');gr.addColorStop(.5,col.fog);gr.addColorStop(1,'transparent');
   cx.globalAlpha=tune;cx.fillStyle=gr;cx.fillRect(0,cy-band,W,band*2);cx.globalAlpha=1;
   // current entry: needle drops first, then the pulse builds and the label holds
-  const cycle=5.2,idx=Math.floor(Math.max(0,T-3)/cycle)%ENTRIES.length,ph=reduce?.5:((Math.max(0,T-3))%cycle)/cycle;
-  const live=T>3||reduce,ampMax=H*.14*tune,px=W/2+Math.min(W*.14,180);
-  const pn=reduce?1:Math.sin(Math.PI*Math.min(1,Math.max(0,(ph-.1)/.55)));
+  const n=heroL.length,cycle=5.2,idx=n?Math.floor(Math.max(0,T-3)/cycle)%n:0,ph=reduce?.5:((Math.max(0,T-3))%cycle)/cycle;
+  const live=(T>3||reduce)&&n>0,ampMax=H*.14*tune,px=W/2+Math.min(W*.14,180);
+  const pn=!n?0:reduce?1:Math.sin(Math.PI*Math.min(1,Math.max(0,(ph-.1)/.55)));
   const amp=pn*ampMax;
   const la=live?Math.max(0,Math.sin(Math.PI*Math.min(1,ph*1.2))):0;
   const needle=live&&!reduce?Math.min(1,ph/.05)*Math.max(0,Math.min(1,(.18-ph)/.06)):0;
   const lfs=Math.max(18,Math.min(26,W/42)),lfont='italic 400 '+lfs+'px "Cormorant Garamond", Georgia, serif';
   cx.font=lfont;
-  const e=ENTRIES[idx],tw=cx.measureText(e.short).width,lx=Math.min(W-tw-20,Math.max(20,px-tw/2)),ly=cy-H*.16-12;
+  const es=n?heroL[idx].dataset.short:'',tw=cx.measureText(es).width,lx=Math.min(W-tw-20,Math.max(20,px-tw/2)),ly=cy-H*.16-12;
   // the signal clears a quiet zone around itself: label box and pulse
   const zones=[{x0:lx,x1:lx+tw,y0:ly-lfs,y1:ly+6,s:la},{x0:px-W*.09,x1:px+W*.09,y0:cy-amp-18,y1:cy+amp+24,s:pn}];
   function quiet(x0,x1,y0,y1){let q=0;for(const z of zones){if(z.s<=0)continue;
@@ -250,7 +314,7 @@ function draw(t){
   // label for the current entry, and the needle that marks the station before the pulse arrives
   if(live){
     cx.fillStyle=col.signal;cx.font=lfont;
-    cx.globalAlpha=la;cx.fillText(e.short,lx,ly);
+    cx.globalAlpha=la;cx.fillText(es,lx,ly);
     if(needle>0){cx.globalAlpha=needle;cx.fillRect(px-1,cy-H*.16,2,H*.16)}
     cx.globalAlpha=1;
   }
@@ -263,10 +327,69 @@ function draw(t){
   const search=reduce?0:(1-pn)*Math.min(W*.03,40)*Math.sin(T*.9+idx*1.7);
   const nxp=n0+(px-n0)*ease+search*r,lock=live?pn:0;
   cx.fillRect(nxp-1,dy-20-6*lock,2,24+6*lock);
-  if(!reduce)requestAnimationFrame(draw);
 }
-size();
-if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>requestAnimationFrame(draw));else requestAnimationFrame(draw);
+
+// pinned strip: once the hero has scrolled away, the signal follows the entry being read
+const strip=document.querySelector('.strip'),sc=strip.querySelector('canvas'),sx=sc.getContext('2d');
+let SW=0,SH=0,stripOn=false,heroInView=true,curEl=null,frac=0,prog=0,sp=0,sa=0,changeT=0;
+let raf=0,ready=false,ticking=false;
+function sizeStrip(){const r=sc.getBoundingClientRect();SW=r.width;SH=r.height;sc.width=SW*dpr;sc.height=SH*dpr;sx.setTransform(dpr,0,0,dpr,0,0)}
+function track(){
+  const sh=strip.getBoundingClientRect().height,hb=hero.getBoundingClientRect().bottom,show=hb<=sh;
+  heroInView=hb>0&&!show;
+  if(show!==stripOn){stripOn=show;strip.classList.toggle('on',show);kick()}
+  // only entries the reader can actually see: matching the filter and in an open month
+  const L=arts.filter(a=>matches(a)&&isOpen(a));
+  if(!L.length){curEl=null;frac=prog=0;return}
+  // the reading line sits 30% down, easing to the bottom over the last half-screen so the final entries get their turn
+  const left=document.documentElement.scrollHeight-scrollY-innerHeight,near=1-Math.max(0,Math.min(1,left/(innerHeight*.5)));
+  const line=sh+(innerHeight-sh)*(.3+.7*near),tops=L.map(a=>a.getBoundingClientRect().top);
+  let i=0;for(let k=0;k<L.length;k++)if(tops[k]<=line)i=k;
+  const next=i<L.length-1?tops[i+1]:tops[i]+L[i].offsetHeight;
+  frac=Math.max(0,Math.min(1,(line-tops[i])/Math.max(1,next-tops[i])));
+  prog=(i+frac)/L.length;
+  if(L[i]!==curEl){curEl=L[i];changeT=performance.now()}
+}
+function drawStrip(t){
+  const T=t/1000,x0=Math.min(32,SW*.08),x1=SW-x0,live=!!curEl;
+  sx.clearRect(0,0,SW,SH);
+  // tuning: the needle follows how far through the log the reader is; the pulse is sharpest on an entry
+  const fade=reduce?1:Math.min(1,(performance.now()-changeT)/600);
+  const target=live?.45+.55*Math.cos(Math.PI*frac/2):0;
+  if(reduce){sp=prog;sa=target}else{sp+=(prog-sp)*.12;sa+=(target-sa)*.1}
+  const nx=x0+(x1-x0)*sp,ly=SH*.62,A=SH*.17*sa*(reduce?1:.3+.7*fade);
+  sx.beginPath();
+  for(let x=0;x<=SW;x+=2){const d=(x-nx)/22,y=ly+(reduce?0:Math.sin(x*.03+T*2)*1.2)-A*Math.exp(-d*d)*Math.cos((x-nx)*.22);x?sx.lineTo(x,y):sx.moveTo(x,y)}
+  sx.strokeStyle=col.signal;sx.lineWidth=2;sx.stroke();
+  if(live){
+    const fs=Math.round(Math.max(14,Math.min(19,SH*.25))),s=curEl.dataset.short||'';
+    sx.font='italic 400 '+fs+'px "Cormorant Garamond", Georgia, serif';
+    const tw=sx.measureText(s).width,lx=Math.min(SW-tw-4,Math.max(4,nx-tw/2));
+    sx.globalAlpha=fade;sx.fillStyle=col.signal;sx.fillText(s,lx,SH*.33);sx.globalAlpha=1;
+  }
+  const dy=SH-3;sx.strokeStyle=col.faint;sx.lineWidth=1;sx.globalAlpha=.6;
+  for(let i=0;i<=40;i++){const x=x0+i*(x1-x0)/40,h=i%10?3:6;sx.beginPath();sx.moveTo(x,dy);sx.lineTo(x,dy-h);sx.stroke()}
+  sx.globalAlpha=1;sx.fillStyle=col.signal;sx.fillRect(nx-1,dy-10,2,10);
+}
+
+// one loop draws either the hero or the strip, never both; nothing runs while the tab is hidden
+function frame(t){
+  raf=0;if(document.hidden)return;
+  if(stripOn)drawStrip(t);else if(heroInView)draw(t);else return;
+  if(!reduce)raf=requestAnimationFrame(frame);
+}
+function kick(){if(!ready||document.hidden)return;if(reduce)requestAnimationFrame(frame);else if(!raf)raf=requestAnimationFrame(frame)}
+addEventListener('scroll',()=>{if(ticking)return;ticking=true;requestAnimationFrame(()=>{ticking=false;track();if(reduce&&stripOn)kick()})},{passive:true});
+addEventListener('resize',()=>{size();sizeStrip();track();kick()});
+// keyboard focus inside an entry brings its heading into view below the strip, when the whole entry fits
+log.addEventListener('focusin',e=>{const art=e.target.closest('article');if(!art)return;
+  const sh=strip.getBoundingClientRect().height,r=art.getBoundingClientRect();
+  if(r.top<sh&&r.height<=innerHeight-sh-16)art.scrollIntoView({block:'start'})});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(raf);raf=0}else kick()});
+
+size();sizeStrip();applyFilter();
+const go=()=>{ready=true;kick()};
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(go);else go();
 </script>
 </body>
 </html>
