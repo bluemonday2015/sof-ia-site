@@ -125,6 +125,13 @@ footer .tag{margin:1rem 0 0;font-family:var(--serif);font-style:italic;font-size
          Counts, filters, the pulse labels and the dial all derive from these articles. -->
     <details class="month" open>
       <summary><span class="m-name">October 2026</span><span class="m-count"></span></summary>
+      <article data-short="proteins · watermarked, working">
+        <div class="meta"><b class="bars s2" role="img" aria-label="Validated, not yet deployed"><i></i><i></i><i></i></b><span class="caps">Logged 9 Oct 2026</span></div>
+        <h2>AI-designed proteins carried a hidden watermark and still worked</h2>
+        <p>Google DeepMind&#x27;s SynthID Bio embeds a detectable signature in AI-designed protein sequences. In lab tests against three target proteins, including one from SARS-CoV-2, watermarked binders matched unwatermarked ones on binding affinity and hit rate, with near-perfect detection. The authors call it a proof of concept.</p>
+        <p class="why">Knowing where a protein design came from could help DNA synthesis providers screen orders.</p>
+        <p><a class="src" href="https://www.nature.com/articles/s41586-026-10965-y" rel="noopener">Read the source</a></p>
+      </article>
       <article data-short="Unique Games · machine-checked">
         <div class="meta"><b class="bars s1" role="img" aria-label="Claimed, under review"><i></i><i></i><i></i></b><span class="caps">Logged 9 Oct 2026</span></div>
         <h2>A machine-checked proof of the Unique Games Conjecture</h2>
@@ -362,8 +369,10 @@ function drawStrip(t){
   for(let x=x0;;x=Math.min(x1,x+2)){const d=(x-nx)/22,y=ly+(reduce?0:Math.sin(x*.03+T*2)*1.2)-A*Math.exp(-d*d)*Math.cos((x-nx)*.22);x>x0?sx.lineTo(x,y):sx.moveTo(x,y);if(x>=x1)break}
   sx.strokeStyle=col.signal;sx.lineWidth=2;sx.stroke();
   if(live){
-    const fs=Math.round(Math.max(14,Math.min(19,SH*.25))),s=curEl.dataset.short||'';
-    sx.font='italic 400 '+fs+'px "Cormorant Garamond", Georgia, serif';
+    let fs=Math.round(Math.max(14,Math.min(19,SH*.25)));const s=curEl.dataset.short||'',font=f=>'italic 400 '+f+'px "Cormorant Garamond", Georgia, serif';
+    sx.font=font(fs);
+    // on the narrowest phones, a long label shrinks a little rather than running off the edge
+    if(sx.measureText(s).width>SW-16){fs=Math.max(11,Math.floor(fs*(SW-16)/sx.measureText(s).width));sx.font=font(fs)}
     const tw=sx.measureText(s).width,lx=Math.min(SW-tw-8,Math.max(8,nx-tw/2));
     sx.globalAlpha=fade;sx.fillStyle=col.signal;sx.fillText(s,lx,SH*.33+3);sx.globalAlpha=1;
   }
