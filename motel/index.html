@@ -1,0 +1,130 @@
+<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Claude's Motel — The AI Bar</title>
+<meta name="description" content="Further down the road from The AI Bar billboard: a roadside motel where each lit room is a story." />
+<meta property="og:type" content="website" /><meta property="og:site_name" content="Sof-IA" />
+<meta property="og:title" content="Claude's Motel" /><meta property="og:url" content="https://sof-ia.io/motel/" />
+<meta property="og:image" content="https://sof-ia.io/motel/assets/motel-road.jpg" />
+<link rel="icon" href="../favicon.png?v=2" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400&family=Newsreader:ital,wght@0,400;1,400&family=Work+Sans:wght@300&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html,body{height:100%;margin:0;background:#000}
+body{display:grid;place-items:center}
+.wrap{position:relative;overflow:hidden;width:min(100vw,calc(100vh*1672/941));aspect-ratio:1672/941}
+.view{position:absolute;inset:0;transition:opacity 1.6s ease,transform 2.4s cubic-bezier(.65,0,.35,1)}
+.view svg{width:100%;height:100%;display:block}
+#pano{transform-origin:12% 62%}
+#angle{opacity:0;pointer-events:none;transform:scale(1.07);transform-origin:20% 60%}
+.wrap.rooms #pano{opacity:0;transform:scale(1.35);pointer-events:none}
+.wrap.rooms #angle{opacity:1;transform:scale(1);pointer-events:auto}
+#tree{position:absolute;left:-53%;bottom:-14%;height:118%;transform-origin:0 100%;filter:brightness(.8) blur(.6px);pointer-events:none;transition:transform 2.4s cubic-bezier(.65,0,.35,1),opacity 1.4s,filter 2.4s}
+.wrap.rooms #tree{transform:translateX(-70%) scale(1.6);filter:brightness(.8) blur(4px);opacity:0}
+canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.dead{opacity:0;animation:tired 7s infinite}
+@keyframes tired{0%,86%{opacity:0}86.05%,86.4%{opacity:.95}86.45%,87.6%{opacity:0}87.65%,87.9%{opacity:.95}87.95%,91%{opacity:0}91.05%,91.3%{opacity:.95}91.35%,100%{opacity:0}}
+.aback{opacity:0;animation:aback 11s infinite 2s}
+@keyframes aback{0%,70%{opacity:0}70.05%,70.3%{opacity:1}70.35%,71.2%{opacity:0}71.25%,71.45%{opacity:1}71.5%,100%{opacity:0}}
+.apos{opacity:0;animation:blink 13s infinite 3s}
+@keyframes blink{0%,96%,100%{opacity:0}97%{opacity:.85}98%{opacity:0}98.6%{opacity:.7}99.2%{opacity:0}}
+.glow{fill:#ff9440;opacity:0;filter:url(#soft2);mix-blend-mode:screen}.glow.on{opacity:.85}.glow.res{opacity:.26}
+.plate{font-family:Georgia,serif;font-weight:bold;fill:#f6d9a6;opacity:0}.plate.on{opacity:.9}.plate.res{opacity:.5}
+.room,.office{fill:transparent;cursor:pointer;outline:none}.room:focus-visible,.office:focus-visible{stroke:#ffb084;stroke-width:2}
+.tip{position:fixed;pointer-events:none;background:rgba(24,20,16,.45);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);text-shadow:0 1px 3px rgba(0,0,0,.85);color:#efe4cf;border:none;padding:9px 18px;-webkit-mask-image:linear-gradient(to right,transparent,#000 10px,#000 calc(100% - 10px),transparent),linear-gradient(to bottom,transparent,#000 10px,#000 calc(100% - 10px),transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(to right,transparent,#000 10px,#000 calc(100% - 10px),transparent),linear-gradient(to bottom,transparent,#000 10px,#000 calc(100% - 10px),transparent);mask-composite:intersect;font:13px Georgia,serif;opacity:0;transform:translate(-50%,-130%);white-space:nowrap}
+.card{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(88vw,420px);background:rgba(24,20,16,.26);backdrop-filter:blur(7px) saturate(1.1);-webkit-backdrop-filter:blur(7px) saturate(1.1);text-shadow:0 1px 3px rgba(0,0,0,.85);color:#efe4cf;border:none;padding:40px 44px;display:none;font-family:Georgia,serif;-webkit-mask-image:linear-gradient(to right,transparent,#000 34px,#000 calc(100% - 34px),transparent),linear-gradient(to bottom,transparent,#000 34px,#000 calc(100% - 34px),transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(to right,transparent,#000 34px,#000 calc(100% - 34px),transparent),linear-gradient(to bottom,transparent,#000 34px,#000 calc(100% - 34px),transparent);mask-composite:intersect;}
+.card.open{display:block}.card h2{margin:0 0 6px;font-size:22px;font-weight:400;color:#ffb084}.card p{margin:0 0 14px;line-height:1.6;font-size:15px}.card .no{opacity:.7;font-size:13px}
+.card button,.card a.go{font:inherit;background:none;color:#efe4cf;border:1px solid #7a6650;padding:6px 14px;margin-right:8px;cursor:pointer;text-decoration:none;display:inline-block}
+.card button:hover,.card a.go:hover{border-color:#ffb084;color:#ffb084}
+.card .x{position:absolute;right:26px;top:22px;border:none!important;font-size:20px;padding:2px 6px}
+.card ul{padding:0;margin:0}.card li{list-style:none;padding:5px 0;border-bottom:none;cursor:pointer}.card li.r{opacity:.62}
+#go,#snd{position:fixed;bottom:calc(14px + env(safe-area-inset-bottom,0px));font:italic 400 16px/1 "Cormorant Garamond",Georgia,serif;letter-spacing:.02em;color:#e9e0cc;background:none;border:none;padding:8px 12px;cursor:pointer;opacity:.82;text-shadow:0 1px 4px rgba(0,0,0,.9);transition:opacity .2s}#go{right:14px}#snd{left:14px}#mus{position:fixed;left:96px;bottom:calc(14px + env(safe-area-inset-bottom,0px));font:italic 400 16px/1 "Cormorant Garamond",Georgia,serif;color:#e9e0cc;background:none;border:none;padding:8px 12px;cursor:pointer;opacity:.82;text-shadow:0 1px 4px rgba(0,0,0,.9)}#mus:hover{opacity:1}#go:hover,#snd:hover{opacity:1}#go:focus-visible,#snd:focus-visible{outline:1px solid #a49cf2;outline-offset:2px}.v{color:#a49cf2}
+
+/* back links (logo matches /ai-bar and /liminal) */
+.home{position:fixed;left:calc(18px + env(safe-area-inset-left,0px));top:calc(16px + env(safe-area-inset-top,0px));z-index:20;text-shadow:0 1px 4px rgba(0,0,0,.9)}
+.logo-link{display:inline-block;color:rgba(245,236,220,.78);text-decoration:none;transition:color .3s ease}
+.logo-link .logo-row{display:inline-flex;align-items:center;gap:8px}
+.logo-link .logo-arrow{font-family:"Work Sans",system-ui,sans-serif;font-weight:300;font-size:1rem;color:rgba(245,236,220,.55);transition:transform .3s ease,color .3s ease}
+.logo-link .passage{font-size:22px}
+.logo-link:hover{color:#f5ecdc}.logo-link:hover .logo-arrow{color:#f5ecdc;transform:translateX(-3px)}
+.passage{font-family:"Newsreader","Cormorant Garamond",Georgia,serif;font-weight:400;line-height:1;letter-spacing:-0.025em;display:inline-flex;align-items:baseline;white-space:nowrap}
+.passage .ia{font-style:italic}
+.passage .gate{display:inline-block;position:relative;width:.012em;height:.66em;background:#a9a0ff;margin-left:.30em;margin-right:.16em;transform:translateY(.04em)}
+.passage .gate::before,.passage .gate::after{content:"";position:absolute;left:50%;width:.10em;height:.014em;background:#a9a0ff;transform:translateX(-50%)}
+.passage .gate::before{top:calc(-0.014em + 0.003em)}.passage .gate::after{bottom:calc(-0.014em + 0.003em)}
+#road{position:fixed;right:calc(14px + env(safe-area-inset-right,0px));top:calc(14px + env(safe-area-inset-top,0px));z-index:20;font:italic 400 16px/1 "Cormorant Garamond",Georgia,serif;color:#e9e0cc;text-decoration:none;padding:8px 12px;opacity:.82;text-shadow:0 1px 4px rgba(0,0,0,.9);transition:opacity .2s}
+#road:hover{opacity:1}
+
+@media (prefers-reduced-motion:reduce){.view,#tree{transition:opacity .3s}.dead,.apos{animation:none}}
+</style></head><body>
+<div class="wrap" id="wrap">
+<div class="view" id="pano"><svg viewBox="0 0 1672 941" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Claude's Motel seen from the road, a rain-soaked roadside motel under a red neon sign">
+<defs><filter id="soft"><feGaussianBlur stdDeviation="4"/></filter></defs>
+<image href="assets/motel-road.jpg" width="1672" height="941"/>
+<circle class="dead" cx="1530" cy="245" r="28" fill="#000" style="mix-blend-mode:multiply" filter="url(#soft)"/>
+<defs><filter id="tiny"><feGaussianBlur stdDeviation="1.1"/></filter></defs><image class="aback" href="assets/sign-letter-a.png" x="1428" y="290" width="17" height="26"/>
+<circle class="apos" cx="1480" cy="119" r="5" fill="#000" style="mix-blend-mode:multiply" filter="url(#soft)"/>
+</svg></div>
+<img id="tree" alt="" src="assets/tree.webp">
+<div class="view" id="angle"><svg viewBox="0 0 1672 941" preserveAspectRatio="xMidYMid slice" role="img" aria-label="The row of motel rooms seen from the car park, the office at the far end">
+<defs><filter id="soft2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter></defs>
+<image href="assets/motel-rooms.jpg" width="1672" height="941"/>
+<circle class="dead" cx="1614" cy="373" r="11" fill="#000" style="mix-blend-mode:multiply" filter="url(#soft2)"/>
+<image class="aback" href="assets/sign-letter-a-small.png" x="1567" y="389" width="10" height="12"/>
+<rect id="g2" class="glow" x="558" y="432" width="84" height="120"/><rect id="g4" class="glow" x="874" y="470" width="46" height="84"/><rect id="g6" class="glow" x="1048" y="490" width="30" height="68"/><rect id="g8" class="glow" x="1156" y="500" width="24" height="58"/><text id="n2" class="plate" x="501" y="418" font-size="15" text-anchor="middle">304</text><text id="n4" class="plate" x="848" y="460" font-size="11" text-anchor="middle">101</text><text id="n6" class="plate" x="1035" y="481" font-size="9" text-anchor="middle">759</text><text id="n8" class="plate" x="1144" y="492" font-size="8" text-anchor="middle">127</text><rect class="room" data-n="2" x="464" y="419" width="184" height="220" tabindex="0" role="button" aria-label="Room 304"/><rect class="room" data-n="4" x="826" y="459" width="100" height="157" tabindex="0" role="button" aria-label="Room 101"/><rect class="room" data-n="6" x="1018" y="479" width="66" height="127" tabindex="0" role="button" aria-label="Room 759"/><rect class="room" data-n="8" x="1130" y="489" width="56" height="107" tabindex="0" role="button" aria-label="Room 127"/>
+<rect class="office" id="office" x="1328" y="458" width="170" height="135" tabindex="0" role="button" aria-label="Office, guest register"/>
+</svg></div>
+<canvas id="rain"></canvas>
+</div>
+<div class="home"><a class="logo-link" href="../" aria-label="Sof-IA — back to home"><span class="logo-row"><span class="logo-arrow" aria-hidden="true">&larr;</span><span class="passage"><span class="sof">Sof</span><span class="gate" aria-hidden="true"></span><span class="ia">IA</span></span></span></a></div>
+<a id="road" href="../ai-bar/">&larr; The billboa<span class="v">r</span>d</a>
+<button id="go">See the <span class="v">r</span>ooms</button>
+<button id="mus" hidden>Room 75<span class="v">9</span>: playing</button>
+<button id="snd" aria-pressed="false">Ra<span class="v">i</span>n: off</button>
+<div class="tip" id="tip"></div><div class="card" id="card" role="dialog" aria-modal="true"></div>
+<script>
+const NUM={2:'304',4:'101',6:'759',8:'127'};
+const EP1_URL='https://www.youtube.com/watch?v=RWPo6JEGiXA',PROMO_URL='https://www.youtube.com/watch?v=uETL76GSLbo';
+const ROOMS={2:["Sebastian","live","A story seen through J.F. Sebastian's eyes. Episode One, Shh, It's Only Me, is out.","sebastian"],
+6:["7:59","live","Cold Enough to Stay (Warm). Mr. B, a song that ran all the way to the edge of the machine's limit.","radio"],
+4:["The Asylum, Part II","reserved","Being prepared. Check-in soon.",""],
+8:["AGENTPARK","reserved","Being prepared. Check-in soon.",""]};
+for(const n in ROOMS){const c=ROOMS[n][1]==='live'?'on':'res';document.getElementById('g'+n).classList.add(c);document.getElementById('n'+n).classList.add(c)}
+const wrap=document.getElementById('wrap'),go=document.getElementById('go'),tip=document.getElementById('tip'),card=document.getElementById('card');
+go.onclick=()=>{const on=wrap.classList.toggle('rooms');if(!on){track.pause();track.currentTime=0;document.getElementById('mus').hidden=true}go.innerHTML=on?'Back to the <span class="v">r</span>oad':'See the <span class="v">r</span>ooms';closeCard()};
+const mus=()=>document.getElementById('mus');const track=new Audio();track.src='assets/cold-enough-to-stay-warm.mp3';track.preload='none';track.volume=.55;
+const label=n=>{const r=ROOMS[n];return 'Room '+NUM[n]+' · '+r[0]+(r[1]==='reserved'?' (reserved)':'')};
+document.querySelectorAll('.room,.office').forEach(el=>{const n=el.dataset.n,off=el.id==='office';
+ el.addEventListener('mousemove',e=>{tip.textContent=off?'Office · guest register':label(n);tip.style.opacity=1;tip.style.left=e.clientX+'px';tip.style.top=e.clientY+'px'});
+ el.addEventListener('mouseleave',()=>tip.style.opacity=0);
+ const act=()=>off?register():openRoom(n);el.addEventListener('click',act);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();act()}})});
+function show(h){card.innerHTML='<button class="x" aria-label="Close">×</button>'+h;card.classList.add('open');tip.style.opacity=0;const x=card.querySelector('.x');x.onclick=closeCard;x.focus()}
+function closeCard(){card.classList.remove('open')}
+addEventListener('keydown',e=>{if(e.key==='Escape')closeCard()});
+track.addEventListener('play',()=>{mus().hidden=false;mus().innerHTML='Room 75<span class="v">9</span>: playing'});
+track.addEventListener('pause',()=>{mus().innerHTML='Room 75<span class="v">9</span>: paused'});
+track.addEventListener('ended',()=>{mus().hidden=true});
+document.getElementById('mus').onclick=()=>{track.paused?track.play().catch(()=>{}):track.pause()};
+function openRoom(n){const r=ROOMS[n];
+ if(r[1]==='reserved')return show('<h2>'+r[0]+'</h2><p>'+r[2]+'</p><p class="no">Room '+NUM[n]+' is reserved.</p>');
+ if(r[3]==='radio'){show('<h2>'+r[0]+'</h2><p>'+r[2]+'</p><button id="pp">Play</button><button id="rs">Restart</button><p class="no" style="margin-top:12px">Room '+NUM[n]+'</p>');
+  const pp=document.getElementById('pp');pp.textContent=track.paused?'Play':'Pause';pp.onclick=()=>{if(track.paused){track.play().catch(()=>{});pp.textContent='Pause'}else{track.pause();pp.textContent='Play'}};
+  document.getElementById('rs').onclick=()=>{track.currentTime=0;track.play().catch(()=>{});pp.textContent='Pause'};track.onended=()=>pp.textContent='Play';return}
+ if(r[3]==='sebastian')return show('<h2>'+r[0]+'</h2><p>'+r[2]+'</p><a class="go" href="'+EP1_URL+'" target="_blank" rel="noopener">Episode One</a><a class="go" href="'+PROMO_URL+'" target="_blank" rel="noopener">The promo</a><p class="no" style="margin-top:12px">Room '+NUM[n]+'</p>');
+ show('<h2>'+r[0]+'</h2><p>'+r[2]+'</p><a class="go" href="'+r[3]+'" target="_blank" rel="noopener">Open the door</a><p class="no" style="margin-top:12px">Room '+NUM[n]+'</p>')}
+function register(){let li='';Object.keys(ROOMS).sort((a,b)=>a-b).forEach(n=>{const r=ROOMS[n];li+='<li class="'+(r[1]==='live'?'':'r')+'" data-n="'+n+'">'+NUM[n]+' · '+r[0]+(r[1]==='reserved'?' (reserved)':'')+'</li>'});
+ show('<h2>Guest register</h2><ul>'+li+'</ul>');card.querySelectorAll('li').forEach(l=>l.onclick=()=>openRoom(l.dataset.n))}
+let ac=null,rg=null;
+function startRain(){ac=new (window.AudioContext||window.webkitAudioContext)();const len=ac.sampleRate*4,buf=ac.createBuffer(2,len,ac.sampleRate);
+ for(let ch=0;ch<2;ch++){const d=buf.getChannelData(ch);let b0=0,b1=0,b2=0;for(let i=0;i<len;i++){const w=Math.random()*2-1;b0=.99765*b0+w*.099;b1=.963*b1+w*.2965;b2=.57*b2+w*1.0526;d[i]=(b0+b1+b2+w*.1848)*.11}}
+ const src=ac.createBufferSource();src.buffer=buf;src.loop=true;const hp=ac.createBiquadFilter();hp.type='highpass';hp.frequency.value=380;const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=3200;
+ rg=ac.createGain();rg.gain.value=0;src.connect(hp).connect(lp).connect(rg).connect(ac.destination);src.start();rg.gain.linearRampToValueAtTime(.039,ac.currentTime+2)}
+document.getElementById('snd').onclick=function(){const on=this.getAttribute('aria-pressed')!=='true';this.setAttribute('aria-pressed',on);this.innerHTML='Ra<span class="v">i</span>n: '+(on?'on':'off');
+ if(on){if(!ac)startRain();else{ac.resume();rg.gain.linearRampToValueAtTime(.039,ac.currentTime+1.5)}}else if(rg){rg.gain.linearRampToValueAtTime(0,ac.currentTime+1)}};
+const c=document.getElementById('rain'),x=c.getContext('2d');let drops=[];
+function size(){c.width=c.clientWidth*devicePixelRatio;c.height=c.clientHeight*devicePixelRatio;drops=Array.from({length:Math.round(c.width/6)},()=>({x:Math.random()*c.width,y:Math.random()*c.height,v:9+Math.random()*9,l:10+Math.random()*16}))}
+size();addEventListener('resize',size);
+const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function rain(){x.clearRect(0,0,c.width,c.height);x.strokeStyle='rgba(200,210,230,.18)';x.lineWidth=devicePixelRatio;x.beginPath();
+ for(const d of drops){x.moveTo(d.x,d.y);x.lineTo(d.x-d.l*.12,d.y+d.l);d.y+=d.v*devicePixelRatio*.5;d.x-=d.v*.06;if(d.y>c.height){d.y=-20;d.x=Math.random()*c.width}}
+ x.stroke();if(!still)requestAnimationFrame(rain)}
+rain();
+</script></body></html>

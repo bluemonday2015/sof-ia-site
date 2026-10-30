@@ -84,6 +84,9 @@ body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:"Wor
  background:#a9a0ff;transform:translateX(-50%)}
 .passage .gate::before{top:calc(-0.014em + 0.003em)}
 .passage .gate::after{bottom:calc(-0.014em + 0.003em)}
+.onward{display:block;margin-top:14px;font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-size:16px;letter-spacing:.01em;text-transform:none;white-space:nowrap;color:var(--paper-soft);text-decoration:none;transition:color .3s ease}
+.onward:hover{color:var(--ink)}
+.onward .v{color:#a9a0ff}
 /* ─────────────────────────────── EYEBROW under the billboard */
 .eyebrow{flex:none;margin:18px 0 calc(env(safe-area-inset-bottom,0px) + 32px);
  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.45em;
@@ -105,7 +108,7 @@ body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:"Wor
 <header class="header">
   <div class="header-mark left"><a class="logo-link" href="../" aria-label="Sof-IA — back to home"><span class="logo-row"><span class="logo-arrow" aria-hidden="true">&larr;</span><span class="passage"><span class="sof">Sof</span><span class="gate" aria-hidden="true"></span><span class="ia">IA</span></span></span><span class="kicker">Made with intelligence. Both kinds.</span></a></div>
   <div class="header-mark center">— Storytelling at the Human–AI Edge —</div>
-  <div class="header-mark right">MMXXVI</div>
+  <div class="header-mark right">MMXXVI<a class="onward" href="../motel/">Further down the <span class="v">r</span>oad &rarr;</a></div>
 </header>
 <div class="scroller"><div class="board" id="board" role="navigation" aria-label="The AI Bar episodes"></div></div>
 <p class="eyebrow">Choose a poster</p>
