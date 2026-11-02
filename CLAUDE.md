@@ -8,7 +8,7 @@ Newspaper-style weekly, one folder per edition.
 
 - `human-read/001/` is Edition No. 1, a permanent address. It holds `index.html` and its images (`human-read-01-lead.webp`, `human-read-01-dispatch.webp`, `human-read-01-og.jpg`). The styles are inline in the page.
 - `human-read/index.html` is a copy of the latest edition. It is a real copy, not a redirect, because many fetchers ignore meta refresh. It differs from the edition only in image paths (prefixed `001/`), the favicon path (`../favicon.png`) and a comment. Its canonical stays on the permanent edition URL.
-- Shipping a new edition: add `human-read/00N/` with its own images, copy its `index.html` over `human-read/index.html` and adjust those paths, add the edition to `sitemap.xml`, and update the `llms.txt` line if the permanent address should change. Add a homepage pill only if asked.
+- Shipping a new edition: add `human-read/00N/` with its own images, copy its `index.html` over `human-read/index.html` and adjust those paths, add the edition to `sitemap.xml`, and update the `llms.txt` line if the permanent address should change. Add the edition's entry (number, date, lead headline, path, lead image) to the top of `human-read/editions.json`: every page's "Back issues" section is drawn from it by `human-read/back-issues.js`, and a new page sets `data-current` on its `#back-issues` section to its own number. Add a homepage pill only if asked.
 - Dark theme only. The `.np.paper` CSS variables are kept, unused, for a later light version.
 - Layout rules that must survive edits:
   - Single column (container under 916px): lead story, "The human read" box, Signal Log, then Advertisements. Wide: ads sit under the lead. This is done with grid areas and a container query, with no duplicated markup.
