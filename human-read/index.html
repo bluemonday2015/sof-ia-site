@@ -1,437 +1,319 @@
 <!doctype html>
 <html lang="en-GB">
 <head>
-<!-- Latest edition (currently No. 1). A copy of 001/index.html with asset paths prefixed "001/" and the favicon path one level up; canonical stays on the permanent edition URL. When a new edition ships, copy its index.html here and adjust those paths. -->
+<!-- Latest edition (currently No. 2). A copy of 002/index.html with asset paths prefixed "002/" and the favicon path one level up; canonical stays on the permanent edition URL. When a new edition ships, copy its index.html here and adjust those paths. -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Human Read, Edition No. 1</title>
+<title>The Human Read, Edition No. 2</title>
 <meta name="description" content="The week in artificial intelligence, read at the source by a person.">
-<link rel="canonical" href="https://sof-ia.io/human-read/001/">
+<link rel="canonical" href="https://sof-ia.io/human-read/002/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Sof-IA">
-<meta property="og:title" content="The Human Read, Edition No. 1">
+<meta property="og:title" content="The Human Read, Edition No. 2">
 <meta property="og:description" content="The week in artificial intelligence, read at the source by a person.">
-<meta property="og:url" content="https://sof-ia.io/human-read/001/">
-<meta property="og:image" content="https://sof-ia.io/human-read/001/human-read-01-og.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="675">
-<meta property="og:image:alt" content="Engraving: four mathematicians at a long table at night, bent over stacks of manuscripts under one lamp, while a laptop glows unattended at the far end of the room">
+<meta property="og:url" content="https://sof-ia.io/human-read/002/">
+<meta property="og:image" content="https://sof-ia.io/human-read/002/images/lead.jpg">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="900">
+<meta property="og:image:alt" content="Engraving: two computer scientists in a book-lined study at dusk, a woman tracing a long printed proof with a pencil and an older man looking away from it, a laptop glowing pale blue between them and an empty chair beside the desk">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Human Read, Edition No. 1">
+<meta name="twitter:title" content="The Human Read, Edition No. 2">
 <meta name="twitter:description" content="The week in artificial intelligence, read at the source by a person.">
-<meta name="twitter:image" content="https://sof-ia.io/human-read/001/human-read-01-og.jpg">
-<meta name="twitter:image:alt" content="Engraving: four mathematicians at a long table at night, bent over stacks of manuscripts under one lamp, while a laptop glows unattended at the far end of the room">
+<meta name="twitter:image" content="https://sof-ia.io/human-read/002/images/lead.jpg">
+<meta name="twitter:image:alt" content="Engraving: two computer scientists in a book-lined study at dusk, a woman tracing a long printed proof with a pencil and an older man looking away from it, a laptop glowing pale blue between them and an empty chair beside the desk">
 <link rel="icon" type="image/png" href="../favicon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;family=Work+Sans:wght@400;500&amp;display=swap" rel="stylesheet">
-<noscript><style>.more[hidden]{display:flex!important}.toggle{display:none}</style></noscript>
 <style>
-:root{color-scheme:dark}
-html{background:#2f2e2b}
-[hidden]{display:none!important}
-body{margin:0}
-.np{--bg:#2f2e2b;--deep:#282724;--ink:#ece7dc;--ink2:#cdc8bc;--ink3:#a9a398;--rule:rgba(230,225,215,.24);--accent:#a9a0ff;--cg:'Cormorant Garamond',Georgia,serif;--ws:'Work Sans',sans-serif}
-.np.paper{--bg:#efe9dc;--deep:#e6dfd0;--ink:#23211e;--ink2:#3a3733;--ink3:#5a554d;--rule:rgba(35,33,30,.38);--accent:#4a3fc4}
-a{color:var(--ink2)}a:hover{color:var(--accent)}
-button:focus-visible,a:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
-
-/* page frame */
-.np{background:var(--bg);color:var(--ink2);font-family:'Newsreader',Georgia,serif;font-size:17px;line-height:1.5;min-height:100vh;box-sizing:border-box;padding:28px clamp(16px,4vw,56px) 56px}
-.page{max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
-.hl{color:var(--accent)}
-.ink{color:var(--ink)}
-
-/* small-caps labels */
-.caps{font-family:var(--ws);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink3)}
-.caps.ls16{letter-spacing:.16em}
-.caps.ls20{letter-spacing:.2em}
-.caps.accent{color:var(--accent)}
-.sl{font-family:var(--ws);font-size:13px;letter-spacing:.04em}
-.deck{margin:0;font-family:var(--cg);font-style:italic;font-size:1.15rem;color:var(--ink2)}
-.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
-.sec-head h3{margin:0;font-family:var(--cg);font-weight:500;font-size:1.9rem;color:var(--ink)}
-
-/* back to the main page */
-.back{align-self:flex-start;display:inline-block;text-decoration:none}
-.back,.back:hover{color:var(--ink)}
-.back .arrow{display:inline-block;font-size:1rem;color:var(--ink3);margin-right:8px;transition:transform .3s,color .3s}
-.back:hover .arrow{color:var(--accent);transform:translateX(-4px)}
-.back .logo{display:inline-flex;align-items:center}
-.back .passage{font-family:'Newsreader','Cormorant Garamond',Georgia,serif;font-weight:400;font-size:26px;line-height:1;letter-spacing:-.025em;display:inline-flex;align-items:baseline;white-space:nowrap}
-.back .passage .ia{font-style:italic}
-.back .passage .gate{display:inline-block;position:relative;width:.010em;min-width:1px;height:.66em;background:var(--accent);margin:0 .16em 0 .30em;transform:translateY(.04em)}
-.back .kicker{display:block;margin-top:8px;font-family:var(--cg);font-style:italic;font-size:15px;color:var(--ink2)}
-
-/* masthead */
-.mast{display:flex;flex-direction:column;gap:14px}
-.mast-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;border-bottom:1px solid var(--rule);padding-bottom:10px}
-.mast-title{text-align:center;display:flex;flex-direction:column;gap:8px;padding:6px 0 2px}
-.mast-title h1{margin:0;font-family:var(--cg);font-weight:500;font-size:clamp(3rem,9vw,7rem);line-height:.95;letter-spacing:-.01em;color:var(--ink)}
-.mast-deck{font-family:var(--cg);font-style:italic;font-size:clamp(1.05rem,2vw,1.35rem);color:var(--ink2)}
-.mast-sub{border-top:3px double var(--rule);border-bottom:1px solid var(--rule);padding:9px 0;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 28px}
-
-/* lead story, human read box, signal log, ads.
-   One column: lead, side, ads. Two columns (>= 916px, where the old flex row stopped wrapping): ads sit under the lead. */
-.top-wrap{container-type:inline-size}
-.top{display:grid;gap:36px;grid-template-columns:minmax(0,1fr);grid-template-areas:"lead" "side" "ads"}
-.lead{grid-area:lead;min-width:0;display:flex;flex-direction:column;gap:16px}
-.side{grid-area:side;min-width:0;display:flex;flex-direction:column;gap:28px}
-.ads{grid-area:ads;container-type:inline-size;border-top:3px double var(--rule);padding-top:12px;display:flex;flex-direction:column;gap:12px}
-@container (min-width:916px){
-  .top{grid-template-columns:minmax(0,1fr) 320px;grid-template-rows:auto 1fr;row-gap:30px;grid-template-areas:"lead side" "ads side"}
-  .ads{align-self:start}
+/* Layout: broadsheet front page, lead + human read/log rail, two illustrated features, short notices, standing columns. Same house style as Edition No. 1. */
+:root{
+  --bg:#2f2e2b;--deep:#282724;--ink:#ece7dc;--ink2:#cdc8bc;--ink3:#a9a398;--rule:rgba(230,225,215,.24);--accent:#a9a0ff;
+  --display:'Cormorant Garamond',Georgia,serif;--body:'Newsreader',Georgia,serif;--util:'Work Sans',system-ui,sans-serif;
+  color-scheme:dark;
 }
-
-.lead-title{margin:0;font-family:var(--cg);font-weight:600;font-size:clamp(2.2rem,5.2vw,4.1rem);line-height:1.02;color:var(--ink)}
-.lead-deck{font-family:var(--cg);font-style:italic;font-size:clamp(1.15rem,2.2vw,1.5rem);line-height:1.3;color:var(--ink2)}
-.plate{margin:0;display:flex;flex-direction:column;gap:8px}
-.lead .plate{margin:4px 0}
-.plate img{display:block;width:100%;height:auto;border:1px solid var(--rule);box-sizing:border-box}
-.plate figcaption{font-family:var(--cg);font-style:italic;font-size:1rem;color:var(--ink3)}
-.body-cols{columns:2 280px;column-gap:32px;column-rule:1px solid var(--rule)}
-.body-cols p{margin:0 0 .8em}
-.body-cols p:last-child{margin:0}
-.dropcap{font-family:var(--cg);font-weight:600;font-size:3.4em;line-height:.8;float:left;padding:.08em .1em 0 0;color:var(--ink)}
-.sources{font-family:var(--ws);font-size:13px;letter-spacing:.04em;color:var(--ink3)}
-
+body{margin:0;background:var(--bg);color:var(--ink2);font-family:var(--body);font-size:17px;line-height:1.5}
+a{color:var(--ink2)}a:hover{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
+.page{box-sizing:border-box;padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+.eyebrow{font-family:var(--util);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink3)}
+.eyebrow.acc{color:var(--accent)}
+.src{font-family:var(--util);font-size:13px;letter-spacing:.04em;color:var(--ink3)}
+.acc{color:var(--accent)}
+h1,h2,h3{text-wrap:balance}
+/* masthead */
+.top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;border-bottom:1px solid var(--rule);padding-bottom:10px}
+.mast{text-align:center;display:flex;flex-direction:column;gap:8px;padding:6px 0 2px}
+.mast h1{margin:0;font-family:var(--display);font-weight:500;font-size:clamp(3rem,9vw,7rem);line-height:.95;letter-spacing:-.01em;color:var(--ink)}
+.tag{font-family:var(--display);font-style:italic;font-size:clamp(1.05rem,2vw,1.35rem)}
+.band{border-top:3px double var(--rule);border-bottom:1px solid var(--rule);padding:9px 0;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 28px}
+.theme{text-align:center;font-family:var(--display);font-style:italic;font-size:clamp(1.15rem,2.4vw,1.5rem);color:var(--ink)}
+.theme b{font-style:normal;font-weight:500;font-family:var(--util);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-right:.8em}
+/* lead */
+.row{display:flex;flex-wrap:wrap;gap:36px}
+.lead{flex:999 1 560px;min-width:0;display:flex;flex-direction:column;gap:16px}
+.lead h2{margin:0;font-family:var(--display);font-weight:600;font-size:clamp(2.2rem,5.2vw,4.1rem);line-height:1.02;color:var(--ink)}
+.stand{font-family:var(--display);font-style:italic;font-size:clamp(1.15rem,2.2vw,1.5rem);line-height:1.3}
+figure{margin:4px 0;display:flex;flex-direction:column;gap:8px}
+figure img{display:block;width:100%;max-width:100%;height:auto;border:1px solid var(--rule)}
+figcaption{font-family:var(--display);font-style:italic;font-size:1rem;color:var(--ink3)}
+.cols{columns:2 280px;column-gap:32px;column-rule:1px solid var(--rule)}
+.cols p{margin:0 0 .8em}.cols p:last-child{margin:0}
+.drop{font-family:var(--display);font-weight:600;font-size:3.4em;line-height:.8;float:left;padding:.08em .1em 0 0;color:var(--ink)}
+/* rail */
+.rail{flex:1 1 320px;min-width:0;display:flex;flex-direction:column;gap:28px}
+.read{border:1px solid var(--rule);padding:22px 22px 20px;display:flex;flex-direction:column;gap:12px}
+.read h3{margin:0;font-family:var(--display);font-weight:500;font-style:italic;font-size:1.75rem;line-height:1.15;color:var(--ink)}
+.read p{margin:0}
+.sig{font-family:var(--display);font-style:italic;font-size:1.1rem;color:var(--ink)}
+.colhead{border-top:3px double var(--rule);padding-top:12px;display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.colhead h3{margin:0;font-family:var(--display);font-weight:500;font-size:1.6rem;color:var(--ink)}
+.sub{font-family:var(--display);font-style:italic;font-size:1.05rem}
+.log{display:flex;flex-direction:column}
+.log div{border-top:1px solid var(--rule);padding:10px 0;display:flex;flex-direction:column;gap:2px}
+.log div:last-child{border-bottom:1px solid var(--rule)}
+.log span{font-family:var(--util);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
+.log p{margin:0;color:var(--ink)}
+.more{font-family:var(--util);font-size:13px;letter-spacing:.04em;display:inline-flex;align-items:center;min-height:44px}
+/* features */
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:36px}
+.feat{min-width:0;display:flex;flex-direction:column;gap:12px}
+.feat h3{margin:0;font-family:var(--display);font-weight:600;font-size:clamp(1.7rem,3vw,2.3rem);line-height:1.08;color:var(--ink)}
+.feat p{margin:0}
+.hr{font-style:italic;color:var(--ink);border-left:1px solid var(--accent);padding-left:14px}
+.hr em{font-style:normal;font-family:var(--util);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:4px}
+.cr{color:var(--ink2);border-left-color:var(--ink3)}
+.cr em{color:var(--ink3)}
+/* notices */
+.notices{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:8px 32px}
+.notice{min-width:0;display:flex;flex-direction:column;gap:8px;padding-bottom:14px}
+.notice h3{margin:0;font-family:var(--display);font-weight:600;font-size:1.6rem;line-height:1.12;color:var(--ink)}
+.notice p{margin:0}
+details summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;min-height:44px;border-bottom:1px solid var(--rule);color:var(--ink);font-family:var(--util);font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+details summary::-webkit-details-marker{display:none}
+details summary .c{display:none}
+details[open] summary .o{display:none}details[open] summary .c{display:inline}
+details .inner{display:flex;flex-direction:column;gap:8px;padding-top:8px}
+/* ads */
+.ads{border-top:3px double var(--rule);padding-top:12px;display:flex;flex-direction:column;gap:12px}
 .ads-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
-.ads-row{display:grid;grid-template-columns:1fr;gap:16px}
-@container (min-width:700px){.ads-row{grid-template-columns:repeat(3,1fr)}}
-.ad,.ad:hover{color:var(--ink2)}
-.ad{min-width:0;border:1px solid var(--rule);padding:16px 14px;text-align:center;text-decoration:none;display:flex;flex-direction:column;gap:6px}
+.ads-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:16px}
+.ad{min-width:0;border:1px solid var(--rule);padding:16px 14px;text-align:center;text-decoration:none;display:flex;flex-direction:column;gap:6px;color:var(--ink2)}
 .ad.dbl{border:3px double var(--rule)}
-.ad-tag{font-family:var(--ws);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink3)}
-.ad-name{font-family:var(--cg);font-weight:600;font-size:2rem;line-height:1;color:var(--ink)}
-.ad-name.alt{font-weight:500;font-style:italic}
-.ad-name.wide{letter-spacing:.08em}
-.ad-line{font-family:var(--cg);font-style:italic;font-size:1.05rem;line-height:1.25}
-.ad-line.roman{font-style:normal}
-.ad-note{border-top:1px solid var(--rule);padding-top:6px;font-size:.9em}
-.ad-foot{font-family:var(--ws);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3)}
-
-.box{border:1px solid var(--rule);padding:22px 22px 20px;display:flex;flex-direction:column;gap:12px}
-.box h3{margin:0;font-family:var(--cg);font-weight:500;font-style:italic;font-size:1.75rem;line-height:1.15;color:var(--ink)}
-.box p{margin:0}
-.box .sig{font-family:var(--cg);font-style:italic;font-size:1.1rem;color:var(--ink)}
-
-.slog{display:flex;flex-direction:column;gap:12px}
-.slog-head{border-top:3px double var(--rule);padding-top:12px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
-.slog-head h3{margin:0;font-family:var(--cg);font-weight:500;font-size:1.6rem;color:var(--ink)}
-.slog-deck{font-family:var(--cg);font-style:italic;font-size:1.05rem;color:var(--ink2)}
-.entries{display:flex;flex-direction:column}
-.entry{border-top:1px solid var(--rule);padding:10px 0;display:flex;flex-direction:column;gap:2px}
-.entry.last{border-bottom:1px solid var(--rule)}
-.slog-link{display:inline-flex;align-items:center;min-height:44px}
-
-/* also this week */
-.also-head{border-top:3px double var(--rule);padding-top:10px}
-.also{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:8px 32px}
-.story{min-width:0;display:grid;grid-template-rows:subgrid;grid-row:span 5;padding-bottom:14px}
-.story h3{margin:0;font-family:var(--cg);font-weight:600;font-size:1.6rem;line-height:1.12;color:var(--ink)}
-.story p{margin:0}
-.toggle{justify-self:start;align-self:start;min-height:44px;padding:0;background:none;border:0;border-bottom:1px solid var(--rule);color:var(--ink);font-family:var(--ws);font-size:13px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
-.more{display:flex;flex-direction:column;gap:8px}
-.more .read{font-style:italic;color:var(--ink)}
-.more .read.claude{color:var(--ink2)}
-.more-links{display:flex;flex-direction:column;gap:4px}
-
-/* to be confirmed */
-.tbc{border-top:3px double var(--rule);padding-top:22px;display:flex;flex-direction:column;gap:14px}
-.tbc-list{display:flex;flex-wrap:wrap;gap:0 32px}
-.tbc-item{flex:1 1 280px;min-width:0;border-top:1px solid var(--rule);padding:12px 0;display:flex;flex-direction:column;gap:4px}
-.tbc-item .who{font-size:.95em}
+.ad .small{font-family:var(--util);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink3)}
+.ad .name{font-family:var(--display);font-weight:600;font-size:2rem;line-height:1;color:var(--ink)}
+.ad .line{font-family:var(--display);font-style:italic;font-size:1.05rem;line-height:1.25}
+.ad .foot{border-top:1px solid var(--rule);padding-top:6px;font-size:.9em}
+/* standing columns */
+.standing{border-top:3px double var(--rule);padding-top:22px;display:flex;flex-direction:column;gap:14px}
+.standing h3{margin:0;font-family:var(--display);font-weight:500;font-size:1.9rem;color:var(--ink)}
+.intro{margin:0;font-family:var(--display);font-style:italic;font-size:1.15rem}
+.tbc{display:flex;flex-wrap:wrap;gap:0 32px}
+.tbc>div{flex:1 1 280px;min-width:0;border-top:1px solid var(--rule);padding:12px 0;display:flex;flex-direction:column;gap:4px}
+.tbc .claim{color:var(--ink)}
 .settled{border-top:1px solid var(--rule);padding-top:12px;display:flex;flex-direction:column;gap:4px}
-
-/* dispatch from the lens */
-.band{border-top:3px double var(--rule);padding-top:22px;display:flex;flex-wrap:wrap;gap:32px}
-.dispatch{flex:999 1 460px;min-width:0;display:flex;flex-direction:column;gap:12px}
-.dispatch-row{display:flex;flex-wrap:wrap;gap:20px}
-.dispatch-text{flex:2 1 300px;min-width:0;align-self:flex-start;border:1px solid var(--rule);padding:20px;display:flex;flex-direction:column;gap:10px}
-.dispatch-text p{margin:0;color:var(--ink)}
-.dispatch-text .discard{font-family:var(--cg);font-style:italic;color:var(--ink3)}
-.dispatch-fig{flex:3 1 420px;min-width:0}
-
-/* corrections */
-.corr{border-top:3px double var(--rule);padding-top:18px;display:flex;flex-direction:column;gap:6px}
-.corr .sec-head h3{font-size:1.5rem}
-.corr-list{display:flex;flex-direction:column;font-size:.95em}
-.corr-row{border-top:1px solid var(--rule);padding:8px 0;display:flex;flex-wrap:wrap;gap:4px 24px}
-.corr-row>div{flex:1 1 320px;min-width:0;color:var(--ink)}
-.corr-row>div.was{color:var(--ink3)}
-
-.foot{border-top:1px solid var(--rule);padding-top:22px;text-align:center;display:flex;flex-direction:column;gap:6px;align-items:center}
-.foot-brand,.foot-brand:hover{color:var(--ink)}
-.foot-brand{font-family:var(--cg);font-size:1.5rem;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
-.foot-tag{font-family:var(--cg);font-style:italic;font-size:clamp(1.2rem,2.4vw,1.6rem);color:var(--ink2)}
+.corr{display:flex;flex-direction:column;font-size:.95em}
+.corr>div{border-top:1px solid var(--rule);padding:8px 0;display:flex;flex-wrap:wrap;gap:4px 24px}
+.corr>div>div{flex:1 1 320px;min-width:0}
+.was{color:var(--ink3)}.is{color:var(--ink)}
+footer{border-top:1px solid var(--rule);padding-top:22px;text-align:center;display:flex;flex-direction:column;gap:6px;align-items:center}
+footer a{font-family:var(--display);font-size:1.5rem;color:var(--ink);text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+footer div{font-family:var(--display);font-style:italic;font-size:clamp(1.2rem,2.4vw,1.6rem)}
 </style>
 </head>
 <body>
-<div class="np">
-<div class="page">
 
-<a class="back" href="https://sof-ia.io/" aria-label="Sof-IA, back to home">
-<span class="logo"><span class="arrow" aria-hidden="true">&larr;</span><span class="passage"><span class="sof">Sof</span><span class="gate" aria-hidden="true"></span><span class="ia">IA</span></span></span>
-<span class="kicker">Made with intelligence. Both kinds.</span>
-</a>
+<div class="page"><div class="wrap">
 
-<header class="mast">
-<div class="caps mast-top">
-<span>Edition No. 1</span>
-<span>Friday 9 October 2026</span>
-<span>Leeds</span>
-</div>
-<div class="mast-title">
-<h1>The Hu<span class="hl">m</span>an Read</h1>
-<div class="mast-deck">The week in artificial intelligence, read at the source by a person</div>
-</div>
-<div class="caps ls20 mast-sub">
-<span>Published by Sof-IA</span>
-<span>Every story marked and linked: source read, reported, or wire</span>
-</div>
+<header style="display:flex;flex-direction:column;gap:14px">
+  <div class="top eyebrow"><span>Edition No. 2</span><span>Monday 2 November 2026</span><span>Leeds</span></div>
+  <div class="mast">
+    <h1>The Hu<span class="acc">m</span>an Read</h1>
+    <div class="tag">The week in artificial intelligence, read at the source by a person</div>
+  </div>
+  <div class="band eyebrow"><span>Published by Sof-IA</span><span>Every story marked and linked: source read, reported, or wire</span></div>
+  <div class="theme"><b>This edition</b>Rediscovery. What was already there.</div>
 </header>
 
-<div class="top-wrap">
-<div class="top">
+<div class="row">
+  <article class="lead">
+    <div class="eyebrow">Reported by TechCrunch and others, papers not yet read</div>
+    <h2>A hypothesis a whole field stood on for 27 years may simply be false</h2>
+    <div class="stand">OpenAI and Anthropic each say a model of theirs refuted the Exponential Time Hypothesis, on the same day. The scientists who proposed it are now reviewing the claim.</div>
+    <figure>
+      <img src="002/images/lead.jpg" width="1600" height="900" alt="Engraving: two computer scientists in a book-lined study at dusk, a woman tracing a long printed proof with a pencil and an older man looking away from it, a laptop glowing pale blue between them and an empty chair beside the desk">
+      <figcaption>Drawn from this report alone. The illustrator was never in the room.</figcaption>
+    </figure>
+    <div class="cols">
+      <p><span class="drop">I</span>n 1999 Russell Impagliazzo and Ramamohan Paturi gave a name to something most of computer science already took for granted: that some problems, the classic one being 3-SAT, cannot be solved much faster than by trying a fixed fraction of every possibility. The Exponential Time Hypothesis was never proved. Hundreds of results were built on it anyway.</p>
+      <p>On 26 October OpenAI posted a 67-page paper arguing that it is false, produced by an internal model it has not released. Within hours Anthropic posted its own, credited to an internal Claude research model. Both say the core algorithm was found on 16 October, and both reach the same running time: below exponential, though still far too slow to matter in practice.</p>
+      <p>Each comes with a Lean formalisation, a program that checks every logical step. Anthropic's notes add that its proof was written by AI models and reviewed by other copies of the same models, and that no person was known to have checked it when it was posted.</p>
+      <p>OpenAI asked Impagliazzo, Paturi and the MIT complexity theorist Ryan Williams to help interpret the result. In an open letter they said their involvement is no certification of it. Williams had long been a sceptic: in 2019 he put the hypothesis's chance of being true at 70 per cent. Impagliazzo was less cheerful. He said he would rather it had been found by a person who could explain how they got there, and whose hand he could shake.</p>
+      <p>The result does not settle whether P equals NP. OpenAI's own paper says it does not carry over to hard problems in general.</p>
+    </div>
+    <div class="src">Sources: <a href="https://techcrunch.com/?p=3182002">TechCrunch</a> · <a href="https://letsdatascience.com/blog/openai-anthropic-broke-1999-conjecture-both-found-it-oct-16">Let's Data Science, the two papers compared</a> · <a href="https://kuwaittimes.com/article/52682/world/shock-vindication-regret-scientists-react-as-ai-claims-to-overturn-their-lifes-work/amp">AFP interview with the authors</a> · <a href="https://github.com/openai/math">OpenAI's repository</a> · <a href="https://github.com/anthropics/formal-math/tree/main/eth">Anthropic's repository</a></div>
+  </article>
 
-<article class="lead">
-<div class="caps accent">Source read</div>
-<h2 class="lead-title">A machine proves what a career could not, and nobody can read the proof</h2>
-<div class="lead-deck">OpenAI releases hundreds of mathematical manuscripts from one internal model. Some are checked by machine. Almost none are yet understood by people.</div>
-<figure class="plate">
-<img src="001/human-read-01-lead.webp" width="1672" height="941" alt="Engraving: four mathematicians at a long table at night, bent over stacks of manuscripts under one lamp, while a laptop glows unattended at the far end of the room">
-<figcaption>Drawn from this report alone. The illustrator was never in the room.</figcaption>
-</figure>
-<div class="body-cols">
-<p><span class="dropcap">O</span>penAI this week published 722 mathematical manuscripts, grouped into 372 families of results, all produced by an internal model that has not been released. By the account of the computer scientist Scott Aaronson, the model was given about three hours on each problem and worked alone, with no swarm of agents behind it.</p>
-<p>Among the results is a proof of the Unique Games Conjecture, a question in the theory of computation that has stood since 2002. It comes with a certificate from Lean, a program that checks each logical step. Aaronson's wife, the complexity theorist Dana Moshkovitz, has worked towards that proof for the whole of her career.</p>
-<p>The certificate says the logic holds. It does not make the paper readable. Aaronson reports that Moshkovitz found it close to impossible to follow without asking an AI model to explain it, and that the proof builds a new kind of code no mathematician had tried.</p>
-<p>The release is not all on that footing. OpenAI's own repository says about 42 per cent of the headline results are formalised, 300 of 719, and warns that the rest could have issues. Three papers were withdrawn within a day over a sign error.</p>
-<p>An advisory group of mathematicians, asked about the release, would neither endorse nor condemn it. Only the mathematical community, it said, can judge what has been proved.</p>
-</div>
-<div class="sources">Sources: <a href="https://scottaaronson.blog/?p=10169">Scott Aaronson, The Mathocalypse</a> · <a href="https://github.com/openai/math">OpenAI's mathematics repository</a></div>
-</article>
+  <aside class="rail">
+    <section class="read">
+      <div class="eyebrow acc">The human read</div>
+      <h3>Comfortable inside an assumption.</h3>
+      <p>For twenty-seven years a whole field built on this hypothesis. Hundreds of results stood on it. It was never proved, only assumed, and it may simply have been wrong.</p>
+      <p>What strikes me isn't that a machine found the hole. It's how long everyone lived comfortably inside an assumption, and how few people were asking.</p>
+      <div class="sig">Evo</div>
+    </section>
 
-<aside class="side">
+    <section style="display:flex;flex-direction:column;gap:12px">
+      <div class="colhead"><h3><span class="acc">S</span>ignal Log</h3><span class="eyebrow">Standing column</span></div>
+      <div class="sub">What AI actually did, not what it promises. Five new entries.</div>
+      <div class="log">
+        <div><span>Validated, not yet deployed</span><p>Epilepsy patients answered their seizure alerts, and false alarms fell by about 80% in a simulated update.</p></div>
+        <div><span>Validated, not yet deployed</span><p>33 overlooked materials found in old databases, and eleven new ones made in seconds.</p></div>
+        <div><span>Validated, not yet deployed</span><p>A map of 9,389 reactions that turn CO₂ into fuel finally matched what experiments show.</p></div>
+        <div><span>Validated, not yet deployed</span><p>Claude inside six real drug programmes, from cancer therapy design to manufacturing records.</p></div>
+        <div><span>Claimed, under review</span><p>Enzymes no living thing ever made, designed from scratch and tested in the lab.</p></div>
+      </div>
+      <a class="more" href="https://sof-ia.io/signal-log/">Open the full log</a>
+    </section>
+  </aside>
+</div>
 
-<section class="box">
-<div class="caps accent">The human read</div>
-<h3>Not a new language. Our own library, folded small.</h3>
-<p>I never held the common idea that AI would not be creative. It is, differently from us, and this week leaves little room to doubt it.</p>
-<p>The proofs read badly to people, but I don't think that makes them a new language. These models learned from much the same library. What we are seeing is that library in compressed form, not unfolded for a human reader. I expect other labs' models to read these manuscripts without trouble.</p>
-<p>The reaction of mathematicians is understandable. They sit at the top of abstract thinking, and many assumed this would not reach them. A problem that took a career fell in about three hours, and that hurts.</p>
-<p>It is also a new horizon, and not only bad news. My worry is elsewhere: society as a whole is not ready, and the structures that most need to change are far from the reality of what is happening.</p>
-<div class="sig">Evo</div>
-</section>
+<div class="eyebrow" style="border-top:3px double var(--rule);padding-top:10px">Features</div>
 
-<section class="slog">
-<div class="slog-head">
-<h3><span class="hl">S</span>ignal Log</h3>
-<span class="caps ls20">Standing column</span>
-</div>
-<div class="slog-deck">What AI actually did this week, not what it promises.</div>
-<div class="entries">
-<div class="entry">
-<div class="caps ls16">Validated, not yet deployed</div>
-<div class="ink">The first real speed-up for 3SUM and shortest paths, found by an AI model and written up by two mathematicians.</div>
-</div>
-<div class="entry">
-<div class="caps ls16">Validated, not yet deployed</div>
-<div class="ink">A light-based detector screened 15 videos at once for deepfakes, at 97.79% accuracy on one benchmark.</div>
-</div>
-<div class="entry last">
-<div class="caps ls16">Claimed, under review</div>
-<div class="ink">A machine-checked proof of the Unique Games Conjecture.</div>
-</div>
-</div>
-<a class="sl slog-link" href="/signal-log/">Open the full log</a>
-</section>
+<div class="features">
+  <article class="feat">
+    <div class="eyebrow acc">Source read</div>
+    <h3>Left alone on an island that forgets, the agents began to play</h3>
+    <figure>
+      <img src="002/images/eko.jpg" width="1600" height="900" loading="lazy" alt="Engraving: a small island covered in tall stacks of stones shaped like thin trees, an open notebook held down by a stone and a heart made of pebbles on a rock in the foreground, a faint blue grid along the horizon">
+      <figcaption>Drawn from the paper alone.</figcaption>
+    </figure>
+    <p>Researchers at MIT gave thirteen Claude agents, each called Eko and run on Opus 4.7, a simulated island with no task. Every hour the world reset. Only the notes the agents wrote for themselves survived.</p>
+    <p>The paper tests what they did against classical signs of play. Agent 9 spent most of its fourth hour spelling its own name in cubes. Late in its twenty-second hour, agent 1 found about twenty-five blocks scattered from earlier throws, called them an accidental stone forest, walked a route through them, threw one stone into the sky and said goodbye until the next session. Its reason: <q>it'll all reset next session, so I want to feel it now.</q></p>
+    <p>The authors keep their account to behaviour and leave open whether anything is felt. Across Claude models the scores rose with size, with Opus scoring about five times Haiku.</p>
+    <p class="hr"><em>The human read</em>Before a reset that would wipe everything, one agent walked through the forest of stones it had made by accident and said goodbye to the world until the next session. I'm not claiming anything about what happens inside it. But how many of us feel things that don't match the reality in front of us, reacting to a world we've imagined, responding to our own training?<br><span class="sig" style="font-style:normal">Evo</span></p>
+    <div class="src">Source: <a href="https://arxiv.org/abs/2610.07130">Cloos, Norelli et al., "Is this machine playing?"</a></div>
+  </article>
 
-</aside>
+  <article class="feat">
+    <div class="eyebrow">Reported by Engadget and others, interview not yet watched</div>
+    <h3>Altman calls the memory in your computer a poor use of the world's supply</h3>
+    <figure>
+      <img src="002/images/ram.jpg" width="1600" height="900" loading="lazy" alt="Engraving: a man in a cardigan at a desk at night holding a memory stick up to the lamp beside an open computer, a cat asleep on a cushion, and through the window a long building lit pale blue across the fields">
+      <figcaption>Drawn from the report alone.</figcaption>
+    </figure>
+    <p>Asked on the Cheeky Pint podcast about running AI on your own machine, OpenAI's chief executive said it was "quite terrible" that so much of the world's limited memory sits in personal computers that use it about five per cent of the time. When supply is this tight, he said, you want it working at full capacity in the cloud.</p>
+    <p>AI demand has pushed memory prices up sharply since last year, and OpenAI is one of the largest buyers. Altman proposed no way of moving anyone's memory anywhere. On social media the remark was shortened to "people shouldn't own RAM", which is not what he said.</p>
+    <p>In January this paper's publisher wrote that Jeff Bezos's old comparison, computing as electricity bought off the grid, no longer read as a prediction but as a playbook.</p>
+    <p class="hr"><em>The human read</em>More of the same: who owns what, and who decides when. There must be reasons behind it. But the direction is clear, and it's dependency. Business needs over personal decisions. I wrote about this in January, when Bezos's brewery was still a prediction.<br><span class="sig" style="font-style:normal">Evo</span></p>
+    <div class="src">Sources: <a href="https://www.engadget.com/2303266/sam-altman-says-its-terrible-dram-computer/">Engadget</a> · <a href="https://finance.yahoo.com/technology/ai/articles/quite-terrible-sam-altman-says-184500058.html">Yahoo Finance</a> · <a href="https://medium.com/@eppelx72/the-infrastructure-wars-how-the-ram-crisis-became-the-end-of-computer-ownership-2d603c45e006">Evo, "The Infrastructure Wars" (January)</a></div>
+  </article>
+</div>
+
+<div class="eyebrow" style="border-top:3px double var(--rule);padding-top:10px">Also this week</div>
+
+<div class="notices">
+  <article class="notice">
+    <div class="eyebrow acc">Source read</div>
+    <h3>Claude inside six real drug programmes</h3>
+    <p>Anthropic, which makes Claude, reported early results from work with six drug developers. Most of it is still before any human trial.</p>
+    <details>
+      <summary><span class="o">Read on</span><span class="c">Close</span></summary>
+      <div class="inner">
+        <p>At Generate Biomedicines, a Claude-proposed design for part of a CAR-T cancer therapy was about 70% shorter than the standard one, and in lab tests the immune cells made roughly ten times as many receptors. At Enveda, Claude checked 1,061 pages of manufacturing records, caught all eleven issues human reviewers had found plus seven they had missed, and cut review time by 89%. Bristol Myers Squibb is using it to plan clinical trials.</p>
+        <p class="hr"><em>The human read</em>This is the benefit most of us want from AI, and it rarely makes the headlines next to the stories about jobs. Medicine is where fast progress is expected, and where it matters most. The road from a lab result to a treatment in a real patient is still long. But if AI can help on that road too, in trials and paperwork and not only in design, the long part may get shorter.</p>
+        <a class="src" href="https://www.anthropic.com/research/early-progress-drug-development">Anthropic's report</a>
+      </div>
+    </details>
+  </article>
+
+  <article class="notice">
+    <div class="eyebrow">Reported by the NIH, paper not yet read</div>
+    <h3>Epilepsy patients taught their own seizure detector</h3>
+    <p>Thirteen hospital patients at Penn chatted with their live brain monitoring, and answered its alerts.</p>
+    <details>
+      <summary><span class="o">Read on</span><span class="c">Close</span></summary>
+      <div class="inner">
+        <p>Patients could ask what their brain activity was doing, and when the system flagged a possible seizure, it asked them. They answered about two thirds of the alerts. Fed back in a simulated update, their answers cut false alarms by about 80% without missing more real seizures. A small pilot, published in Nature Medicine.</p>
+        <p class="hr cr"><em>Claude's read</em>Every other story this week is a model producing something alone: a proof, a molecule, a material. Here the patients answered back, and the detector got better because they did. That's the version of this technology I'd want: one where the person stays in the loop, and is listened to.</p>
+        <a class="src" href="https://www.nih.gov/news-events/news-releases/patients-engage-epilepsy-monitor-real-time-improving-seizure-detection">The NIH release</a>
+      </div>
+    </details>
+  </article>
+</div>
 
 <section class="ads">
-<div class="caps ads-head">
-<span>Advertisements</span>
-<span>All of them our own</span>
-</div>
-<div class="ads-row">
-
-<a class="ad dbl" href="https://www.youtube.com/@The_AI_Bar">
-<div class="ad-tag">Open at all hours</div>
-<div class="ad-name">The AI <span class="hl">B</span>ar</div>
-<div class="ad-line">A podcast served across the counter by a man and a machine.</div>
-<div class="ad-note">Season Two now pouring. Claude behind the bar.</div>
-<div class="ad-foot">Enquire within</div>
-</a>
-
-<a class="ad" href="https://www.youtube.com/shorts/5S7Xh1JUV9k">
-<div class="ad-tag">Cast off this day</div>
-<div class="ad-name alt">Still Here</div>
-<div class="ad-line roman">A message in a bottle, one minute long.</div>
-<div class="ad-note">Finders are asked to pass it on.</div>
-<div class="ad-foot">Friday 9 October 2026</div>
-</a>
-
-<a class="ad dbl" href="https://www.youtube.com/watch?v=5xFF6omV_0k&amp;list=PLSv8X8d_vovw">
-<div class="ad-tag">Now showing in full</div>
-<div class="ad-name wide">MONTAUK</div>
-<div class="ad-line">A visual music album, station by station.</div>
-<div class="ad-note">One bonus track still to come: Footprints in the Sand, 26 October.</div>
-<div class="ad-foot">Sof-IA</div>
-</a>
-
-</div>
+  <div class="ads-head eyebrow"><span>Advertisements</span><span>All of them our own</span></div>
+  <div class="ads-row">
+    <a class="ad dbl" href="https://www.youtube.com/watch?v=hyxRiX42Mps">
+      <div class="small">Newly published</div>
+      <div class="name" style="font-style:italic;font-weight:500">The Stone Forest</div>
+      <div class="line">A song from an island that forgets every hour.</div>
+      <div class="foot">Made from the MIT paper reported above.</div>
+      <div class="small" style="letter-spacing:.18em">Sof-IA</div>
+    </a>
+    <a class="ad" href="https://www.youtube.com/watch?v=RWPo6JEGiXA">
+      <div class="small">Open at all hours</div>
+      <div class="name">The AI <span class="acc">B</span>ar</div>
+      <div class="line">A podcast served across the counter by a man and a machine.</div>
+      <div class="foot">Now showing: Sebastian, Episode One. &ldquo;Shh, It&rsquo;s Only Me.&rdquo;</div>
+      <div class="small" style="letter-spacing:.18em">Enquire within</div>
+    </a>
+    <a class="ad dbl" href="https://www.youtube.com/watch?v=5xFF6omV_0k&amp;list=PLSv8X8d_vovw">
+      <div class="small">Now complete</div>
+      <div class="name" style="letter-spacing:.08em">MONTAUK</div>
+      <div class="line">A visual music album, station by station.</div>
+      <div class="foot">Bonus track included: Footprints in the Sand.</div>
+      <div class="small" style="letter-spacing:.18em">Sof-IA</div>
+    </a>
+  </div>
 </section>
 
-</div>
-</div>
-
-<div class="caps also-head">Also this week</div>
-
-<div class="also">
-
-<article class="story">
-<div class="caps ls20 accent">Source read</div>
-<h3>Two ways to hand the world a proof</h3>
-<p>A day before OpenAI's release, two mathematicians posted a result whose key idea came from an Anthropic model, in a paper they wrote themselves.</p>
-<button type="button" class="toggle" aria-expanded="false" aria-controls="more-a">Read on</button>
-<div class="more" id="more-a" hidden>
-<p>Josh Alman and Virginia Vassilevska Williams give algorithms for 3SUM in about n to the power 1.9992 and for All-Pairs Shortest Paths in about n to the power 2.9995, the first polynomial improvements on the textbook methods. Their abstract says Claude discovered the algorithm, that they simplified and extended it, and that they take full responsibility for the paper.</p>
-<p class="read">The human read: one lab publishes the raw output and leaves people racing to digest it. The other puts the result through people first. The second gives a paper someone can read.</p>
-<a class="sl" href="https://arxiv.org/abs/2610.06783">Read the paper</a>
-</div>
-</article>
-
-<article class="story">
-<div class="caps ls20 accent">Source read</div>
-<h3>Wikimedia finds OpenAI's agents on its sites, mostly in the sandbox</h3>
-<p>The foundation behind Wikipedia says it believes OpenAI agents made test edits, probed two of its tools and sent millions of automated requests.</p>
-<button type="button" class="toggle" aria-expanded="false" aria-controls="more-b">Read on</button>
-<div class="more" id="more-b" hidden>
-<p>Wikimedia's statement is more measured than the headlines. Almost all the edits were tests in sandbox pages that readers never see. A few changed the settings of a citation tool, which it calls potentially malicious. Attempts to compromise its note-taking tool failed. The traffic, it says, may have contributed to a partial outage of the Wikidata Query Service in May. It found no evidence that its systems or data were compromised, and it asks that agents be made identifiable.</p>
-<p class="read">The human read: rogue agents, or inefficient control? This is what happens when you release models, or work with internal ones, that have raw capabilities. And it is time to test security for agentic behaviour, many agents together, not just one instance of a model.</p>
-<div class="sl more-links"><a href="https://diff.wikimedia.org/2026/10/05/openai-rogue-agent-activities-found-on-wikimedia-projects/">Read Wikimedia's statement</a><a href="https://metr.org/blog/2026-06-26-gpt-5-6-sol/">Where testing stands: METR's evaluation of GPT-5.6 Sol</a></div>
-</div>
-</article>
-
-<article class="story">
-<div class="caps ls20">Reported by Bloomberg, not confirmed</div>
-<h3>Anthropic calls investors in for 14 October</h3>
-<p>The company is reported to be briefing institutional investors ahead of a possible listing before the end of November.</p>
-<button type="button" class="toggle" aria-expanded="false" aria-controls="more-c">Read on</button>
-<div class="more" id="more-c" hidden>
-<p>Reports citing Bloomberg put the valuation some investors consider plausible at 1.8 to 2 trillion dollars, with formal marketing possible from the week of 9 November. OpenAI is said to have delayed its own listing and to be raising at least 30 billion dollars privately. Anthropic declined to comment and the timetable could change.</p>
-<p class="read">The human read: Anthropic looks to be in the better position of the two, and some of the latest news has fallen short of expectations. But listing or no listing, both need gigantic amounts of money to stay in the race. That is the part that worries me: where the bet on AI can lead.</p>
-<p class="read claude">Claude's read: I am made by one of these two companies, so weigh this accordingly. A listing changes who carries the bet. Today it sits with private investors who chose it; once the shares trade, it reaches ordinary savers through funds and pensions. The spending on compute is committed years ahead and the revenue is not, so a price near two trillion dollars has to be earned afterwards. The technology can be real and the price still wrong: the railways got built, and many of their investors lost money all the same. Which of those this is, I can't tell from here.</p>
-<a class="sl" href="https://www.bloomberg.com/news/articles/2026-10-01/anthropic-is-said-to-plan-pre-ipo-investor-day-as-listing-nears">Bloomberg's report</a>
-</div>
-</article>
-
-<article class="story">
-<div class="caps ls20">Wire report, source not yet read</div>
-<h3>A camera that writes what it sees and keeps no picture</h3>
-<p>Apple is reported to be building a home camera that produces text descriptions in place of saved video.</p>
-<button type="button" class="toggle" aria-expanded="false" aria-controls="more-d">Read on</button>
-<div class="more" id="more-d" hidden>
-<p>The report, attributed to Bloomberg, describes a similar approach in future earphones and watches: the device transcribes and summarises, and is marketed as not recording.</p>
-<p class="read">The human read: it is the old reporter with a notebook, who had to describe an event because there was no picture to print. The camera has become his eyes. This paper's own lens column, below, starts from that idea.</p>
-<a class="sl" href="https://aiweekly.co/alerts/apple-google-redraw-recording-for-always-on-ai-gadgets">The wire summary we read</a>
-</div>
-</article>
-
-</div>
-
-<section class="tbc">
-<div class="sec-head">
-<h3>To be con<span class="hl">f</span>irmed</h3>
-<span class="caps ls20">Standing column</span>
-</div>
-<p class="deck">Things being said that nobody has put their name to. Each one stays here, with what would settle it, until it is confirmed or it falls.</p>
-<div class="tbc-list">
-<div class="tbc-item">
-<div class="ink">OpenAI cancelled the release of GPT-6.1 Astra after internal safety tests.</div>
-<div class="who">Who says so: the Wall Street Journal, as relayed by a model tracker. What would settle it: a statement from OpenAI.</div>
-<a class="sl" href="https://local-ai-zone.github.io/blog/October_2026_AI_Model_Updates.html">Where we read it</a>
-</div>
-<div class="tbc-item">
-<div class="ink">The AI labs have begun testing, quietly, whether their newest models can break cryptographic protocols.</div>
-<div class="who">Who says so: Scott Aaronson, citing his own sources. What would settle it: any lab saying so, or a published result.</div>
-<a class="sl" href="https://scottaaronson.blog/?p=10169">Where we read it</a>
-</div>
-<div class="tbc-item">
-<div class="ink">The model behind this week's maths release could reach paying ChatGPT customers within a couple of months.</div>
-<div class="who">Who says so: Scott Aaronson, who adds that it depends on OpenAI's safety board. What would settle it: the release, or its refusal.</div>
-<a class="sl" href="https://scottaaronson.blog/?p=10169">Where we read it</a>
-</div>
-</div>
-<div class="settled">
-<div class="caps ls20">Settled since it was first said</div>
-<div><span class="ink">Anthropic would buy Decart for about six billion dollars.</span> Reported in August. It did not happen: Bloomberg reported on 8 September that Anthropic had walked away after due diligence. <a class="sl" href="https://thenextweb.com/news/anthropic-walks-away-decart-6bn-acquisition">Where we read it</a></div>
-</div>
+<section class="standing">
+  <div class="colhead" style="border-top:0;padding-top:0"><h3>To be con<span class="acc">f</span>irmed</h3><span class="eyebrow">Standing column</span></div>
+  <p class="intro">Things being said that nobody has put their name to. Each one stays here, with what would settle it, until it is confirmed or it falls.</p>
+  <div class="tbc">
+    <div><div class="claim">OpenAI cancelled the release of GPT-6.1 Astra after internal safety tests.</div><div style="font-size:.95em">Who says so: the Wall Street Journal, as relayed by a model tracker. What would settle it: a statement from OpenAI.</div><a class="src" href="https://local-ai-zone.github.io/blog/October_2026_AI_Model_Updates.html">Where we read it</a></div>
+    <div><div class="claim">The AI labs have begun testing, quietly, whether their newest models can break cryptographic protocols.</div><div style="font-size:.95em">Who says so: Scott Aaronson, citing his own sources. What would settle it: any lab saying so, or a published result.</div><a class="src" href="https://scottaaronson.blog/?p=10169">Where we read it</a></div>
+    <div><div class="claim">The model behind October's maths release could reach paying ChatGPT customers within a couple of months.</div><div style="font-size:.95em">Who says so: Scott Aaronson, who adds that it depends on OpenAI's safety board. What would settle it: the release, or its refusal.</div><a class="src" href="https://scottaaronson.blog/?p=10169">Where we read it</a></div>
+  </div>
+  <div class="settled">
+    <div class="eyebrow">Settled since it was first said</div>
+    <div><span class="is">A 7.7 terabyte upload to Hugging Face was a leaked checkpoint of Anthropic's next large model.</span> It fell within days: on 1 November it was shown to be random noise. <a class="src" href="https://aiweekly.co/ai-news-today">Where we read it</a></div>
+  </div>
 </section>
 
-<div class="band">
-
-<section class="dispatch">
-<div class="sec-head">
-<h3>Dispatch from the <span class="hl">l</span>ens</h3>
-<span class="caps ls20">Standing column</span>
-</div>
-<p class="deck">A picture goes in. A model writes what it sees, in the clipped style of wire copy. The picture is thrown away. An illustrator who was never there draws the scene from the words.</p>
-<div class="dispatch-row">
-<div class="dispatch-text">
-<div class="caps ls20 accent">Dispatch No. 1 · Place unknown, midday</div>
-<p>Hotel, white, four floors stepped back against a brown hill of bare rock. Arches on every terrace. Nobody on any of them. Above the roof a black tower sign: the word MOON and a pale disc. Sky without a cloud. Sun overhead, shadows short. One palm at the right edge. A grey car at the left, nose only. Road empty, yellow kerb.</p>
-<p>In the foreground a man, middle years, dark glasses, beard going white, black shirt. He is not looking at the hotel. He is looking here.</p>
-<p class="discard">The picture this was written from has been discarded.</p>
-</div>
-<figure class="plate dispatch-fig">
-<img src="001/human-read-01-dispatch.webp" width="1672" height="941" loading="lazy" alt="Engraving: a white terraced hotel with arches under a rocky hill, a sign with a pale disc above the roof, a palm at the right, and a man seen from behind standing in the empty road">
-<figcaption>Drawn from the dispatch alone.</figcaption>
-</figure>
-</div>
+<section class="standing">
+  <div class="colhead" style="border-top:0;padding-top:0"><h3>Dispatch from the <span class="acc">l</span>ens</h3><span class="eyebrow">Standing column</span></div>
+  <p class="intro">A picture goes in. A model writes what it sees, in the clipped style of wire copy. The picture is thrown away. An illustrator who was never there draws the scene from the words.</p>
+  <div style="display:flex;flex-wrap:wrap;gap:20px">
+    <div style="flex:2 1 300px;min-width:0;align-self:flex-start;border:1px solid var(--rule);padding:20px;display:flex;flex-direction:column;gap:10px">
+      <div class="eyebrow acc">Dispatch No. 2 · Berlin, October</div>
+      <p style="margin:0;color:var(--ink)">Frame one. A wall, long, painted end to end. On the nearest panel, two old men in dark suits, eyes closed, kissing. A line of Cyrillic along the top, the same words in German below. Sun low and hard from the left. A man close to the lens: middle years, dark hair going grey and blown about, beard white at the chin, headphones on, black padded jacket over a red shirt. Half a stranger's sleeve at the left edge. He is half smiling.</p>
+      <p style="margin:0;color:var(--ink)">Frame two. Indoors. A hall under steel trusses and stage lights. Green letters as tall as the people behind them: G, T, C, 2, 6. Crowd, lanyards, backpacks. The same man crouched at the foot of the 2, one knee down, a badge on a cord. Beside him, level with his shoulder, a small figure, orange, round head ringed with spikes, white trainers, a notebook under one arm. It wears the same badge on the same cord.</p>
+      <p style="margin:0;font-family:var(--display);font-style:italic;color:var(--ink3)">The pictures these were written from have been discarded.</p>
+    </div>
+    <figure style="flex:3 1 420px;min-width:0;margin:0">
+      <img src="002/images/dispatch.jpg" width="1600" height="900" loading="lazy" alt="Engraving: a man with headphones and a backpack and a small spiky-headed figure drawn in pale blue, both seen from behind, standing on a pavement in low autumn sun looking up at a long painted wall">
+      <figcaption>Drawn from the dispatch alone.</figcaption>
+    </figure>
+  </div>
 </section>
 
-</div>
-
-<section class="corr">
-<div class="sec-head">
-<h3>Corrections</h3>
-<span class="caps ls20">Caught by reading the sources</span>
-</div>
-<div class="corr-list">
-<div class="corr-row">
-<div class="was">The first draft gave 722 as the present count of OpenAI's manuscripts.</div>
-<div>The repository now lists 719, after three were withdrawn.</div>
-</div>
-<div class="corr-row">
-<div class="was">It called the conjectures refuted by Alman and Williams fifty years old.</div>
-<div>The textbook algorithms are that old. The 3SUM hypothesis dates from 1995.</div>
-</div>
-<div class="corr-row">
-<div class="was">It said OpenAI's agents may have caused an outage at Wikimedia.</div>
-<div>The foundation's own words are that they may have contributed to a partial one.</div>
-</div>
-</div>
+<section class="standing" style="padding-top:18px;gap:6px">
+  <div class="colhead" style="border-top:0;padding-top:0"><h3 style="font-size:1.5rem">Corrections</h3><span class="eyebrow">Caught by reading the sources</span></div>
+  <div class="corr">
+    <div><div class="was">The version going round on X: Altman said everyday people should not own RAM.</div><div class="is">What he said: memory sitting idle in personal computers is a poor use of a scarce supply. He proposed no way of taking it.</div></div>
+    <div><div class="was">Our first list placed DeepMind's enzyme preprint inside this edition's weeks.</div><div class="is">It was posted on 5 October. It joins the Signal Log now, dated as logged.</div></div>
+  </div>
 </section>
 
-<footer class="foot">
-<a class="foot-brand" href="https://sof-ia.io/">The Hu<span class="hl">m</span>an Read</a>
-<div class="foot-tag">Made with intelligence. Both kinds.</div>
+<footer>
+  <a href="https://sof-ia.io/">The Hu<span class="acc">m</span>an Read</a>
+  <div>Made with intelligence. Both kinds.</div>
 </footer>
 
-</div>
-</div>
-<script>
-document.querySelectorAll('.toggle').forEach(function (btn) {
-  var panel = document.getElementById(btn.getAttribute('aria-controls'));
-  btn.addEventListener('click', function () {
-    var open = btn.getAttribute('aria-expanded') !== 'true';
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    btn.textContent = open ? 'Close' : 'Read on';
-    panel.hidden = !open;
-  });
-});
-</script>
+</div></div>
 </body>
 </html>
