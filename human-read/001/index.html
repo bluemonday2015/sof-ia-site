@@ -163,6 +163,21 @@ button:focus-visible,a:focus-visible{outline:1px solid var(--accent);outline-off
 .foot-brand,.foot-brand:hover{color:var(--ink)}
 .foot-brand{font-family:var(--cg);font-size:1.5rem;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
 .foot-tag{font-family:var(--cg);font-style:italic;font-size:clamp(1.2rem,2.4vw,1.6rem);color:var(--ink2)}
+.bi-section{border-top:3px double var(--rule);padding-top:22px;display:flex;flex-direction:column;gap:14px}
+.back-label{font-family:var(--ws);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink3)}
+.back-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,280px));gap:24px;justify-content:start}
+.back-card{display:flex;flex-direction:column;gap:6px;min-width:0;color:inherit;text-decoration:none}
+.back-card img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--rule);margin-bottom:2px}
+.back-date{font-size:.95em;color:var(--ink3)}
+.back-title{font-family:var(--cg);font-weight:500;font-size:1.3rem;line-height:1.2;color:var(--ink)}
+a.back-card:hover .back-title{color:var(--accent)}
+a.back-card:focus-visible{outline:1px solid var(--accent);outline-offset:4px}
+.back-here{color:var(--accent)}
+#back-issues[hidden]{display:none}
+.bi-link{margin-left:1em;color:inherit;text-decoration:underline;text-underline-offset:3px}
+.bi-link:hover{color:var(--accent)}
+.bi-link:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
+@media(max-width:560px){.back-list{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -176,7 +191,7 @@ button:focus-visible,a:focus-visible{outline:1px solid var(--accent);outline-off
 
 <header class="mast">
 <div class="caps mast-top">
-<span>Edition No. 1</span>
+<span>Edition No. 1<a class="bi-link" href="#back-issues">Back issues</a></span>
 <span>Friday 9 October 2026</span>
 <span>Leeds</span>
 </div>
@@ -414,6 +429,15 @@ button:focus-visible,a:focus-visible{outline:1px solid var(--accent);outline-off
 </div>
 </section>
 
+<section class="bi-section" id="back-issues" data-current="001" aria-label="Back issues">
+<div class="sec-head">
+<h3>Bac<span class="hl">k</span> issues</h3>
+<span class="caps ls20">From the shelf</span>
+</div>
+<div class="back-list"></div>
+<noscript><ul><li><a href="/human-read/">The latest edition</a></li><li><a href="/human-read/002/">Edition No. 2, Monday 2 November 2026</a></li><li><a href="/human-read/001/">Edition No. 1, Friday 9 October 2026</a></li></ul></noscript>
+</section>
+
 <footer class="foot">
 <a class="foot-brand" href="https://sof-ia.io/">The Hu<span class="hl">m</span>an Read</a>
 <div class="foot-tag">Made with intelligence. Both kinds.</div>
@@ -432,5 +456,6 @@ document.querySelectorAll('.toggle').forEach(function (btn) {
   });
 });
 </script>
+<script src="/human-read/back-issues.js" defer></script>
 </body>
 </html>
