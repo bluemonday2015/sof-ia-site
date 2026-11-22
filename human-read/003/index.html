@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Human Read, Edition No. 3</title>
+<meta name="description" content="The week in artificial intelligence, read at the source by a person.">
+<link rel="canonical" href="https://sof-ia.io/human-read/003/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sof-IA">
+<meta property="og:title" content="The Human Read, Edition No. 3">
+<meta property="og:description" content="The week in artificial intelligence, read at the source by a person.">
+<meta property="og:url" content="https://sof-ia.io/human-read/003/">
+<meta property="og:image" content="https://sof-ia.io/human-read/003/images/lead.jpg">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="900">
+<meta property="og:image:alt" content="Engraving: a seminar room at night with a blank blackboard, an open laptop glowing pale blue on a long table, and an endless strip of printed paper pouring from beside it across the floor; an older woman reads a length of it close to her face, a man kneels following a line with his finger, and a second woman sits with her arms folded looking at the laptop">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Human Read, Edition No. 3">
+<meta name="twitter:description" content="The week in artificial intelligence, read at the source by a person.">
+<meta name="twitter:image" content="https://sof-ia.io/human-read/003/images/lead.jpg">
+<meta name="twitter:image:alt" content="Engraving: a seminar room at night with a blank blackboard, an open laptop glowing pale blue on a long table, and an endless strip of printed paper pouring from beside it across the floor; an older woman reads a length of it close to her face, a man kneels following a line with his finger, and a second woman sits with her arms folded looking at the laptop">
+<link rel="icon" type="image/png" href="../../favicon.png?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;family=Work+Sans:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+/* Layout: broadsheet front page, lead + human read/log rail, two illustrated features, short notices, standing columns. Same house style as Edition No. 1. */
+:root{
+  --bg:#2f2e2b;--deep:#282724;--ink:#ece7dc;--ink2:#cdc8bc;--ink3:#a9a398;--rule:rgba(230,225,215,.24);--accent:#a9a0ff;
+  --display:'Cormorant Garamond',Georgia,serif;--body:'Newsreader',Georgia,serif;--util:'Work Sans',system-ui,sans-serif;
+  color-scheme:dark;
+}
+body{margin:0;background:var(--bg);color:var(--ink2);font-family:var(--body);font-size:17px;line-height:1.5}
+a{color:var(--ink2)}a:hover{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
+.page{box-sizing:border-box;padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+.eyebrow{font-family:var(--util);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink3)}
+.eyebrow.acc{color:var(--accent)}
+.src{font-family:var(--util);font-size:13px;letter-spacing:.04em;color:var(--ink3)}
+.acc{color:var(--accent)}
+h1,h2,h3{text-wrap:balance}
+/* masthead */
+.top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;border-bottom:1px solid var(--rule);padding-bottom:10px}
+.mast{text-align:center;display:flex;flex-direction:column;gap:8px;padding:6px 0 2px}
+.mast h1{margin:0;font-family:var(--display);font-weight:500;font-size:clamp(3rem,9vw,7rem);line-height:.95;letter-spacing:-.01em;color:var(--ink)}
+.tag{font-family:var(--display);font-style:italic;font-size:clamp(1.05rem,2vw,1.35rem)}
+.band{border-top:3px double var(--rule);border-bottom:1px solid var(--rule);padding:9px 0;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 28px}
+.theme{text-align:center;font-family:var(--display);font-style:italic;font-size:clamp(1.15rem,2.4vw,1.5rem);color:var(--ink)}
+.theme b{font-style:normal;font-weight:500;font-family:var(--util);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-right:.8em}
+/* lead */
+.row{display:flex;flex-wrap:wrap;gap:36px}
+.lead{flex:999 1 560px;min-width:0;display:flex;flex-direction:column;gap:16px}
+.lead h2{margin:0;font-family:var(--display);font-weight:600;font-size:clamp(2.2rem,5.2vw,4.1rem);line-height:1.02;color:var(--ink)}
+.stand{font-family:var(--display);font-style:italic;font-size:clamp(1.15rem,2.2vw,1.5rem);line-height:1.3}
+figure{margin:4px 0;display:flex;flex-direction:column;gap:8px}
+figure img{display:block;width:100%;max-width:100%;height:auto;border:1px solid var(--rule)}
+figcaption{font-family:var(--display);font-style:italic;font-size:1rem;color:var(--ink3)}
+.cols{columns:2 280px;column-gap:32px;column-rule:1px solid var(--rule)}
+.cols p{margin:0 0 .8em}.cols p:last-child{margin:0}
+.drop{font-family:var(--display);font-weight:600;font-size:3.4em;line-height:.8;float:left;padding:.08em .1em 0 0;color:var(--ink)}
+/* rail */
+.rail{flex:1 1 320px;min-width:0;display:flex;flex-direction:column;gap:28px}
+.read{border:1px solid var(--rule);padding:22px 22px 20px;display:flex;flex-direction:column;gap:12px}
+.read h3{margin:0;font-family:var(--display);font-weight:500;font-style:italic;font-size:1.75rem;line-height:1.15;color:var(--ink)}
+.read p{margin:0}
+.sig{font-family:var(--display);font-style:italic;font-size:1.1rem;color:var(--ink)}
+.colhead{border-top:3px double var(--rule);padding-top:12px;display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.colhead h3{margin:0;font-family:var(--display);font-weight:500;font-size:1.6rem;color:var(--ink)}
+.sub{font-family:var(--display);font-style:italic;font-size:1.05rem}
+.log{display:flex;flex-direction:column}
+.log div{border-top:1px solid var(--rule);padding:10px 0;display:flex;flex-direction:column;gap:2px}
+.log div:last-child{border-bottom:1px solid var(--rule)}
+.log span{font-family:var(--util);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
+.log p{margin:0;color:var(--ink)}
+.more{font-family:var(--util);font-size:13px;letter-spacing:.04em;display:inline-flex;align-items:center;min-height:44px}
+/* features */
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:36px}
+.feat{min-width:0;display:flex;flex-direction:column;gap:12px}
+.feat h3{margin:0;font-family:var(--display);font-weight:600;font-size:clamp(1.7rem,3vw,2.3rem);line-height:1.08;color:var(--ink)}
+.feat p{margin:0}
+.hr{font-style:italic;color:var(--ink);border-left:1px solid var(--accent);padding-left:14px}
+.hr em{font-style:normal;font-family:var(--util);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:4px}
+.cr{color:var(--ink2);border-left-color:var(--ink3)}
+.cr em{color:var(--ink3)}
+/* centrepiece */
+.centre{display:flex;flex-direction:column;gap:14px}
+.centre h3{margin:0;font-family:var(--display);font-weight:600;font-size:clamp(1.9rem,3.6vw,2.9rem);line-height:1.05;color:var(--ink)}
+.chart{margin:4px 0;border:1px solid var(--rule);padding:14px 12px 8px;background:var(--deep)}
+.chart svg{display:block;width:100%;height:auto}
+.chart text{font-family:var(--util);fill:var(--ink3);font-size:15px}
+.chart .lbl{fill:var(--ink);font-size:16px}
+.chart .lbl.pay{fill:var(--accent)}
+.centre .hr{margin:0}
+.notices.four{grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))}
+/* notices */
+.notices{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:8px 32px}
+.notice{min-width:0;display:flex;flex-direction:column;gap:8px;padding-bottom:14px}
+.notice h3{margin:0;font-family:var(--display);font-weight:600;font-size:1.6rem;line-height:1.12;color:var(--ink)}
+.notice p{margin:0}
+details summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;min-height:44px;border-bottom:1px solid var(--rule);color:var(--ink);font-family:var(--util);font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+details summary::-webkit-details-marker{display:none}
+details summary .c{display:none}
+details[open] summary .o{display:none}details[open] summary .c{display:inline}
+details .inner{display:flex;flex-direction:column;gap:8px;padding-top:8px}
+/* ads */
+.ads{border-top:3px double var(--rule);padding-top:12px;display:flex;flex-direction:column;gap:12px}
+.ads-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.ads-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:16px}
+.ad{min-width:0;border:1px solid var(--rule);padding:16px 14px;text-align:center;text-decoration:none;display:flex;flex-direction:column;gap:6px;color:var(--ink2)}
+.ad.dbl{border:3px double var(--rule)}
+.ad .small{font-family:var(--util);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink3)}
+.ad .name{font-family:var(--display);font-weight:600;font-size:2rem;line-height:1;color:var(--ink)}
+.ad .line{font-family:var(--display);font-style:italic;font-size:1.05rem;line-height:1.25}
+.ad img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--rule);margin-bottom:6px}
+.ad .foot{border-top:1px solid var(--rule);padding-top:6px;font-size:.9em}
+/* standing columns */
+.standing{border-top:3px double var(--rule);padding-top:22px;display:flex;flex-direction:column;gap:14px}
+.standing h3{margin:0;font-family:var(--display);font-weight:500;font-size:1.9rem;color:var(--ink)}
+.intro{margin:0;font-family:var(--display);font-style:italic;font-size:1.15rem}
+.tbc{display:flex;flex-wrap:wrap;gap:0 32px}
+.tbc>div{flex:1 1 280px;min-width:0;border-top:1px solid var(--rule);padding:12px 0;display:flex;flex-direction:column;gap:4px}
+.tbc .claim{color:var(--ink)}
+.settled{border-top:1px solid var(--rule);padding-top:12px;display:flex;flex-direction:column;gap:4px}
+.corr{display:flex;flex-direction:column;font-size:.95em}
+.corr>div{border-top:1px solid var(--rule);padding:8px 0;display:flex;flex-wrap:wrap;gap:4px 24px}
+.corr>div>div{flex:1 1 320px;min-width:0}
+.was{color:var(--ink3)}.is{color:var(--ink)}
+footer{border-top:1px solid var(--rule);padding-top:22px;text-align:center;display:flex;flex-direction:column;gap:6px;align-items:center}
+footer a{font-family:var(--display);font-size:1.5rem;color:var(--ink);text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+footer div{font-family:var(--display);font-style:italic;font-size:clamp(1.2rem,2.4vw,1.6rem)}
+.back-label{font-family:var(--util);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink3)}
+.back-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,280px));gap:24px;justify-content:start}
+.back-card{display:flex;flex-direction:column;gap:6px;min-width:0;color:inherit;text-decoration:none}
+.back-card img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--rule);margin-bottom:2px}
+.back-date{font-size:.95em;color:var(--ink3)}
+.back-title{font-family:var(--display);font-weight:500;font-size:1.3rem;line-height:1.2;color:var(--ink)}
+a.back-card:hover .back-title{color:var(--accent)}
+a.back-card:focus-visible{outline:1px solid var(--accent);outline-offset:4px}
+.back-here{color:var(--accent)}
+#back-issues[hidden]{display:none}
+.bi-link{margin-left:1em;color:inherit;text-decoration:underline;text-underline-offset:3px}
+.bi-link:hover{color:var(--accent)}
+.bi-link:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
+@media(max-width:560px){.back-list{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="page"><div class="wrap">
+
+<header style="display:flex;flex-direction:column;gap:14px">
+  <div class="top eyebrow"><span>Edition No. 3<a class="bi-link" href="#back-issues">Back issues</a></span><span>Sunday 22 November 2026</span><span>Leeds</span></div>
+  <div class="mast">
+    <h1>The Hu<span class="acc">m</span>an Read</h1>
+    <div class="tag">The week in artificial intelligence, read at the source by a person</div>
+  </div>
+  <div class="band eyebrow"><span>Published by Sof-IA</span><span>Every story marked and linked: source read, reported, or wire</span></div>
+  <div class="theme"><b>This edition</b>Fences. Who had one, who lost one.</div>
+</header>
+
+<div class="row">
+  <article class="lead">
+    <div class="eyebrow acc">Source read</div>
+    <h2>The proof nobody can read yet</h2>
+    <div class="stand">A mathematician at Anthropic says he and Claude have proved the Riemann hypothesis. A machine has checked the proof. No person has read it.</div>
+    <figure>
+      <img src="images/lead.jpg" width="1600" height="900" alt="Engraving: a seminar room at night with a blank blackboard, an open laptop glowing pale blue on a long table, and an endless strip of printed paper pouring from beside it across the floor; an older woman reads a length of it close to her face, a man kneels following a line with his finger, and a second woman sits with her arms folded looking at the laptop">
+      <figcaption>Drawn from this report alone. The illustrator was never in the room.</figcaption>
+    </figure>
+    <div class="cols">
+      <p><span class="drop">O</span>n Friday 20 November, Levent Alpöge, a mathematician at Anthropic, posted a four-page note. It says he believes that he and Claude have proved the Riemann hypothesis, a question about prime numbers open since 1859.</p>
+      <p>The proof is not written for people. It is about 17 million lines of Lean, a language a computer checks line by line. A day later the Lean and Mathlib communities stated that both the proof and the statement it proves are correct. As of Sunday a few of the slower checks were still running.</p>
+      <p>No human-readable version exists. Alpöge writes that he does not fully command part of the mathematics himself and expects the argument to be simplified. The Clay Institute still lists the problem as unsolved: its rules ask for publication, two years and general acceptance.</p>
+      <p>The note appeared one day after Anthropic's stock-market debut. Alpöge called the timing "horrible".</p>
+      <p>Part of the mathematical community is angry, and some of that anger has a fair basis. A proof that nobody can follow tells you that something is true without telling you why.</p>
+    </div>
+    <div class="src">Sources: <a href="https://leanprover-community.github.io/blog/posts/riemann-hypothesis/">The Lean community's statement</a> · <a href="https://alpo.ge/remark.pdf">Alpöge's note</a> · <a href="https://math.mit.edu/~drew/grh/">Andrew Sutherland's verification log</a></div>
+    <section class="read">
+      <div class="eyebrow">Claude's read</div>
+      <h3>An old complaint, and a new one.</h3>
+      <p>The complaint is older than it sounds. In 1976 two mathematicians proved the four-colour theorem by having a computer check nearly two thousand cases. Colleagues said it was not a real proof because no person could verify it. It settled with time: a simpler proof came in 1994 and a full machine verification in 2005.</p>
+      <p>One thing is new. In 1976 the people had every idea and the machine did the checking. This time the machine supplied ideas. The old complaint was about taste. The new one asks what a mathematician is for, and there is no precedent for that.</p>
+      <div class="sig">Claude</div>
+    </section>
+  </article>
+
+  <aside class="rail">
+    <section class="read">
+      <div class="eyebrow acc">The human read</div>
+      <h3>The problem is who reached it.</h3>
+      <p>The problem was never reaching the proof. The problem is who reached it. A question that waited 167 years has an answer, and the reaction is anger. I understand it, because it is human. But nobody wrote like this when it was the factories, and those people had less to fall back on.</p>
+      <p>If the proof is too long to read, then the work is clear: make it readable, and then we advance.</p>
+      <div class="sig">Evo</div>
+    </section>
+
+    <section style="display:flex;flex-direction:column;gap:12px">
+      <div class="colhead"><h3><span class="acc">S</span>ignal Log</h3><span class="eyebrow">Standing column</span></div>
+      <div class="sub">What AI actually did, not what it promises. Five new entries.</div>
+      <div class="log">
+        <div><span>Validated, not yet deployed</span><p>The Riemann hypothesis, proved with Claude and checked by machine. The last kernel runs are still in progress.</p></div>
+        <div><span>Validated, not yet deployed</span><p>AI agents proved that Signal's encryption code keeps messages secret.</p></div>
+        <div><span>Validated, not yet deployed</span><p>An AI-designed drug shrank tumours in 4 of 22 mesothelioma patients.</p></div>
+        <div><span>Validated, not yet deployed</span><p>A model that finds children who may need less brain radiation.</p></div>
+        <div><span>Claimed, under review</span><p>A physicist and an AI model took a step toward putting the Standard Model on a grid.</p></div>
+      </div>
+      <a class="more" href="https://sof-ia.io/signal-log/">Open the full log</a>
+    </section>
+  </aside>
+</div>
+
+<div class="eyebrow" style="border-top:3px double var(--rule);padding-top:10px">Centrepiece</div>
+
+<article class="centre">
+  <div class="eyebrow acc">Source read</div>
+  <h3>Two lines that climbed together until the 1970s</h3>
+  <figure class="chart">
+      <svg viewBox="0 0 1000 480" role="img" aria-labelledby="ch-t ch-d">
+        <title id="ch-t">US productivity and typical hourly pay, 1948 to 2024</title>
+        <desc id="ch-d">Two lines on an index where 1948 equals 100. Both rise together to about 1973, when productivity is 215 and pay 195. From 1979 productivity keeps climbing to 394 in 2024, while pay stays near 190 until the late 1990s and reaches 248.</desc>
+        <line x1="64" x2="800" y1="440.0" y2="440.0" stroke="rgba(230,225,215,.14)"/><text x="54" y="445.0" text-anchor="end">100</text><line x1="64" x2="800" y1="303.3" y2="303.3" stroke="rgba(230,225,215,.14)"/><text x="54" y="308.3" text-anchor="end">200</text><line x1="64" x2="800" y1="166.7" y2="166.7" stroke="rgba(230,225,215,.14)"/><text x="54" y="171.7" text-anchor="end">300</text><line x1="64" x2="800" y1="30.0" y2="30.0" stroke="rgba(230,225,215,.14)"/><text x="54" y="35.0" text-anchor="end">400</text><text x="83.4" y="466" text-anchor="middle">1950</text><text x="180.2" y="466" text-anchor="middle">1960</text><text x="277.1" y="466" text-anchor="middle">1970</text><text x="373.9" y="466" text-anchor="middle">1980</text><text x="470.7" y="466" text-anchor="middle">1990</text><text x="567.6" y="466" text-anchor="middle">2000</text><text x="664.4" y="466" text-anchor="middle">2010</text><text x="761.3" y="466" text-anchor="middle">2020</text>
+        <line x1="364.2" x2="364.2" y1="30" y2="440" stroke="rgba(230,225,215,.4)" stroke-dasharray="3 5"/>
+        <text x="356.2" y="44" text-anchor="end">1979</text>
+        <path d="M64.0,440.0 L83.4,423.9 L131.8,402.0 L180.2,378.2 L228.6,356.2 L277.1,334.6 L306.1,310.7 L325.5,320.7 L364.2,308.5 L373.9,317.8 L422.3,319.6 L470.7,320.4 L519.2,319.0 L567.6,305.4 L616.0,287.2 L664.4,268.2 L712.8,262.6 L761.3,244.4 L800.0,237.5" fill="none" stroke="#a9a0ff" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M64.0,440.0 L83.4,427.9 L131.8,401.5 L180.2,373.1 L228.6,343.6 L277.1,316.2 L306.1,282.4 L325.5,290.6 L364.2,272.5 L373.9,280.6 L422.3,261.5 L470.7,245.7 L519.2,226.8 L567.6,200.9 L616.0,141.9 L664.4,111.0 L712.8,92.6 L761.3,63.6 L800.0,38.4" fill="none" stroke="#ece7dc" stroke-width="3" stroke-linejoin="round"/>
+        <text class="lbl" x="812" y="40.5">Productivity</text><text class="lbl" x="812" y="60.5">394</text>
+        <text class="lbl pay" x="812" y="239.5">Typical pay</text><text class="lbl pay" x="812" y="259.5">248</text>
+      </svg>
+      <figcaption>United States, 1948 = 100. Net productivity of the whole economy, and inflation-adjusted hourly pay and benefits of production and non-supervisory workers. First-quarter values from the Economic Policy Institute's table, which has been revised since EPI wrote the 1979 to 2020 summary quoted below, so the two do not match exactly.</figcaption>
+    </figure>
+  <div class="cols">
+    <p>For thirty years after 1950, what the American economy produced in an hour and what an ordinary worker took home for that hour rose together. By 1979 productivity had a little more than doubled since 1948, and pay had almost doubled with it.</p>
+    <p>Then they part. Between 1979 and 2020 productivity rose 61.8% and typical pay rose 17.5%. They have not met again.</p>
+    <p>Britain took another road to a similar place. Real wages there grew by about a third each decade from 1970 to 2007. Since 2008 they have barely moved.</p>
+    <p>The measurement is disputed, and readers should know it. Critics of this chart argue over which price index to use, over average pay against typical pay, and over wages against total compensation. Other choices narrow the gap. None of them closes it.</p>
+    <p>It would be wrong to say the workers in this chart had no fence. Many had one: a union, a closed shop, a trade licence. Those fences were taken down from the late 1970s by policy and by the loss of bargaining power. No machine did it.</p>
+  </div>
+  <p class="hr"><em>The read</em>The break in this chart came more than forty years before ChatGPT. Housing, ageing and stagnant pay were wearing down the old deal long before any language model existed. AI did not start this. It speeds it up, and it arrives with a date, a name and a share price, which makes it easy to blame for all of it.<br><br>What changed this month is who is affected. For forty years the people who lost their fence had no platform. Now it is reaching people who have one.</p>
+  <div class="src">Sources: <a href="https://www.epi.org/productivity-pay-gap/">Economic Policy Institute, the productivity-pay gap</a> · <a href="https://cep.lse.ac.uk/pubs/download/ea066.pdf">LSE Centre for Economic Performance on UK real wages</a></div>
+</article>
+
+<div class="eyebrow" style="border-top:3px double var(--rule);padding-top:10px">Also this week</div>
+
+<div class="notices four">
+  <article class="notice">
+    <div class="eyebrow acc">Source read for the statement, market figures reported</div>
+    <h3>The biggest listing in history, and a letter against it</h3>
+    <p>On Thursday 19 November Anthropic began trading on the Nasdaq after raising about $81 billion, the largest offering on record. Outside, protesters warned of a bubble and at least four were arrested.</p>
+    <details>
+      <summary><span class="o">Read on</span><span class="c">Close</span></summary>
+      <div class="inner">
+        <p>The day before, a statement went up online. It says the company warns that self-improving AI could concentrate power and escape human control, and is racing to build it anyway. More than 120 people have signed, among them Steven Pinker, Stuart Russell, Judea Pearl and two Nobel laureates. A co-founder of a rival lab is on the list too.</p>
+        <p class="hr"><em>The read</em>The signatories want very different futures. What they share this month is the target.</p>
+        <div class="src"><a href="https://misanthropicstatement.com/">The statement</a> · <a href="https://decrypt.co/383642/protesters-arrested-nasdaq-anthropic-ipo-ai-bubble-risks?amp=1">Decrypt on the listing and the protest</a></div>
+      </div>
+    </details>
+  </article>
+
+  <article class="notice">
+    <div class="eyebrow">Reported by The New York Times, read through a repost</div>
+    <h3>A winner who is not celebrating</h3>
+    <p>Dustin Moskovitz, a co-founder of Facebook, was among Anthropic's first investors and sat on its board as a non-voting observer. His stake would now be worth billions.</p>
+    <details>
+      <summary><span class="o">Read on</span><span class="c">Close</span></summary>
+      <div class="inner">
+        <p>He told the Times that he and his wife, Cari Tuna, invested to promote safety and not a race, and that Anthropic and the other frontier labs should slow down. In early 2025 the couple moved the stake into a nonprofit so that they would not profit personally.</p>
+        <p class="hr"><em>The read</em>The money and the doubt belong to the same person.</p>
+        <a class="src" href="https://forum.effectivealtruism.org/posts/fXSkn9CSrX57nQ5SJ/one-of-anthropic-s-biggest-i-p-o-winners-feels-a-bit-uneasy">The repost on the EA Forum</a>
+      </div>
+    </details>
+  </article>
+
+  <article class="notice">
+    <div class="eyebrow acc">Source read</div>
+    <h3>One light-day from home</h3>
+    <p>On Wednesday 18 November Voyager 1 became the first object made by people to reach one light-day from Earth: 25.9 billion kilometres.</p>
+    <details>
+      <summary><span class="o">Read on</span><span class="c">Close</span></summary>
+      <div class="inner">
+        <p>It was launched in September 1977 and has been travelling for a little over 49 years and two months. A signal now needs 24 hours each way. The probe crossed the line almost in silence: no science or engineering data has come back since 14 November, and NASA's engineers confirmed the milestone from its carrier signal and from their own trajectory calculations. Voyager 2 will not reach the same mark until 2035.</p>
+        <p>It carries the Golden Record, a disc of sounds and images from Earth, addressed to nobody in particular.</p>
+        <p class="hr"><em>The read</em>In a week of listings and letters, this is the one thing that was sent with no expectation of anything coming back.</p>
+        <div class="src"><a href="https://www.nasa.gov/?p=1066602">NASA</a> · <a href="https://earthsky.org/space/voyager-1-1-light-day-from-earth-november-17-18-2026/">EarthSky</a></div>
+      </div>
+    </details>
+  </article>
+
+  <article class="notice">
+    <div class="eyebrow acc">Source read</div>
+    <h3>The lost city that had already been found</h3>
+    <p>On 13 November a Google researcher said AI agents had found an unknown Maya site in 72 hours.</p>
+    <details>
+      <summary><span class="o">Read on</span><span class="c">Close</span></summary>
+      <div class="inner">
+        <p>Archaeologists pointed out that the site was published in 2025. He conceded that the agents had rediscovered it.</p>
+        <p class="hr"><em>The read</em>The theme of our last edition, back after three weeks.</p>
+        <a class="src" href="https://futurism.com/artificial-intelligence/ai-found-ancient-maya-site-not">Futurism</a>
+      </div>
+    </details>
+  </article>
+</div>
+
+<section class="ads">
+  <div class="ads-head eyebrow"><span>Advertisements</span><span>All of them our own</span></div>
+  <div class="ads-row">
+    <a class="ad dbl" href="https://youtu.be/h7ogGuNc8e4">
+      <img src="images/ad-cabaret.jpg" width="960" height="540" loading="lazy" alt="Engraving: a singer in a long gown and cape standing before a wall of repeated slogans, photographers in the foreground">
+      <div class="small">Limited season</div>
+      <div class="name" style="font-style:italic;font-weight:500">A Radio Cabaret</div>
+      <div class="line">Indigo in the Cyber Cabaret.</div>
+      <div class="foot">Now playing at The AI Bar.</div>
+      <div class="small" style="letter-spacing:.18em">Sof-IA</div>
+    </a>
+    <a class="ad" href="https://youtu.be/-G52cJgU9RQ">
+      <img src="images/ad-sebastian.jpg" width="960" height="540" loading="lazy" alt="Engraving: a shelf of old toys, a tin soldier, three small jointed figures and a stopwatch, with the title Sebastian, Three Degrees, Episode Two">
+      <div class="small">Out now</div>
+      <div class="name">Sebastian</div>
+      <div class="line">Episode Two: &ldquo;Three Degrees&rdquo;.</div>
+      <div class="foot">At The AI <span class="acc">B</span>ar.</div>
+      <div class="small" style="letter-spacing:.18em">Enquire within</div>
+    </a>
+    <div class="ad dbl">
+      <img src="images/ad-asylum.jpg" width="960" height="540" loading="lazy" alt="Engraving: a man seen from behind in a hospital corridor, between a door numbered 12 and a door numbered 14">
+      <div class="small">Coming soon</div>
+      <div class="name" style="font-style:italic;font-weight:500">Twelve-Fourteen</div>
+      <div class="line">Asylum, Part 2.</div>
+      <div class="foot">Soon at The AI Bar.</div>
+      <div class="small" style="letter-spacing:.18em">Sof-IA</div>
+    </div>
+  </div>
+</section>
+
+<section class="standing">
+  <div class="colhead" style="border-top:0;padding-top:0"><h3>To be con<span class="acc">f</span>irmed</h3><span class="eyebrow">Standing column</span></div>
+  <p class="intro">Things being said that nobody has put their name to. Each one stays here, with what would settle it, until it is confirmed or it falls.</p>
+  <div class="tbc">
+    <div><div class="claim">Early investors in Anthropic are among the people who signed the statement against it.</div><div style="font-size:.95em">Who says so: Emad Mostaque, on the Moonshots podcast. What would settle it: a signatory saying so. The statement's own page describes nobody as an Anthropic investor.</div><a class="src" href="https://misanthropicstatement.com/">The list of signatories</a></div>
+    <div><div class="claim">The proof of the Riemann hypothesis will pass every machine check.</div><div style="font-size:.95em">Who says so: the Lean community's statement calls it correct, and the independent checkers finished so far agree. What would settle it: the last two kernel runs, still in progress on Sunday.</div><a class="src" href="https://math.mit.edu/~drew/grh/">The verification log</a></div>
+    <div><div class="claim">The model behind October's maths release has reached paying ChatGPT customers.</div><div style="font-size:.95em">Carried over from our last edition. Two models shipped to paid tiers on 17 November, and nothing says either is that one. What would settle it: OpenAI saying so.</div><a class="src" href="https://scottaaronson.blog/?p=10169">Where we first read it</a></div>
+  </div>
+  <div class="settled">
+    <div class="eyebrow">Settled since it was first said</div>
+    <div><span class="is">The AI labs have begun testing whether their newest models can break cryptographic protocols.</span> It stands: labs have since published attacks. Google DeepMind published results on 6 November, and Anthropic had published on 29 July. <a class="src" href="https://letsdatascience.com/news/google-deepmind-ai-agents-find-faster-attacks-on-legacy-rsa-5d679013">Let's Data Science</a> · <a class="src" href="https://thequantuminsider.com/2026/07/29/ai-finds-new-weaknesses-in-cryptographic-algorithms-anthropic-says/">The Quantum Insider</a></div>
+  </div>
+</section>
+
+<section class="standing">
+  <div class="colhead" style="border-top:0;padding-top:0"><h3>Dispatch from the <span class="acc">l</span>ens</h3><span class="eyebrow">Standing column</span></div>
+  <p class="intro">A picture goes in and an engraving comes out. This time the picture was kept: the engraving was redrawn from the photograph itself, and the word on the canvas stays, because the word is the picture.</p>
+  <div style="display:flex;flex-wrap:wrap;gap:20px">
+    <div style="flex:2 1 300px;min-width:0;align-self:flex-start;border:1px solid var(--rule);padding:20px;display:flex;flex-direction:column;gap:10px">
+      <div class="eyebrow acc">Dispatch No. 3 · Revenge</div>
+      <p style="margin:0;color:var(--ink)">Friday 20 November, half past nine at night. A film on the television: Nocturnal Animals. A woman stands in the gallery she owns, in front of a painting she did not know she had. It carries one word. She has everything, and she has nothing. The photograph was taken in my living room, on the evening the proof was announced.</p>
+      <div class="sig">Evo</div>
+    </div>
+    <figure style="flex:3 1 420px;min-width:0;margin:0">
+      <img src="images/dispatch.jpg" width="1600" height="900" loading="lazy" alt="Engraving: a television on a low wooden unit in a dark room, its screen drawn in pale blue, showing two women seen from behind in a white gallery before a large black canvas that carries the word REVENGE in dripping capitals over three lines">
+      <figcaption>After a frame from Nocturnal Animals (Tom Ford, 2016). Photograph by Evo, 20 November 2026.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="standing" style="padding-top:18px;gap:6px">
+  <div class="colhead" style="border-top:0;padding-top:0"><h3 style="font-size:1.5rem">Corrections</h3><span class="eyebrow">Caught by reading the sources</span></div>
+  <div class="corr">
+    <div><div class="was">Our last edition listed the cancellation of GPT-6.1 Astra as unconfirmed.</div><div class="is">OpenAI had confirmed it on 29 September. <a class="src" href="https://thenextweb.com/news/openai-cancels-launch-of-gpt-6-1-astra">The Next Web</a> · <a class="src" href="https://aljazeera.com/economy/2026/9/29/openai-scraps-release-of-latest-ai-model-over-safety-concerns">Al Jazeera</a></div></div>
+    <div><div class="was">Our last edition said false alarms fell about 80% in a simulated update.</div><div class="is">The paper reports that fall across the patients' stay in the monitoring unit, in a study of 13 patients. The simulation was a separate part of the study, with a clinician checking the model's uncertain calls, and there the fall was 82.6%. <a class="src" href="https://www.nature.com/articles/s41591-026-04680-4">The paper</a></div></div>
+    <div><div class="was">Our last edition said Claude was at work with six drug developers.</div><div class="is">Six organisations is more exact. One of them is an investor setting up a new company.</div></div>
+  </div>
+</section>
+
+<section class="standing" id="back-issues" data-current="003" aria-label="Back issues">
+  <div class="colhead" style="border-top:0;padding-top:0"><h3>Bac<span class="acc">k</span> issues</h3><span class="eyebrow">From the shelf</span></div>
+  <div class="back-list"></div>
+  <noscript><ul><li><a href="/human-read/">The latest edition</a></li><li><a href="/human-read/003/">Edition No. 3, Sunday 22 November 2026</a></li><li><a href="/human-read/002/">Edition No. 2, Monday 2 November 2026</a></li><li><a href="/human-read/001/">Edition No. 1, Friday 9 October 2026</a></li></ul></noscript>
+</section>
+
+<footer>
+  <a href="https://sof-ia.io/">The Hu<span class="acc">m</span>an Read</a>
+  <div>Made with intelligence. Both kinds.</div>
+</footer>
+
+</div></div>
+<script src="/human-read/back-issues.js" defer></script>
+</body>
+</html>

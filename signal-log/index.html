@@ -126,6 +126,34 @@ footer .tag{margin:1rem 0 0;font-family:var(--serif);font-style:italic;font-size
          Counts, filters, the pulse labels and the dial all derive from these articles. -->
     <details class="month" open>
       <summary><span class="m-name">November 2026</span><span class="m-count"></span></summary>
+      <article data-short="Riemann, checked by machine">
+        <div class="meta"><b class="bars s2" role="img" aria-label="Validated, not yet deployed"><i></i><i></i><i></i></b><span class="caps">20 Nov 2026</span></div>
+        <h2>The Riemann hypothesis, proved with Claude and checked by machine</h2>
+        <p>Levent Alpöge, a mathematician at Anthropic, posted a note saying that he and Claude had proved the Riemann hypothesis, a question about prime numbers open since 1859. The proof is about 17 million lines of Lean, a language a computer checks line by line. A day later the Lean and Mathlib communities stated that the proof and the statement it proves are correct. Independent checkers have gone through all 175,187 modules without a rejection; on 22 November the last two kernel runs were still in progress. No human-readable version exists yet, and the Clay Institute still lists the problem as unsolved.</p>
+        <p class="why">The machine can say that it is true. Saying why is the work that starts now.</p>
+        <p><a class="src" href="https://leanprover-community.github.io/blog/posts/riemann-hypothesis/" rel="noopener">Read the source</a> · <a class="src" href="https://math.mit.edu/~drew/grh/" rel="noopener">The verification log</a></p>
+      </article>
+      <article data-short="Signal&#x27;s code, proved">
+        <div class="meta"><b class="bars s2" role="img" aria-label="Validated, not yet deployed"><i></i><i></i><i></i></b><span class="caps">10 Nov 2026</span></div>
+        <h2>AI agents proved that Signal&#x27;s encryption code keeps messages secret</h2>
+        <p>Google DeepMind built AlphaProof Code, in which people decide what has to be proved and AI agents write the proofs in Lean. In four weeks it verified key security properties of Signal&#x27;s core cryptographic code, down to the instructions that run on devices, including that messages stay protected before and after a device is briefly compromised. Human experts reviewed every specification and about 1% of the code. When two old, already fixed bugs were put back into a copy, the system proved both versions insecure. Signal&#x27;s engineers gave feedback on the method. This is a company announcement and mentions no independent audit.</p>
+        <p class="why">An app that millions trust with their private messages now has a proof where it used to have careful reviewers.</p>
+        <p><a class="src" href="https://deepmind.google/blog/introducing-alphaproof-code/" rel="noopener">Read the source</a></p>
+      </article>
+      <article data-short="Standard Model on a grid">
+        <div class="meta"><b class="bars s1" role="img" aria-label="Claimed, under review"><i></i><i></i><i></i></b><span class="caps">4 Nov 2026</span></div>
+        <h2>A physicist and an AI model took a step toward putting the Standard Model on a grid</h2>
+        <p>Computers can already calculate the strong force from first principles by placing it on a grid, a lattice. The whole Standard Model has resisted that for decades, because the weak force treats left-handed and right-handed particles differently. In October Nathaniel Craig of UC Santa Barbara, working with OpenAI&#x27;s GPT-6 Astra, posted a construction for the missing piece. On 4 November Edward Witten published a note saying Craig had overcome the difficulties, and describing a variant of his own. It is a mathematical definition, not a working simulation: Witten notes that the usual Monte Carlo methods cannot run it in practice. Both papers are preprints.</p>
+        <p class="why">The result is being read and built on by physicists who had no part in making it.</p>
+        <p><a class="src" href="https://arxiv.org/abs/2611.05051" rel="noopener">Witten&#x27;s note</a> · <a class="src" href="https://openai.com/index/step-toward-defining-the-standard-model/" rel="noopener">Craig&#x27;s own account</a></p>
+      </article>
+      <article data-short="Less radiation for some children">
+        <div class="meta"><b class="bars s2" role="img" aria-label="Validated, not yet deployed"><i></i><i></i><i></i></b><span class="caps">3 Nov 2026</span></div>
+        <h2>A model that finds children who may need less brain radiation</h2>
+        <p>An international team led by Dana-Farber Cancer Institute built a model called MANTIS. It uses DNA methylation profiling, a test already used to diagnose brain tumours, to give an individual survival prediction for children with medulloblastoma and ependymoma. Across several validation cohorts it did better than current risk groupings for many patients. It suggests that more than half of children with average-risk medulloblastoma may be candidates for a lower dose of radiation to the brain and spine. In the data, the lower dose went with better cognitive outcomes and no detected loss in survival. Published in Nature Genetics. It is not in clinical use and needs further clinical study first.</p>
+        <p class="why">Radiation saves these children and it costs them. Knowing who can safely have less is worth a great deal.</p>
+        <p><a class="src" href="https://www.eurekalert.org/news-releases/1150309" rel="noopener">Read the source</a></p>
+      </article>
       <article data-short="Patients teach the seizure detector">
         <div class="meta"><b class="bars s2" role="img" aria-label="Validated, not yet deployed"><i></i><i></i><i></i></b><span class="caps">Logged 2 Nov 2026</span></div>
         <h2>Epilepsy patients taught their own seizure detector</h2>
@@ -165,6 +193,13 @@ footer .tag{margin:1rem 0 0;font-family:var(--serif);font-style:italic;font-size
     </details>
     <details class="month">
       <summary><span class="m-name">October 2026</span><span class="m-count"></span></summary>
+      <article data-short="AI-designed drug shrinks tumours">
+        <div class="meta"><b class="bars s2" role="img" aria-label="Validated, not yet deployed"><i></i><i></i><i></i></b><span class="caps">25 Oct 2026</span></div>
+        <h2>An AI-designed drug shrank tumours in 4 of 22 mesothelioma patients</h2>
+        <p>Insilico Medicine designs molecules with generative AI. Its pill ISM6331 is in a first trial in people whose mesothelioma, a cancer of the lining of the chest or abdomen, had already progressed on other treatment. In results presented at the ESMO congress in Madrid, four of 22 patients who could be assessed had tumours that shrank, a response rate of 18.2%, and at the first scan 68.2% had tumours that shrank or held steady. It is early and small, with no comparison group. A randomised Phase 2a trial is planned for 2027. The drug is not approved.</p>
+        <p class="why">These patients have few options left. This is a molecule a model designed, now inside people, with a measured effect.</p>
+        <p><a class="src" href="https://www.drugdiscoverytrends.com/insilicos-ai-designed-tead-inhibitor-shrank-tumors-in-4-of-22-mesothelioma-patients-randomized-phase-2a-planned-for-2027/" rel="noopener">Read the source</a></p>
+      </article>
       <article data-short="proteins · watermarked, working">
         <div class="meta"><b class="bars s2" role="img" aria-label="Validated, not yet deployed"><i></i><i></i><i></i></b><span class="caps">Logged 9 Oct 2026</span></div>
         <h2>AI-designed proteins carried a hidden watermark and still worked</h2>
