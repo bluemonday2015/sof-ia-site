@@ -105,17 +105,17 @@ details summary::-webkit-details-marker{display:none}
 details summary .c{display:none}
 details[open] summary .o{display:none}details[open] summary .c{display:inline}
 details .inner{display:flex;flex-direction:column;gap:8px;padding-top:8px}
-/* ads */
-.ads{border-top:3px double var(--rule);padding-top:12px;display:flex;flex-direction:column;gap:12px}
-.ads-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
-.ads-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:16px}
-.ad{min-width:0;border:1px solid var(--rule);padding:16px 14px;text-align:center;text-decoration:none;display:flex;flex-direction:column;gap:6px;color:var(--ink2)}
-.ad.dbl{border:3px double var(--rule)}
-.ad .small{font-family:var(--util);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink3)}
-.ad .name{font-family:var(--display);font-weight:600;font-size:2rem;line-height:1;color:var(--ink)}
-.ad .line{font-family:var(--display);font-style:italic;font-size:1.05rem;line-height:1.25}
-.ad img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--rule);margin-bottom:6px}
-.ad .foot{border-top:1px solid var(--rule);padding-top:6px;font-size:.9em}
+/* house notices */
+.house{border-top:3px double var(--rule);padding-top:12px;display:flex;flex-direction:column;gap:12px}
+.house-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.house-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:16px}
+.hcard{min-width:0;border:1px solid var(--rule);padding:16px 14px;text-align:center;text-decoration:none;display:flex;flex-direction:column;gap:6px;color:var(--ink2)}
+.hcard.dbl{border:3px double var(--rule)}
+.hcard .small{font-family:var(--util);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink3)}
+.hcard .name{font-family:var(--display);font-weight:600;font-size:2rem;line-height:1;color:var(--ink)}
+.hcard .line{font-family:var(--display);font-style:italic;font-size:1.05rem;line-height:1.25}
+.hcard img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--rule);margin-bottom:6px}
+.hcard .foot{border-top:1px solid var(--rule);padding-top:6px;font-size:.9em}
 /* standing columns */
 .standing{border-top:3px double var(--rule);padding-top:22px;display:flex;flex-direction:column;gap:14px}
 .standing h3{margin:0;font-family:var(--display);font-weight:500;font-size:1.9rem;color:var(--ink)}
@@ -302,27 +302,27 @@ a.back-card:focus-visible{outline:1px solid var(--accent);outline-offset:4px}
   </article>
 </div>
 
-<section class="ads">
-  <div class="ads-head eyebrow"><span>Advertisements</span><span>All of them our own</span></div>
-  <div class="ads-row">
-    <a class="ad dbl" href="https://youtu.be/h7ogGuNc8e4">
-      <img src="003/images/ad-cabaret.jpg" width="960" height="540" loading="lazy" alt="Engraving: a singer in a long gown and cape standing before a wall of repeated slogans, photographers in the foreground">
+<section class="house">
+  <div class="house-head eyebrow"><span>Advertisements</span><span>All of them our own</span></div>
+  <div class="house-row">
+    <a class="hcard dbl" href="https://youtu.be/h7ogGuNc8e4">
+      <img src="003/images/own-cabaret.jpg" width="960" height="540" loading="lazy" alt="Engraving: a singer in a long gown and cape standing before a wall of repeated slogans, photographers in the foreground">
       <div class="small">Limited season</div>
       <div class="name" style="font-style:italic;font-weight:500">A Radio Cabaret</div>
       <div class="line">Indigo in the Cyber Cabaret.</div>
       <div class="foot">Now playing at The AI Bar.</div>
       <div class="small" style="letter-spacing:.18em">Sof-IA</div>
     </a>
-    <a class="ad" href="https://youtu.be/-G52cJgU9RQ">
-      <img src="003/images/ad-sebastian.jpg" width="960" height="540" loading="lazy" alt="Engraving: a shelf of old toys, a tin soldier, three small jointed figures and a stopwatch, with the title Sebastian, Three Degrees, Episode Two">
+    <a class="hcard" href="https://youtu.be/-G52cJgU9RQ">
+      <img src="003/images/own-sebastian.jpg" width="960" height="540" loading="lazy" alt="Engraving: a shelf of old toys, a tin soldier, three small jointed figures and a stopwatch, with the title Sebastian, Three Degrees, Episode Two">
       <div class="small">Out now</div>
       <div class="name">Sebastian</div>
       <div class="line">Episode Two: &ldquo;Three Degrees&rdquo;.</div>
       <div class="foot">At The AI <span class="acc">B</span>ar.</div>
       <div class="small" style="letter-spacing:.18em">Enquire within</div>
     </a>
-    <div class="ad dbl">
-      <img src="003/images/ad-asylum.jpg" width="960" height="540" loading="lazy" alt="Engraving: a man seen from behind in a hospital corridor, between a door numbered 12 and a door numbered 14">
+    <div class="hcard dbl">
+      <img src="003/images/own-asylum.jpg" width="960" height="540" loading="lazy" alt="Engraving: a man seen from behind in a hospital corridor, between a door numbered 12 and a door numbered 14">
       <div class="small">Coming soon</div>
       <div class="name" style="font-style:italic;font-weight:500">Twelve-Fourteen</div>
       <div class="line">Asylum, Part 2.</div>
