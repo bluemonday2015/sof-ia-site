@@ -53,15 +53,15 @@ html,body{margin:0;height:100%;background:#0b0a09;overflow:hidden}
 #sndlabel.on{opacity:1}
 #speaker:focus-visible,#mirror:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
 #tip{position:fixed;z-index:30;pointer-events:none;opacity:0;transition:opacity .2s;transform:translate(14px,14px);font:italic 400 16px/1.2 'Cormorant Garamond',Georgia,serif;color:var(--cream);background:rgba(10,9,8,.8);padding:6px 10px}
-.home{position:fixed;left:calc(18px + env(safe-area-inset-left,0px));top:calc(16px + env(safe-area-inset-top,0px));z-index:20;text-shadow:0 1px 4px rgba(0,0,0,.9)}
-.logo-link{display:inline-block;color:rgba(245,236,220,.78);text-decoration:none}
+.home{position:fixed;left:calc(0px + env(safe-area-inset-left,0px));top:calc(4px + env(safe-area-inset-top,0px));z-index:20;text-shadow:0 1px 3px rgba(0,0,0,.95);padding:12px 26px 14px 18px;background:radial-gradient(ellipse closest-side,rgba(10,12,20,.72),rgba(10,12,20,.5) 60%,rgba(10,12,20,0))}
+.logo-link{display:inline-block;color:rgba(245,236,220,.9);text-decoration:none}
 .logo-link .logo-row{display:inline-flex;align-items:center;gap:8px}
 .logo-link .logo-arrow{font-family:'Work Sans',system-ui,sans-serif;font-weight:300;font-size:1rem;color:rgba(245,236,220,.55)}
 .passage{font-family:'Newsreader','Cormorant Garamond',Georgia,serif;font-weight:400;font-size:26px;line-height:1;letter-spacing:-.025em;display:inline-flex;align-items:baseline;white-space:nowrap}
 .passage .ia{font-style:italic}
 .passage .gate{display:inline-block;width:.010em;min-width:1px;height:.66em;background:var(--accent);margin:0 .16em 0 .30em;transform:translateY(.04em)}
 .logo-link .kicker{display:block;margin-top:8px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:15px;line-height:1.6;white-space:nowrap}
-#road{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));top:calc(16px + env(safe-area-inset-top,0px));z-index:20;font:italic 400 16px/1 'Cormorant Garamond',Georgia,serif;color:#e9e0cc;text-decoration:none;text-shadow:0 1px 4px rgba(0,0,0,.9);padding:8px 0}
+#road{position:fixed;right:calc(10px + env(safe-area-inset-right,0px));top:calc(10px + env(safe-area-inset-top,0px));z-index:20;font:italic 500 18px/1 'Cormorant Garamond',Georgia,serif;color:#f5ecdc;text-decoration:none;text-shadow:0 1px 3px rgba(0,0,0,.95);padding:12px 20px;background:radial-gradient(ellipse closest-side,rgba(10,12,20,.72),rgba(10,12,20,.5) 60%,rgba(10,12,20,0))}
 #road:hover{color:var(--accent)}
 @media (prefers-reduced-motion:reduce){.layer{transform:none!important}#out{transform:translateY(2%) scale(1.06)!important}.card{transition:none}}
 </style>
@@ -89,7 +89,8 @@ html,body{margin:0;height:100%;background:#0b0a09;overflow:hidden}
 const FILMS=[
  {t:"Sebastian",s:"The promo",id:"uETL76GSLbo"},
  {t:"The Stone Forest",s:"A song from an island that forgets every hour",id:"hyxRiX42Mps"},
- {t:"MONTAUK",s:"A visual music album, station by station",id:"5xFF6omV_0k",list:"PLSv8X8d_vovw"}
+ {t:"MONTAUK",s:"A visual music album, station by station",id:"5xFF6omV_0k",list:"PLSv8X8d_vovw"},
+ {t:"Limited Season",s:"A radio cabaret with Indigo, from The AI Bar",id:"h7ogGuNc8e4"}
 ];
 // The pre-show: what runs before the film, as in a cinema. Each entry is one card.
 const PRESHOW=[
