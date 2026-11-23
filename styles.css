@@ -66,6 +66,11 @@ section { position: relative; }
   align-items: baseline;
   white-space: nowrap;
 }
+/* Hero lockup only: equal side columns so the gate sits on the page's centre line, over the mast. */
+.mast .passage { display: inline-grid; grid-template-columns: 1fr auto 1fr; transform: translateX(-0.07em); }
+.mast .passage .gate { width: 2px; } /* same weight as the mast, so the two read as one line */
+.mast .passage .sof { justify-self: end; }
+.mast .passage .ia  { justify-self: start; }
 .passage .sof { font-style: normal; }
 .passage .ia  { font-style: italic; }
 .passage .gate {
