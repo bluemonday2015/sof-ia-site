@@ -63,6 +63,28 @@ html,body{margin:0;height:100%;background:#0b0a09;overflow:hidden}
 .logo-link .kicker{display:block;margin-top:8px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:15px;line-height:1.6;white-space:nowrap}
 #road{position:fixed;right:calc(10px + env(safe-area-inset-right,0px));top:calc(10px + env(safe-area-inset-top,0px));z-index:20;font:italic 500 18px/1 'Cormorant Garamond',Georgia,serif;color:#f5ecdc;text-decoration:none;text-shadow:0 1px 3px rgba(0,0,0,.95);padding:12px 20px;background:radial-gradient(ellipse closest-side,rgba(10,12,20,.72),rgba(10,12,20,.5) 60%,rgba(10,12,20,0))}
 #road:hover{color:var(--accent)}
+
+/* a phone held upright: a small invitation to turn it, tap to dismiss */
+#turn{all:unset;display:none;box-sizing:border-box;align-items:center;gap:10px;white-space:nowrap;font:italic 400 16px/1 "Cormorant Garamond",Georgia,serif;color:#f5ecdc;background:rgba(10,9,8,.78);border:1px solid rgba(245,236,220,.28);border-radius:999px;padding:9px 16px 9px 12px;cursor:pointer}
+#turn svg{display:block;flex:none;animation:turn 3.2s ease-in-out infinite;transform-origin:50% 50%}
+@keyframes turn{0%,35%{transform:rotate(0)}60%,100%{transform:rotate(-90deg)}}
+@media (prefers-reduced-motion:reduce){#turn svg{animation:none}}
+@media (max-aspect-ratio:1/1) and (hover:none){#turn:not([hidden]){display:inline-flex;position:fixed;left:50%;bottom:calc(64px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:25}}
+/* when the window is too narrow to show the speaker on its post, a plain switch takes its place */
+#snd2{all:unset;display:none;position:fixed;left:calc(14px + env(safe-area-inset-left,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:20;font:italic 500 18px/1 'Cormorant Garamond',Georgia,serif;color:#f5ecdc;text-shadow:0 1px 3px rgba(0,0,0,.95);padding:10px 14px;cursor:pointer;background:radial-gradient(ellipse closest-side,rgba(10,12,20,.72),rgba(10,12,20,.5) 60%,rgba(10,12,20,0))}
+#snd2.on{color:#ffcf9a}
+@media (max-aspect-ratio:8/5){#snd2{display:block}}
+@media (max-aspect-ratio:1/1){
+ /* the way back moves down, off the mirror */
+ #road{top:auto;bottom:calc(14px + env(safe-area-inset-bottom,0px))}
+}
+@media (max-aspect-ratio:9/10){
+ /* the screen is wider than the window: keep the film and the cards inside what can be seen */
+ #stage{left:calc(50% - 2vh)} /* the screen sits a touch right of the picture's centre */
+ #frame iframe{top:50%;height:auto;width:min(100%,88vw);transform:translate(-50%,-50%)}
+ .card{padding-inline:calc((100cqw - 86vw)/2)}
+ .card .skip{right:calc((100cqw - 86vw)/2)!important}
+}
 @media (prefers-reduced-motion:reduce){.layer{transform:none!important}#out{transform:translateY(2%) scale(1.06)!important}.card{transition:none}}
 </style>
 </head>
@@ -83,6 +105,8 @@ html,body{margin:0;height:100%;background:#0b0a09;overflow:hidden}
 </div>
 <div class="home"><a class="logo-link" href="../" aria-label="Sof-IA, back to home"><span class="logo-row"><span class="logo-arrow" aria-hidden="true">&larr;</span><span class="passage"><span class="sof">Sof</span><span class="gate" aria-hidden="true"></span><span class="ia">IA</span></span></span><span class="kicker">Made with intelligence. Both kinds.</span></a></div>
 <a id="road" href="../motel/">&larr; The motel</a>
+<button id="snd2" aria-pressed="false">Sound: off</button>
+<button id="turn" aria-label="Turn your phone sideways for the full picture. Tap to dismiss."><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><rect x="7.5" y="3" width="9" height="18" rx="2"/><path d="M11 18h2"/></svg>Turn your phone for the full picture</button>
 <div id="tip"></div>
 <script>
 // The programme. Add a film: one line here.
@@ -130,7 +154,10 @@ document.getElementById('next').onclick=()=>{idx=(idx+1)%FILMS.length;show()};
 stopB.onclick=()=>stopFilm();
 document.getElementById('again').onclick=()=>{clearTimeout(timer);stopFilm(true);music.pause();music.currentTime=0;showing=false;idx=0;bar.hidden=true;opening()};
 const sp=document.getElementById('speaker');
-sp.onclick=()=>{sound=!sound;sp.classList.toggle('on',sound);document.getElementById('glow').classList.toggle('on',sound);document.getElementById('sndlabel').classList.toggle('on',sound);sp.setAttribute('aria-pressed',sound);sp.setAttribute('aria-label','Speaker: sound '+(sound?'on':'off'));glow.classList.remove('invite');applySound();musicSync()};
+const snd2=document.getElementById('snd2');
+function toggleSound(){sound=!sound;sp.classList.toggle('on',sound);document.getElementById('glow').classList.toggle('on',sound);document.getElementById('sndlabel').classList.toggle('on',sound);sp.setAttribute('aria-pressed',sound);sp.setAttribute('aria-label','Speaker: sound '+(sound?'on':'off'));snd2.textContent='Sound: '+(sound?'on':'off');snd2.classList.toggle('on',sound);snd2.setAttribute('aria-pressed',sound);glow.classList.remove('invite');applySound();musicSync()}
+sp.onclick=toggleSound;snd2.onclick=toggleSound;
+document.getElementById('turn').onclick=e=>{e.currentTarget.hidden=true};
 // hints
 const tip=document.getElementById('tip');
 [[sp,()=>sound?'Speaker: sound on. Click to hang it back':'Hang the speaker on your window: sound on'],[document.getElementById('mirror'),()=>'Look back: the motel']].forEach(([el,txt])=>{
