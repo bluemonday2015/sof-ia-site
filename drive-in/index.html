@@ -117,28 +117,38 @@ const FILMS=[
  {t:"Limited Season",s:"A radio cabaret with Indigo, from The AI Bar",id:"h7ogGuNc8e4"}
 ];
 // The pre-show: what runs before the film, as in a cinema. Each entry is one card.
+// v is Flaca's line for the card (assets/voice-N.mp3) and vd its length in seconds: the card stays up long enough for her to finish.
 const PRESHOW=[
  {k:"count",n:3},{k:"count",n:2},{k:"count",n:1},
- {small:"Sof-IA",big:"presents",it:"Made with intelligence. Both kinds."},
- {small:"Advertisement",big:"The Human Read",it:"The week in artificial intelligence, read at the source by a person.",href:"../human-read/",go:"Read the paper"},
- {small:"Advertisement",big:"Signal Log",it:"What AI actually did, not what it promises.",href:"../signal-log/",go:"Open the log"},
- {small:"Coming attractions",big:"Twelve-Fourteen",it:"Asylum, Part 2. Soon at The AI Bar."},
- {small:"And now",big:"Our feature presentation",it:""}
+ {small:"Sof-IA",big:"presents",it:"Made with intelligence. Both kinds.",v:1,vd:7.6},
+ {small:"Advertisement",big:"The Human Read",it:"The week in artificial intelligence, read at the source by a person.",href:"../human-read/",go:"Read the paper",v:2,vd:6.7},
+ {small:"Advertisement",big:"Signal Log",it:"What AI actually did, not what it promises.",href:"../signal-log/",go:"Open the log",v:3,vd:5.5},
+ {small:"Coming attractions",big:"Twelve-Fourteen",it:"Asylum, Part 2. Soon at The AI Bar.",v:4,vd:5.0},
+ {small:"And now",big:"Our feature presentation",it:"",v:5,vd:2.8}
 ];
 const frame=document.getElementById('frame'),bar=document.getElementById('bar'),now=document.getElementById('now'),stopB=document.getElementById('stop');
 let idx=0,player=null,sound=false,timer=null,showing=false,t0=0;
-const music=new Audio('assets/overture.mp3');music.preload='auto';const glow=document.getElementById('glow');
+const music=new Audio('assets/overture.mp3');music.preload='auto';
+const voice=new Audio();voice.preload='auto';let vT0=0,vLen=0,vTimer=null,duck=1,dk=0;const VLEAD=500,MUSIC=.85,DUCKED=.3;
+function duckTo(to){const id=++dk,from=duck,s0=performance.now();(function f(){if(id!==dk)return;const k=Math.min(1,(performance.now()-s0)/350);duck=from+(to-from)*k;if(showing)music.volume=MUSIC*duck;if(k<1&&duck!==to)requestAnimationFrame(f)})()}
+function voiceStop(){clearTimeout(vTimer);voice.pause();vLen=0;if(duck!==1)duckTo(1)}
+// Start, or rejoin, the current card's line at the point the card has reached; called when a card appears and when the speaker is switched.
+function voiceSync(){clearTimeout(vTimer);if(!vLen||!showing||!sound){voice.pause();if(duck!==1)duckTo(1);return}
+ const at=(performance.now()-vT0)/1000;if(at<0){vTimer=setTimeout(voiceSync,-at*1000);return}if(at>=vLen-.15){voice.pause();return}
+ try{voice.currentTime=at}catch(e){}voice.volume=1;voice.play().catch(()=>{});duckTo(DUCKED/MUSIC)}
+voice.addEventListener('ended',()=>duckTo(1));const glow=document.getElementById('glow');
 function card(html){frame.querySelectorAll('.card').forEach(c=>{c.classList.remove('on');setTimeout(()=>c.remove(),800)});const d=document.createElement('div');d.className='card';d.innerHTML=html;frame.appendChild(d);requestAnimationFrame(()=>requestAnimationFrame(()=>d.classList.add('on')));return d}
 function opening(){if(!sound)glow.classList.add('invite');const c=card('<div class="small">Tonight at</div><div class="big">Flaca\'s Drive-In</div><div class="it">For sound, hang the speaker on your window.</div><button class="start">Start the show</button>');
  c.querySelector('.start').onclick=()=>{showing=true;t0=performance.now();musicSync();preshow(0)}}
-function musicSync(){if(showing&&sound){music.volume=.85;try{music.currentTime=Math.min((performance.now()-t0)/1000,music.duration||40)}catch(e){}music.play().catch(()=>{})}else music.pause()}
-function musicOut(){showing=false;const v0=music.volume,s0=performance.now();(function f(){const k=(performance.now()-s0)/1500;if(k>=1||music.paused){music.pause();music.volume=v0;return}music.volume=v0*(1-k);requestAnimationFrame(f)})()}
+function musicSync(){if(showing&&sound){music.volume=MUSIC*duck;try{music.currentTime=Math.min((performance.now()-t0)/1000,music.duration||40)}catch(e){}music.play().catch(()=>{})}else music.pause()}
+function musicOut(){voiceStop();showing=false;const v0=music.volume,s0=performance.now();(function f(){const k=(performance.now()-s0)/1500;if(k>=1||music.paused){music.pause();music.volume=v0;return}music.volume=v0*(1-k);requestAnimationFrame(f)})()}
 function preshow(i){if(i>=PRESHOW.length)return programme();const p=PRESHOW[i];let h;
  if(p.k==='count')h='<div class="count">'+p.n+'</div>';
  else h='<div class="small">'+p.small+'</div><div class="big">'+p.big+'</div>'+(p.it?'<div class="it">'+p.it+'</div>':'')+(p.href?'<a href="'+p.href+'">'+p.go+'</a>':'');
  const c=card(h+'<button class="skip" style="position:absolute;right:3%;bottom:4%;margin:0;border:0;opacity:.7">Skip the ads</button>');
  c.querySelector('.skip').onclick=e=>{e.stopPropagation();clearTimeout(timer);programme()};
- timer=setTimeout(()=>preshow(i+1),p.k==='count'?1000:6600)}
+ voiceStop();if(p.v){voice.src='assets/voice-'+p.v+'.mp3';vLen=p.vd;vT0=performance.now()+VLEAD;voiceSync()}
+ timer=setTimeout(()=>preshow(i+1),p.k==='count'?1000:p.v?Math.max(4500,VLEAD+p.vd*1000+700):6600)}
 function programme(){musicOut();bar.hidden=false;show()}
 function show(){stopFilm(true);const f=FILMS[idx];now.textContent=(idx+1)+' / '+FILMS.length+' · '+f.t;
  const c=card('<div class="small">Now showing</div><div class="big">'+f.t+'</div><div class="it">'+f.s+'</div><button class="play">Play</button>');c.querySelector('.play').onclick=play}
@@ -152,10 +162,10 @@ function applySound(){yt(sound?'unMute':'mute')}
 document.getElementById('prev').onclick=()=>{idx=(idx+FILMS.length-1)%FILMS.length;show()};
 document.getElementById('next').onclick=()=>{idx=(idx+1)%FILMS.length;show()};
 stopB.onclick=()=>stopFilm();
-document.getElementById('again').onclick=()=>{clearTimeout(timer);stopFilm(true);music.pause();music.currentTime=0;showing=false;idx=0;bar.hidden=true;opening()};
+document.getElementById('again').onclick=()=>{clearTimeout(timer);voiceStop();stopFilm(true);music.pause();music.currentTime=0;showing=false;idx=0;bar.hidden=true;opening()};
 const sp=document.getElementById('speaker');
 const snd2=document.getElementById('snd2');
-function toggleSound(){sound=!sound;sp.classList.toggle('on',sound);document.getElementById('glow').classList.toggle('on',sound);document.getElementById('sndlabel').classList.toggle('on',sound);sp.setAttribute('aria-pressed',sound);sp.setAttribute('aria-label','Speaker: sound '+(sound?'on':'off'));snd2.textContent='Sound: '+(sound?'on':'off');snd2.classList.toggle('on',sound);snd2.setAttribute('aria-pressed',sound);glow.classList.remove('invite');applySound();musicSync()}
+function toggleSound(){sound=!sound;sp.classList.toggle('on',sound);document.getElementById('glow').classList.toggle('on',sound);document.getElementById('sndlabel').classList.toggle('on',sound);sp.setAttribute('aria-pressed',sound);sp.setAttribute('aria-label','Speaker: sound '+(sound?'on':'off'));snd2.textContent='Sound: '+(sound?'on':'off');snd2.classList.toggle('on',sound);snd2.setAttribute('aria-pressed',sound);glow.classList.remove('invite');applySound();musicSync();voiceSync()}
 sp.onclick=toggleSound;snd2.onclick=toggleSound;
 document.getElementById('turn').onclick=e=>{e.currentTarget.hidden=true};
 // hints
