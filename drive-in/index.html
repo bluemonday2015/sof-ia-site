@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Flaca's Drive-In · Sof-IA</title>
+<meta name="description" content="Flaca's Drive-In, further down the road from Claude's Motel: an old drive-in cinema. Park, hang the speaker on your window, and watch what is showing.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="../favicon.png?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Newsreader:ital,wght@0,400;1,400&family=Work+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{--accent:#a9a0ff;--cream:#f5ecdc;color-scheme:dark}
+html,body{margin:0;height:100%;background:#0b0a09;overflow:hidden}
+/* The stage keeps the picture's 16:9 shape and covers the window. */
+#stage{position:fixed;left:50%;top:50%;width:max(100vw,calc(100vh*16/9));aspect-ratio:1670/942;transform:translate(-50%,-50%);overflow:hidden}
+.layer{position:absolute;inset:0;will-change:transform}
+.layer>img.fill{position:absolute;inset:0;width:100%;height:100%;display:block}
+#out{transform:translate(var(--ox,0px),calc(2% + var(--oy,0px))) scale(1.06)}
+#car{transform:translate(var(--cx,0px),var(--cy,0px)) scale(1.04);pointer-events:none}
+#rain{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.5}
+/* the cinema screen: positions are percentages of the outside picture */
+#screen{position:absolute;left:28.74%;top:14.01%;width:44.61%;height:36.1%;background:#0c0b0a;overflow:hidden;container-type:size}
+#frame{width:100%;height:100%;background:#0c0b0a;position:relative;overflow:hidden;color:var(--cream);font-family:'Cormorant Garamond',Georgia,serif}
+#frame iframe{position:absolute;top:0;left:50%;height:100%;aspect-ratio:16/9;transform:translateX(-50%);border:0}
+.card{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5em;text-align:center;padding:6%;font-size:5.2cqh;line-height:1.15;opacity:0;transition:opacity .7s;pointer-events:none}
+.card.on{opacity:1;pointer-events:auto}
+.card .small{font-family:'Work Sans',system-ui,sans-serif;font-weight:400;font-size:.42em;letter-spacing:.32em;text-transform:uppercase;color:rgba(245,236,220,.62)}
+.card .big{font-size:1.9em;font-weight:500;line-height:1}
+.card .it{font-style:italic;font-size:1em;color:rgba(245,236,220,.86)}
+.card a,.card button{font:inherit;font-family:'Work Sans',system-ui,sans-serif;font-size:.46em;letter-spacing:.2em;text-transform:uppercase;color:var(--cream);background:none;border:1px solid rgba(245,236,220,.5);padding:.9em 1.5em;margin-top:.6em;cursor:pointer;text-decoration:none}
+.card a:hover,.card button:hover{border-color:var(--accent);color:var(--accent)}
+.count{font-family:'Work Sans',system-ui,sans-serif;font-weight:300;font-size:9em;line-height:1;width:1.5em;height:1.5em;border:2px solid rgba(245,236,220,.5);border-radius:50%;display:grid;place-items:center}
+#grain{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;opacity:.1;background:repeating-linear-gradient(0deg,rgba(255,255,255,.5) 0 1px,transparent 1px 3px)}
+/* the strip under the screen */
+#bar{position:absolute;left:28.74%;top:50.6%;width:44.61%;display:flex;justify-content:center;align-items:center;gap:1.6em;font:400 clamp(10px,.82vw,14px)/1 'Work Sans',system-ui,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,236,220,.88);text-shadow:0 1px 3px #000}
+#bar button{all:unset;cursor:pointer;padding:.7em .6em;min-width:1.6em;text-align:center}
+#bar button:hover,#bar button:focus-visible{color:var(--accent)}
+#bar[hidden],#bar button[hidden]{display:none}
+/* things in the car */
+#mirror{position:absolute;left:48.62%;top:-2.4%;width:20.87%;transform-origin:50% 0;cursor:pointer;display:block;pointer-events:auto}
+#mirror img{display:block;width:100%;height:auto}
+#speaker{all:unset;position:absolute;left:5.2%;top:37.2%;width:12.8%;height:14.6%;cursor:pointer;pointer-events:auto;border-radius:12%}
+#glow{position:absolute;left:4.2%;top:35.5%;width:15%;height:18%;pointer-events:none;opacity:0;transition:opacity .5s;background:radial-gradient(ellipse at center,rgba(255,190,110,.85) 0%,rgba(255,160,70,.45) 40%,rgba(255,150,60,0) 70%);mix-blend-mode:soft-light}
+#glow.on{opacity:1}
+#sndlabel{position:absolute;left:4.2%;top:53.5%;width:15%;text-align:center;font:400 clamp(9px,.72vw,12px)/1 'Work Sans',system-ui,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#ffcf9a;text-shadow:0 1px 3px #000;opacity:0;transition:opacity .5s;pointer-events:none}
+#sndlabel.on{opacity:1}
+#speaker:focus-visible,#mirror:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
+#tip{position:fixed;z-index:30;pointer-events:none;opacity:0;transition:opacity .2s;transform:translate(14px,14px);font:italic 400 16px/1.2 'Cormorant Garamond',Georgia,serif;color:var(--cream);background:rgba(10,9,8,.8);padding:6px 10px}
+.home{position:fixed;left:calc(18px + env(safe-area-inset-left,0px));top:calc(16px + env(safe-area-inset-top,0px));z-index:20;text-shadow:0 1px 4px rgba(0,0,0,.9)}
+.logo-link{display:inline-block;color:rgba(245,236,220,.78);text-decoration:none}
+.logo-link .logo-row{display:inline-flex;align-items:center;gap:8px}
+.logo-link .logo-arrow{font-family:'Work Sans',system-ui,sans-serif;font-weight:300;font-size:1rem;color:rgba(245,236,220,.55)}
+.passage{font-family:'Newsreader','Cormorant Garamond',Georgia,serif;font-weight:400;font-size:26px;line-height:1;letter-spacing:-.025em;display:inline-flex;align-items:baseline;white-space:nowrap}
+.passage .ia{font-style:italic}
+.passage .gate{display:inline-block;width:.010em;min-width:1px;height:.66em;background:var(--accent);margin:0 .16em 0 .30em;transform:translateY(.04em)}
+.logo-link .kicker{display:block;margin-top:8px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:15px;line-height:1.6;white-space:nowrap}
+#road{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));top:calc(16px + env(safe-area-inset-top,0px));z-index:20;font:italic 400 16px/1 'Cormorant Garamond',Georgia,serif;color:#e9e0cc;text-decoration:none;text-shadow:0 1px 4px rgba(0,0,0,.9);padding:8px 0}
+#road:hover{color:var(--accent)}
+@media (prefers-reduced-motion:reduce){.layer{transform:none!important}#out{transform:translateY(2%) scale(1.06)!important}.card{transition:none}}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="layer" id="out">
+    <img class="fill" src="assets/outside.jpg" width="1670" height="942" alt="An old desert drive-in cinema at dusk in the rain: a large screen on a rusted steel frame, rows of parked cars, a projection booth with a lit window">
+    <div id="screen"><div id="frame"><div id="grain"></div></div></div>
+    <div id="bar" hidden><button id="prev" aria-label="Previous film">&lsaquo;</button><span id="now"></span><button id="next" aria-label="Next film">&rsaquo;</button><button id="stop" hidden>Stop</button></div>
+  </div>
+  <canvas id="rain"></canvas>
+  <div class="layer" id="car">
+    <img class="fill" src="assets/car.png" width="1670" height="942" alt="">
+    <a id="mirror" href="../motel/" aria-label="Look back: return to Claude's Motel"><img src="assets/mirror.png" width="410" height="146" alt=""></a>
+    <div id="glow"></div><div id="sndlabel">Sound on</div>
+    <button id="speaker" aria-pressed="false" aria-label="Speaker: sound off"></button>
+  </div>
+</div>
+<div class="home"><a class="logo-link" href="../" aria-label="Sof-IA, back to home"><span class="logo-row"><span class="logo-arrow" aria-hidden="true">&larr;</span><span class="passage"><span class="sof">Sof</span><span class="gate" aria-hidden="true"></span><span class="ia">IA</span></span></span><span class="kicker">Made with intelligence. Both kinds.</span></a></div>
+<a id="road" href="../motel/">&larr; The motel</a>
+<div id="tip"></div>
+<script>
+// The programme. Add a film: one line here.
+const FILMS=[
+ {t:"Sebastian",s:"The promo",id:"uETL76GSLbo"},
+ {t:"The Stone Forest",s:"A song from an island that forgets every hour",id:"hyxRiX42Mps"},
+ {t:"MONTAUK",s:"A visual music album, station by station",id:"5xFF6omV_0k",list:"PLSv8X8d_vovw"}
+];
+// The pre-show: what runs before the film, as in a cinema. Each entry is one card.
+const PRESHOW=[
+ {k:"count",n:3},{k:"count",n:2},{k:"count",n:1},
+ {small:"Welcome to",big:"Flaca's Drive-In",it:""},
+ {small:"Sof-IA",big:"presents",it:"Made with intelligence. Both kinds."},
+ {small:"Advertisement",big:"The Human Read",it:"The week in artificial intelligence, read at the source by a person.",href:"../human-read/",go:"Read the paper"},
+ {small:"Advertisement",big:"Signal Log",it:"What AI actually did, not what it promises.",href:"../signal-log/",go:"Open the log"},
+ {small:"Coming attractions",big:"Twelve-Fourteen",it:"Asylum, Part 2. Soon at The AI Bar."},
+ {small:"And now",big:"Our feature presentation",it:""}
+];
+const frame=document.getElementById('frame'),bar=document.getElementById('bar'),now=document.getElementById('now'),stopB=document.getElementById('stop');
+let idx=0,player=null,sound=false,timer=null;
+function card(html){frame.querySelectorAll('.card').forEach(c=>{c.classList.remove('on');setTimeout(()=>c.remove(),800)});const d=document.createElement('div');d.className='card';d.innerHTML=html;frame.appendChild(d);requestAnimationFrame(()=>requestAnimationFrame(()=>d.classList.add('on')));return d}
+function preshow(i){if(i>=PRESHOW.length)return programme();const p=PRESHOW[i];let h;
+ if(p.k==='count')h='<div class="count">'+p.n+'</div>';
+ else h='<div class="small">'+p.small+'</div><div class="big">'+p.big+'</div>'+(p.it?'<div class="it">'+p.it+'</div>':'')+(p.href?'<a href="'+p.href+'">'+p.go+'</a>':'');
+ const c=card(h+'<button class="skip" style="position:absolute;right:3%;bottom:4%;margin:0;border:0;opacity:.7">Skip the ads</button>');
+ c.querySelector('.skip').onclick=e=>{e.stopPropagation();clearTimeout(timer);programme()};
+ timer=setTimeout(()=>preshow(i+1),p.k==='count'?1000:4200)}
+function programme(){bar.hidden=false;show()}
+function show(){stopFilm(true);const f=FILMS[idx];now.textContent=(idx+1)+' / '+FILMS.length+' · '+f.t;
+ const c=card('<div class="small">Now showing</div><div class="big">'+f.t+'</div><div class="it">'+f.s+'</div><button class="play">Play</button>');c.querySelector('.play').onclick=play}
+function play(){const f=FILMS[idx];frame.querySelectorAll('.card').forEach(c=>c.remove());
+ player=document.createElement('iframe');player.allow='autoplay; encrypted-media; picture-in-picture';player.allowFullscreen=true;player.title=f.t;
+ player.src='https://www.youtube-nocookie.com/embed/'+f.id+'?autoplay=1&mute=1&enablejsapi=1&playsinline=1&rel=0'+(f.list?'&list='+f.list:'');
+ frame.insertBefore(player,frame.firstChild);stopB.hidden=false;player.addEventListener('load',()=>setTimeout(applySound,1200))}
+function stopFilm(quiet){if(player){player.remove();player=null}stopB.hidden=true;if(!quiet)show()}
+function yt(fn){if(player)player.contentWindow.postMessage(JSON.stringify({event:'command',func:fn,args:[]}),'*')}
+function applySound(){yt(sound?'unMute':'mute')}
+document.getElementById('prev').onclick=()=>{idx=(idx+FILMS.length-1)%FILMS.length;show()};
+document.getElementById('next').onclick=()=>{idx=(idx+1)%FILMS.length;show()};
+stopB.onclick=()=>stopFilm();
+const sp=document.getElementById('speaker');
+sp.onclick=()=>{sound=!sound;sp.classList.toggle('on',sound);document.getElementById('glow').classList.toggle('on',sound);document.getElementById('sndlabel').classList.toggle('on',sound);sp.setAttribute('aria-pressed',sound);sp.setAttribute('aria-label','Speaker: sound '+(sound?'on':'off'));applySound()};
+// hints
+const tip=document.getElementById('tip');
+[[sp,()=>sound?'Speaker: sound on. Click to hang it back':'Hang the speaker on your window: sound on'],[document.getElementById('mirror'),()=>'Look back: the motel']].forEach(([el,txt])=>{
+ el.addEventListener('mousemove',e=>{tip.textContent=txt();tip.style.opacity=1;tip.style.left=e.clientX+'px';tip.style.top=e.clientY+'px'});el.addEventListener('mouseleave',()=>tip.style.opacity=0)});
+// depth: the outside moves a little one way and the car a little the other
+const st=document.getElementById('stage'),reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+let tx=0,ty=0,x=0,y=0;
+addEventListener('mousemove',e=>{tx=e.clientX/innerWidth-.5;ty=e.clientY/innerHeight-.5});
+function tick(t){if(!('onmousemove' in window)||matchMedia('(hover:none)').matches){tx=Math.sin(t/5200)*.35;ty=Math.cos(t/7100)*.2}
+ x+=(tx-x)*.06;y+=(ty-y)*.06;st.style.setProperty('--ox',(-x*14)+'px');st.style.setProperty('--oy',(-y*8)+'px');st.style.setProperty('--cx',(x*22)+'px');st.style.setProperty('--cy',(y*12)+'px');requestAnimationFrame(tick)}
+if(!reduce)requestAnimationFrame(tick);
+// rain between the screen and the glass
+const cv=document.getElementById('rain'),g=cv.getContext('2d');let drops=[];
+function size(){cv.width=cv.clientWidth;cv.height=cv.clientHeight;drops=Array.from({length:Math.round(cv.width/9)},()=>({x:Math.random()*cv.width,y:Math.random()*cv.height,l:10+Math.random()*18,v:9+Math.random()*9}))}
+function rain(){g.clearRect(0,0,cv.width,cv.height);g.strokeStyle='rgba(200,210,225,.35)';g.lineWidth=1;g.beginPath();for(const d of drops){g.moveTo(d.x,d.y);g.lineTo(d.x-d.l*.18,d.y+d.l);d.y+=d.v;d.x-=d.v*.18;if(d.y>cv.height){d.y=-20;d.x=Math.random()*cv.width*1.1}}g.stroke();requestAnimationFrame(rain)}
+size();addEventListener('resize',size);if(!reduce)rain();
+preshow(0);
+</script>
+</body>
+</html>
