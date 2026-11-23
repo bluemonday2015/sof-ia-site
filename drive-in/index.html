@@ -13,7 +13,8 @@
 :root{--accent:#a9a0ff;--cream:#f5ecdc;color-scheme:dark}
 html,body{margin:0;height:100%;background:#0b0a09;overflow:hidden}
 /* The stage keeps the picture's 16:9 shape and covers the window. */
-#stage{position:fixed;left:50%;top:50%;width:max(100vw,calc(100vh*16/9));aspect-ratio:1670/942;transform:translate(-50%,-50%);overflow:hidden}
+/* Anchored to the top: on a very wide window the dashboard is what gets cropped, never the mirror. */
+#stage{position:fixed;left:50%;top:0;width:max(100vw,calc(100vh*16/9));aspect-ratio:1670/942;transform:translateX(-50%);overflow:hidden}
 .layer{position:absolute;inset:0;will-change:transform}
 .layer>img.fill{position:absolute;inset:0;width:100%;height:100%;display:block}
 #out{transform:translate(var(--ox,0px),calc(2% + var(--oy,0px))) scale(1.06)}
@@ -43,6 +44,9 @@ html,body{margin:0;height:100%;background:#0b0a09;overflow:hidden}
 #speaker{all:unset;position:absolute;left:5.2%;top:37.2%;width:12.8%;height:14.6%;cursor:pointer;pointer-events:auto;border-radius:12%}
 #glow{position:absolute;left:4.2%;top:35.5%;width:15%;height:18%;pointer-events:none;opacity:0;transition:opacity .5s;background:radial-gradient(ellipse at center,rgba(255,190,110,.85) 0%,rgba(255,160,70,.45) 40%,rgba(255,150,60,0) 70%);mix-blend-mode:soft-light}
 #glow.on{opacity:1}
+#glow.invite{animation:invite 2.4s ease-in-out infinite}
+@keyframes invite{0%,100%{opacity:0}50%{opacity:.7}}
+@media (prefers-reduced-motion:reduce){#glow.invite{animation:none;opacity:.5}}
 #sndlabel{position:absolute;left:4.2%;top:53.5%;width:15%;text-align:center;font:400 clamp(9px,.72vw,12px)/1 'Work Sans',system-ui,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#ffcf9a;text-shadow:0 1px 3px #000;opacity:0;transition:opacity .5s;pointer-events:none}
 #sndlabel.on{opacity:1}
 #speaker:focus-visible,#mirror:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
@@ -88,7 +92,6 @@ const FILMS=[
 // The pre-show: what runs before the film, as in a cinema. Each entry is one card.
 const PRESHOW=[
  {k:"count",n:3},{k:"count",n:2},{k:"count",n:1},
- {small:"Welcome to",big:"Flaca's Drive-In",it:""},
  {small:"Sof-IA",big:"presents",it:"Made with intelligence. Both kinds."},
  {small:"Advertisement",big:"The Human Read",it:"The week in artificial intelligence, read at the source by a person.",href:"../human-read/",go:"Read the paper"},
  {small:"Advertisement",big:"Signal Log",it:"What AI actually did, not what it promises.",href:"../signal-log/",go:"Open the log"},
@@ -96,15 +99,20 @@ const PRESHOW=[
  {small:"And now",big:"Our feature presentation",it:""}
 ];
 const frame=document.getElementById('frame'),bar=document.getElementById('bar'),now=document.getElementById('now'),stopB=document.getElementById('stop');
-let idx=0,player=null,sound=false,timer=null;
+let idx=0,player=null,sound=false,timer=null,showing=false,t0=0;
+const music=new Audio('assets/overture.mp3');music.preload='auto';const glow=document.getElementById('glow');
 function card(html){frame.querySelectorAll('.card').forEach(c=>{c.classList.remove('on');setTimeout(()=>c.remove(),800)});const d=document.createElement('div');d.className='card';d.innerHTML=html;frame.appendChild(d);requestAnimationFrame(()=>requestAnimationFrame(()=>d.classList.add('on')));return d}
+function opening(){glow.classList.add('invite');const c=card('<div class="small">Tonight at</div><div class="big">Flaca\'s Drive-In</div><div class="it">For sound, hang the speaker on your window.</div><button class="start">Start the show</button>');
+ c.querySelector('.start').onclick=()=>{showing=true;t0=performance.now();musicSync();preshow(0)}}
+function musicSync(){if(showing&&sound){music.volume=.85;try{music.currentTime=Math.min((performance.now()-t0)/1000,music.duration||40)}catch(e){}music.play().catch(()=>{})}else music.pause()}
+function musicOut(){showing=false;const v0=music.volume,s0=performance.now();(function f(){const k=(performance.now()-s0)/1500;if(k>=1||music.paused){music.pause();music.volume=v0;return}music.volume=v0*(1-k);requestAnimationFrame(f)})()}
 function preshow(i){if(i>=PRESHOW.length)return programme();const p=PRESHOW[i];let h;
  if(p.k==='count')h='<div class="count">'+p.n+'</div>';
  else h='<div class="small">'+p.small+'</div><div class="big">'+p.big+'</div>'+(p.it?'<div class="it">'+p.it+'</div>':'')+(p.href?'<a href="'+p.href+'">'+p.go+'</a>':'');
  const c=card(h+'<button class="skip" style="position:absolute;right:3%;bottom:4%;margin:0;border:0;opacity:.7">Skip the ads</button>');
  c.querySelector('.skip').onclick=e=>{e.stopPropagation();clearTimeout(timer);programme()};
- timer=setTimeout(()=>preshow(i+1),p.k==='count'?1000:4200)}
-function programme(){bar.hidden=false;show()}
+ timer=setTimeout(()=>preshow(i+1),p.k==='count'?1000:6600)}
+function programme(){musicOut();bar.hidden=false;show()}
 function show(){stopFilm(true);const f=FILMS[idx];now.textContent=(idx+1)+' / '+FILMS.length+' · '+f.t;
  const c=card('<div class="small">Now showing</div><div class="big">'+f.t+'</div><div class="it">'+f.s+'</div><button class="play">Play</button>');c.querySelector('.play').onclick=play}
 function play(){const f=FILMS[idx];frame.querySelectorAll('.card').forEach(c=>c.remove());
@@ -118,7 +126,7 @@ document.getElementById('prev').onclick=()=>{idx=(idx+FILMS.length-1)%FILMS.leng
 document.getElementById('next').onclick=()=>{idx=(idx+1)%FILMS.length;show()};
 stopB.onclick=()=>stopFilm();
 const sp=document.getElementById('speaker');
-sp.onclick=()=>{sound=!sound;sp.classList.toggle('on',sound);document.getElementById('glow').classList.toggle('on',sound);document.getElementById('sndlabel').classList.toggle('on',sound);sp.setAttribute('aria-pressed',sound);sp.setAttribute('aria-label','Speaker: sound '+(sound?'on':'off'));applySound()};
+sp.onclick=()=>{sound=!sound;sp.classList.toggle('on',sound);document.getElementById('glow').classList.toggle('on',sound);document.getElementById('sndlabel').classList.toggle('on',sound);sp.setAttribute('aria-pressed',sound);sp.setAttribute('aria-label','Speaker: sound '+(sound?'on':'off'));glow.classList.remove('invite');applySound();musicSync()};
 // hints
 const tip=document.getElementById('tip');
 [[sp,()=>sound?'Speaker: sound on. Click to hang it back':'Hang the speaker on your window: sound on'],[document.getElementById('mirror'),()=>'Look back: the motel']].forEach(([el,txt])=>{
@@ -135,7 +143,7 @@ const cv=document.getElementById('rain'),g=cv.getContext('2d');let drops=[];
 function size(){cv.width=cv.clientWidth;cv.height=cv.clientHeight;drops=Array.from({length:Math.round(cv.width/9)},()=>({x:Math.random()*cv.width,y:Math.random()*cv.height,l:10+Math.random()*18,v:9+Math.random()*9}))}
 function rain(){g.clearRect(0,0,cv.width,cv.height);g.strokeStyle='rgba(200,210,225,.35)';g.lineWidth=1;g.beginPath();for(const d of drops){g.moveTo(d.x,d.y);g.lineTo(d.x-d.l*.18,d.y+d.l);d.y+=d.v;d.x-=d.v*.18;if(d.y>cv.height){d.y=-20;d.x=Math.random()*cv.width*1.1}}g.stroke();requestAnimationFrame(rain)}
 size();addEventListener('resize',size);if(!reduce)rain();
-preshow(0);
+opening();
 </script>
 </body>
 </html>
