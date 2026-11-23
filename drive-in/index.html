@@ -37,6 +37,8 @@ html,body{margin:0;height:100%;background:#0b0a09;overflow:hidden}
 #bar{position:absolute;left:28.74%;top:50.6%;width:44.61%;display:flex;justify-content:center;align-items:center;gap:1.6em;font:400 clamp(10px,.82vw,14px)/1 'Work Sans',system-ui,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,236,220,.88);text-shadow:0 1px 3px #000}
 #bar button{all:unset;cursor:pointer;padding:.7em .6em;min-width:1.6em;text-align:center}
 #bar button:hover,#bar button:focus-visible{color:var(--accent)}
+#again{display:inline-grid;place-items:center}
+#again svg{display:block}
 #bar[hidden],#bar button[hidden]{display:none}
 /* things in the car */
 #mirror{position:absolute;left:48.62%;top:-2.4%;width:20.87%;transform-origin:50% 0;cursor:pointer;display:block;pointer-events:auto}
@@ -69,7 +71,7 @@ html,body{margin:0;height:100%;background:#0b0a09;overflow:hidden}
   <div class="layer" id="out">
     <img class="fill" src="assets/outside.jpg" width="1670" height="942" alt="An old desert drive-in cinema at dusk in the rain: a large screen on a rusted steel frame, rows of parked cars, a projection booth with a lit window">
     <div id="screen"><div id="frame"><div id="grain"></div></div></div>
-    <div id="bar" hidden><button id="prev" aria-label="Previous film">&lsaquo;</button><span id="now"></span><button id="next" aria-label="Next film">&rsaquo;</button><button id="stop" hidden>Stop</button></div>
+    <div id="bar" hidden><button id="prev" aria-label="Previous film">&lsaquo;</button><span id="now"></span><button id="next" aria-label="Next film">&rsaquo;</button><button id="stop" hidden>Stop</button><button id="again" aria-label="Start the show over" title="Start over"><svg viewBox="0 0 24 24" width="1.5em" height="1.5em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.4-5.5"/><path d="M4 4.5v3.2h3.2"/></svg></button></div>
   </div>
   <canvas id="rain"></canvas>
   <div class="layer" id="car">
@@ -102,7 +104,7 @@ const frame=document.getElementById('frame'),bar=document.getElementById('bar'),
 let idx=0,player=null,sound=false,timer=null,showing=false,t0=0;
 const music=new Audio('assets/overture.mp3');music.preload='auto';const glow=document.getElementById('glow');
 function card(html){frame.querySelectorAll('.card').forEach(c=>{c.classList.remove('on');setTimeout(()=>c.remove(),800)});const d=document.createElement('div');d.className='card';d.innerHTML=html;frame.appendChild(d);requestAnimationFrame(()=>requestAnimationFrame(()=>d.classList.add('on')));return d}
-function opening(){glow.classList.add('invite');const c=card('<div class="small">Tonight at</div><div class="big">Flaca\'s Drive-In</div><div class="it">For sound, hang the speaker on your window.</div><button class="start">Start the show</button>');
+function opening(){if(!sound)glow.classList.add('invite');const c=card('<div class="small">Tonight at</div><div class="big">Flaca\'s Drive-In</div><div class="it">For sound, hang the speaker on your window.</div><button class="start">Start the show</button>');
  c.querySelector('.start').onclick=()=>{showing=true;t0=performance.now();musicSync();preshow(0)}}
 function musicSync(){if(showing&&sound){music.volume=.85;try{music.currentTime=Math.min((performance.now()-t0)/1000,music.duration||40)}catch(e){}music.play().catch(()=>{})}else music.pause()}
 function musicOut(){showing=false;const v0=music.volume,s0=performance.now();(function f(){const k=(performance.now()-s0)/1500;if(k>=1||music.paused){music.pause();music.volume=v0;return}music.volume=v0*(1-k);requestAnimationFrame(f)})()}
@@ -125,6 +127,7 @@ function applySound(){yt(sound?'unMute':'mute')}
 document.getElementById('prev').onclick=()=>{idx=(idx+FILMS.length-1)%FILMS.length;show()};
 document.getElementById('next').onclick=()=>{idx=(idx+1)%FILMS.length;show()};
 stopB.onclick=()=>stopFilm();
+document.getElementById('again').onclick=()=>{clearTimeout(timer);stopFilm(true);music.pause();music.currentTime=0;showing=false;idx=0;bar.hidden=true;opening()};
 const sp=document.getElementById('speaker');
 sp.onclick=()=>{sound=!sound;sp.classList.toggle('on',sound);document.getElementById('glow').classList.toggle('on',sound);document.getElementById('sndlabel').classList.toggle('on',sound);sp.setAttribute('aria-pressed',sound);sp.setAttribute('aria-label','Speaker: sound '+(sound?'on':'off'));glow.classList.remove('invite');applySound();musicSync()};
 // hints
