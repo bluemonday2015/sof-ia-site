@@ -132,6 +132,10 @@ eps.forEach(e=>{
   b.appendChild(a);
 });
 
+// On an upright phone the picture is wider than the window: open on the board itself, not on the empty road to its left.
+const sc=document.querySelector('.scroller');
+function aim(){if(sc.scrollWidth>sc.clientWidth+2)sc.scrollLeft=b.offsetWidth*.605-sc.clientWidth/2}
+requestAnimationFrame(aim);addEventListener('load',aim);addEventListener('resize',aim);
 document.querySelectorAll('.poster').forEach(p=>{
  p.addEventListener('pointermove',ev=>{const r=p.getBoundingClientRect(),x=(ev.clientX-r.left)/r.width,y=(ev.clientY-r.top)/r.height;
   p.style.setProperty('--ry',((x-.5)*10)+'deg');p.style.setProperty('--rx',((.5-y)*8)+'deg');
